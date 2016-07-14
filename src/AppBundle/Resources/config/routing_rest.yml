@@ -1,0 +1,4 @@
+api:
+    type: rest
+    resource: "AppBundle:Api"
+    name_prefix: api_
