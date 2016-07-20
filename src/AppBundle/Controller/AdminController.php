@@ -6,14 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
+/**
+ * @Route("/admin")
+ */
+class AdminController extends Controller
 {
     /**
-     * @Route("/")
      * @Template()
+     * @Route("/", name="admin_index")
      */
     public function indexAction()
     {
         return [];
     }
+
 }

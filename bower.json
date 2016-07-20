@@ -1,0 +1,30 @@
+{
+  "name": "bud.api",
+  "homepage": "https://github.com/rdenes93/bud.api",
+  "authors": [
+    "Dénes Rolya <drolya@chemaxon.com>"
+  ],
+  "description": "Web client to the application",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "AdminLTE": "admin-lte#^2.3.5",
+    "ngSlimscroll": "*",
+    "jquery-slimscroll": "slimscroll#^1.3.8",
+    "fastclick": "^1.0.6",
+    "font-awesome": "fontawesome#^4.6.3",
+    "angular": "^1.5.7",
+    "angular-bootstrap": "^2.0.0",
+    "angular-ui-router": "ui-router#^0.3.1"
+  }
+}

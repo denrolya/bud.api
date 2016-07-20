@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace ApiBundle\Controller;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Event;
+use ApiBundle\Entity\Category;
+use ApiBundle\Entity\Event;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

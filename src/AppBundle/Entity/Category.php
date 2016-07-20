@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -24,6 +25,7 @@ class Category
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
@@ -31,6 +33,7 @@ class Category
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="coverImageFilePath", type="string", length=255, unique=true, nullable=true)
      */
     private $coverImageFilePath;
