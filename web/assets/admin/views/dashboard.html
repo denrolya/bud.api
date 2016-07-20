@@ -1,6 +1,13 @@
 <div class="row">
     <div class="col-md-3" ng-repeat="category in vm.categories">
-        <h3>{{ category.name }}</h3>
-        <img ng-src="/{{ category.cover_image_file_path }}" class="img-thumbnail img-responsive" alt="" style="height: 300px;" ng-if="category.cover_image_file_path">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ category.name }}</h3>
+            </div>
+
+            <div class="box-body">
+                <img ng-src="/{{ category.cover_image_file_path }}" class="img-thumbnail img-responsive" alt="{{ category.cover_image_file_path }}" ng-if="category.cover_image_file_path">
+            </div>
+        </div>
     </div>
 </div>
