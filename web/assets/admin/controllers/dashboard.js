@@ -5,10 +5,20 @@
         .module('admin')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = [];
-    function DashboardController() {
+    DashboardController.$inject = ['Admin'];
+    function DashboardController(Admin) {
         var vm = this;
 
-        vm.testData = "Hello from dashboard controller.";
+        vm.categories = [];
+
+        vm.getCategories = getCategories;
+
+        vm.getCategories();
+
+        function getCategories() {
+            Admin.getCategories(function sc(response) {
+                vm.categories = response.categories;
+            });
+        }
     }
 })();

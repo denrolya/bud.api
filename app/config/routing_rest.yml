@@ -1,3 +1,8 @@
 rest_api:
     type: rest
     resource: "@ApiBundle/Resources/config/routing_rest.yml"
+
+rest_admin_api:
+    type: rest
+    resource: "@AppBundle/Resources/config/routing_rest.yml"
+    prefix: "/secure"

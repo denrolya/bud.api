@@ -16,6 +16,12 @@
                         controller: 'DashboardController',
                         controllerAs: 'vm',
                     })
+                    .state('categories', {
+                        url: '/categoires',
+                        templateUrl: '/assets/admin/views/categories.html',
+                        controller: 'CategoriesController',
+                        controllerAs: 'vm'
+                    })
             }
         ]);
 })();

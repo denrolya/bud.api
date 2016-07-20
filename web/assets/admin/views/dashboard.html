@@ -1,1 +1,6 @@
-<h1>{{ vm.testData }}</h1>
+<div class="row">
+    <div class="col-md-3" ng-repeat="category in vm.categories">
+        <h3>{{ category.name }}</h3>
+        <img ng-src="/{{ category.cover_image_file_path }}" class="img-thumbnail img-responsive" alt="" style="height: 300px;" ng-if="category.cover_image_file_path">
+    </div>
+</div>

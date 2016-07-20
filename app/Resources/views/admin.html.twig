@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
+    <meta name="csrf-token" content="{{ csrf_token('admin') }}" />
     <title>{% block title %}Admin{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
@@ -9,6 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('assets/vendor/AdminLTE/dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/dropzone/dist/dropzone.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/dropzone/dist/basic.css') }}" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -202,6 +206,12 @@
                     <a ui-sref="dashboard">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="categories">
+                        <i class="fa fa-folder-o" aria-hidden="true"></i>
+                        <span>Categories</span>
                     </a>
                 </li>
                 <li class="treeview">
@@ -474,7 +484,13 @@
 
 <script type="text/javascript" src="{{ asset('assets/vendor/angular/angular.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-ui-router/release/angular-ui-router.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendor/angular-resource/angular-resource.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-bootstrap/ui-bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendor/api-check/dist/api-check.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendor/angular-formly/dist/formly.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendor/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('assets/vendor/dropzone/dist/dropzone.js') }}"></script>
 
 
 <script type="text/javascript" src="{{ asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
@@ -484,11 +500,21 @@
 
 <script type="text/javascript" src="{{ asset('assets/admin/admin.js') }}"></script>
 
+{# Directives #}
+<script type="text/javascript" src="{{ asset('assets/admin/directives/dropzone.js') }}"></script>
+
 {# Routes #}
 <script type="text/javascript" src="{{ asset('assets/admin/routes/admin.js') }}"></script>
 
+{# Resources #}
+<script type="text/javascript" src="{{ asset('assets/admin/resources/admin.js') }}"></script>
+
+{# Forms #}
+<script type="text/javascript" src="{{ asset('assets/admin/forms/category.js') }}"></script>
+
 {# Controllers #}
 <script type="text/javascript" src="{{ asset('assets/admin/controllers/dashboard.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/controllers/categories.js') }}"></script>
 
 {% block javascripts %}{% endblock %}
 </body>
