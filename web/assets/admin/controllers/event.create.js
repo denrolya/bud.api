@@ -3,31 +3,31 @@
 
     angular
         .module('admin')
-        .controller('CategoryListController', CategoryListController);
+        .controller('EventCreateController', EventCreateController);
 
-    CategoryListController.$inject = ['$scope', 'CategoryFormFields', 'Admin'];
-    function CategoryListController($scope, CategoryFormFields, Admin) {
+    EventCreateController.$inject = ['$scope', 'EventFormFields', 'Admin'];
+    function EventCreateController($scope, EventFormFields, Admin) {
         var vm = this;
 
-        vm.newCategory = {};
+        vm.newEvent = {};
 
-        vm.categoryFormFields = CategoryFormFields;
+        vm.eventFormFields = EventFormFields;
 
-        vm.submitCategory = submitCategory;
+        vm.submitEvent = submitEvent;
 
         vm.dropzoneConfig = {
             'options': {
-                url: "/app_dev.php/api/secure/files",
+                url: "/app_dev.php/api/secure/events/files",
                 maxFilesize: 100,
                 paramName: "uploadfile",
                 maxThumbnailFilesize: 5,
                 autoProcessQueue: true,
-                maxFiles: 1,
-                parallelUploads: 1,
+                maxFiles: 10,
+                parallelUploads: 10,
                 init: function() {
                     vm.dropzone = this;
                 },
-                dictDefaultMessage: "<strong class=\"text-uppercase\"><i class=\"fa fa-upload\"></i> Drop a file to attach, or <a href=\"#\" class=\"text-green\">browse</a></strong>",
+                dictDefaultMessage: "<strong class=\"text-uppercase\"><i class=\"fa fa-upload\"></i> Drop files to attach, or <a href=\"#\" class=\"text-green\">browse</a></strong>",
                 thumbnailWidth: 160,
                 thumbnailHeight: 90
             },
@@ -36,7 +36,10 @@
                     formData.append("_token", angular.element.find('meta[name="csrf-token"]')[0].content);
                 },
                 'success': function(file, response) {
-                    vm.newCategory.coverImage = response.file_id;
+                    vm.newEvent.images = vm.newEvent.images || [];
+
+                    vm.newEvent.images.push(response);
+
                     $scope.$apply();
                 },
                 'maxfilesexceeded': function(file){
@@ -48,8 +51,8 @@
             }
         };
 
-        function submitCategory() {
-            Admin.createCategory(vm.newCategory, function sc(response) {
+        function submitEvent() {
+            Admin.createEvent(vm.newEvent, function sc(response) {
                 console.log(response);
             });
         }

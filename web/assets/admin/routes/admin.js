@@ -19,7 +19,13 @@
                     .state('categories', {
                         url: '/categoires',
                         templateUrl: '/assets/admin/views/categories.html',
-                        controller: 'CategoriesController',
+                        controller: 'CategoryListController',
+                        controllerAs: 'vm'
+                    })
+                    .state('events', {
+                        url: '/events/new',
+                        templateUrl: '/assets/admin/views/event.create.html',
+                        controller: 'EventCreateController',
                         controllerAs: 'vm'
                     })
             }

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('assets/vendor/AdminLTE/dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/dist/summernote.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/dropzone/dist/dropzone.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/dropzone/dist/basic.css') }}" />
@@ -212,6 +213,12 @@
                     <a ui-sref="categories">
                         <i class="fa fa-folder-o" aria-hidden="true"></i>
                         <span>Categories</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="events">
+                        <i class="fa fa-folder-o" aria-hidden="true"></i>
+                        <span>Events</span>
                     </a>
                 </li>
                 <li class="treeview">
@@ -489,6 +496,8 @@
 <script type="text/javascript" src="{{ asset('assets/vendor/api-check/dist/api-check.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-formly/dist/formly.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendor/summernote/dist/summernote.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendor/angular-summernote/dist/angular-summernote.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('assets/vendor/dropzone/dist/dropzone.js') }}"></script>
 
@@ -511,10 +520,12 @@
 
 {# Forms #}
 <script type="text/javascript" src="{{ asset('assets/admin/forms/category.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/forms/event.js') }}"></script>
 
 {# Controllers #}
 <script type="text/javascript" src="{{ asset('assets/admin/controllers/dashboard.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/admin/controllers/categories.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/controllers/event.create.js') }}"></script>
 
 {% block javascripts %}{% endblock %}
 </body>

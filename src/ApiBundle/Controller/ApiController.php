@@ -2,8 +2,8 @@
 
 namespace ApiBundle\Controller;
 
-use ApiBundle\Entity\Category;
-use ApiBundle\Entity\Event;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Event;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,13 +14,18 @@ class ApiController extends FOSRestController
     /**
      * Get all categories
      *
-     * @Get("/members")
+     * @Get("/categories")
      */
     public function getCategoriesAction()
     {
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $categories = $this
+            ->getDoctrine()
+            ->getRepository(Category::class)
+            ->findAll();
 
-        return ['categories' => $categories];
+        return [
+            'categories' => $categories
+        ];
     }
 
     /**
@@ -30,8 +35,13 @@ class ApiController extends FOSRestController
      */
     public function getEventsAction()
     {
-        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+        $events = $this
+            ->getDoctrine()
+            ->getRepository(Event::class)
+            ->findAll();
 
-        return ['events' => $events];
+        return [
+            'events' => $events
+        ];
     }
 }

@@ -8,7 +8,9 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    categories_directory: '%kernel.root_dir%/../web/uploads/categories'
+    temp_dir: '%kernel.root_dir%/../web/uploads/tmp'
+    categories_dir: '%kernel.root_dir%/../web/uploads/categories'
+    events_dir: '%kernel.root_dir%/../web/uploads/events'
 
 framework:
     #esi:             ~

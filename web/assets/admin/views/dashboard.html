@@ -6,7 +6,7 @@
             </div>
 
             <div class="box-body">
-                <img ng-src="/{{ category.cover_image_file_path }}" class="img-thumbnail img-responsive" alt="{{ category.cover_image_file_path }}" ng-if="category.cover_image_file_path">
+                <img ng-src="{{ category.cover_image.relative_path }}" class="img-thumbnail img-responsive" alt="{{ category.cover_image.name }}" ng-if="category.cover_image">
             </div>
         </div>
     </div>

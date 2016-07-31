@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\File;
 
 /**
  * Category
@@ -32,11 +31,13 @@ class Category
     private $name;
 
     /**
+     * @var string
+     *
      * @Assert\NotBlank()
-     * @ORM\OneToOne(targetEntity="File", fetch="EAGER")
-     * @ORM\JoinColumn(name="cover_image_id", referencedColumnName="id", unique=true, nullable=true)
+     * @ORM\Column(name="coverImageFilePath", type="string", length=255, unique=true, nullable=true)
      */
-    private $coverImage;
+    private $coverImageFilePath;
+
 
     /**
      * Get id
@@ -73,26 +74,27 @@ class Category
     }
 
     /**
-     * Set coverImage
+     * Set coverImageFilePath
      *
-     * @param File $coverImage
+     * @param string $coverImageFilePath
      *
      * @return Category
      */
-    public function setCoverImage(File $coverImage)
+    public function setCoverImageFilePath($coverImageFilePath)
     {
-        $this->coverImage = $coverImage;
+        $this->coverImageFilePath = $coverImageFilePath;
 
         return $this;
     }
 
     /**
-     * Get coverImage
+     * Get coverImageFilePath
      *
      * @return string
      */
-    public function getCoverImage()
+    public function getCoverImageFilePath()
     {
-        return $this->coverImage;
+        return $this->coverImageFilePath;
     }
 }
+

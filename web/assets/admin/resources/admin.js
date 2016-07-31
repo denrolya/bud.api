@@ -17,6 +17,11 @@
                 method: 'POST',
                 url: '/app_dev.php/api/secure/category',
                 isArray: true
+            },
+            createEvent: {
+                method: 'POST',
+                url: '/app_dev.php/api/secure/event',
+                isArray: true
             }
         });
     }

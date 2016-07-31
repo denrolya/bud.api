@@ -238,38 +238,5 @@ class Event
     {
         return $this->location;
     }
-
-    /**
-     * Add image
-     *
-     * @param File $image
-     *
-     * @return Event
-     */
-    public function addImage(File $image)
-    {
-        $this->images[] = $image;
-
-        return $this;
-    }
-
-    /**
-     * Remove image
-     *
-     * @param File $image
-     */
-    public function removeImage(File $image)
-    {
-        $this->images->removeElement($image);
-    }
-
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
 }
+

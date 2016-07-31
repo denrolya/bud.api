@@ -26,9 +26,11 @@
     "angular": "^1.5.7",
     "angular-bootstrap": "^2.0.0",
     "angular-ui-router": "ui-router#^0.3.1",
-    "angular-formly": "^8.2.1",
+    "angular-formly": "^8.3.0",
     "api-check": "^7.5.5",
     "dropzone": "^4.3.0",
-    "angular-resource": "^1.5.7"
+    "angular-resource": "^1.5.7",
+    "angular-formly-templates-bootstrap": "^6.3.2",
+    "angular-summernote": "^0.8.1"
   }
 }
