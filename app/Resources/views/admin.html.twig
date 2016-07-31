@@ -205,22 +205,38 @@
                 <li class="header">MAIN NAVIGATION</li>
 
                 <li ui-sref-active="active">
-                    <a ui-sref="dashboard">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="categories">
-                        <i class="fa fa-folder-o" aria-hidden="true"></i>
+                    <a ui-sref="category.list">
+                        <i class="fa fa-share"></i>
                         <span>Categories</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a ui-sref="category.list"><i class="fa fa-circle-o"></i>List</a>
+                        </li>
+                        <li>
+                            <a ui-sref="category.new"><i class="fa fa-circle-o"></i>Create</a>
+                        </li>
+                    </ul>
                 </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="events">
-                        <i class="fa fa-folder-o" aria-hidden="true"></i>
+                    <a ui-sref="category.list">
+                        <i class="fa fa-share"></i>
                         <span>Events</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
+                    <ul class="treeview-menu">
+                        {#<li>#}
+                            {#<a ui-sref=""><i class="fa fa-circle-o"></i>List</a>#}
+                        {#</li>#}
+                        <li>
+                            <a ui-sref="event.new"><i class="fa fa-circle-o"></i>Create</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
@@ -495,6 +511,7 @@
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-ui-router/release/angular-ui-router.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-resource/angular-resource.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-bootstrap/ui-bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendor/oclazyload/dist/ocLazyLoad.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/api-check/dist/api-check.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-formly/dist/formly.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js') }}"></script>
@@ -522,14 +539,8 @@
 {# Resources #}
 <script type="text/javascript" src="{{ asset('assets/admin/resources/admin.js') }}"></script>
 
-{# Forms #}
-<script type="text/javascript" src="{{ asset('assets/admin/forms/category.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/forms/event.js') }}"></script>
 
 {# Controllers #}
-<script type="text/javascript" src="{{ asset('assets/admin/controllers/dashboard.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/controllers/categories.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/controllers/event.create.js') }}"></script>
 
 {% block javascripts %}{% endblock %}
 </body>

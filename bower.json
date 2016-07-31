@@ -33,6 +33,7 @@
     "angular-formly-templates-bootstrap": "^6.3.2",
     "angular-summernote": "^0.8.1",
     "angular-bootstrap-datetimepicker": "^1.0.1",
-    "moment": "^2.14.1"
+    "moment": "^2.14.1",
+    "oclazyload": "ocLazyLoad#^1.0.9"
   }
 }

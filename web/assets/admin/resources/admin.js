@@ -10,7 +10,7 @@
         return $resource('/app_dev.php/api/secure', {}, {
             getCategories: {
                 method: 'GET',
-                url: '/app_dev.php/api/secure/categories',
+                url: '/app_dev.php/api/secure/category/all',
                 isArray: false
             },
             createCategory: {

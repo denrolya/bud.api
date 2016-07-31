@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 class AdminApiController extends FOSRestController
 {
     /**
-     * @Get("/categories")
+     * @Get("/category/all")
      */
     public function getCategoriesAction()
     {
@@ -53,6 +53,16 @@ class AdminApiController extends FOSRestController
     }
 
     /**
+     * @Get("/event/all")
+     */
+    public function getAllEventsAction()
+    {
+        return [
+            'events' => $this->getDoctrine()->getRepository(Event::class)->findAll()
+        ];
+    }
+
+    /**
      * @Post("/event")
      */
     public function createEventAction(Request $request)
@@ -67,16 +77,20 @@ class AdminApiController extends FOSRestController
             ->setTitle($data->get('title'))
             ->setDescriptionBlock1($data->get('descriptionBlock1'))
             ->setDescriptionBlock2($data->get('descriptionBlock2'))
-            ->setDateFrom(new \DateTime($data->get('dateFrom')));
+            ->setDateFrom(new \DateTime($data->get('dateFrom')))
+            ->setDateTo($data->get('dateTo') ? new \DateTime($data->get('dateTo')) : NULL)
+            ->setLocation($data->get('location'));
 
         if (count($data->get('images')) > 0) {
             $eventDir = $this->getParameter('events_dir') . '/' . $newEvent->getTitle();
 
+            // TODO: Exception handling here!
             (new Filesystem())->mkdir($eventDir);
 
             foreach($data->get('images') as $index => $image) {
                 $image = $em->getRepository(File::class)->find($image['file_id']);
 
+                // TODO: Exception handling here!
                 (new SymfonyFile($image->getAbsolutePath()))->move($eventDir, $image->getName());
 
                 $image->setAbsolutePath($eventDir . '/' . $image->getName())
@@ -97,7 +111,7 @@ class AdminApiController extends FOSRestController
     /**
      * Post category file
      *
-     * @Post("/files")
+     * @Post("/category/files")
      */
     public function postCategoryFileAction(Request $request)
     {
@@ -108,6 +122,7 @@ class AdminApiController extends FOSRestController
         if(!is_null($file)){
             $em = $this->getDoctrine()->getManager();
             $filename = $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            // TODO: Exception handling here!
             $file->move($this->getParameter('categories_dir'), $filename); // move the file to a path
 
             $newFile = (new File())
@@ -131,7 +146,7 @@ class AdminApiController extends FOSRestController
     /**
      * Post category file
      *
-     * @Post("/events/files")
+     * @Post("/event/files")
      */
     public function postEventFileAction(Request $request)
     {
@@ -142,6 +157,7 @@ class AdminApiController extends FOSRestController
         if(!is_null($file)){
             $em = $this->getDoctrine()->getManager();
             $filename = $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            // TODO: Exception handling here!
             $file->move($this->getParameter('temp_dir'), $filename); // move the file to a path
 
             $newFile = (new File())

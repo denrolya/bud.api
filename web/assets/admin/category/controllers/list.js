@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('DashboardController', DashboardController);
+        .controller('ListController', ListController);
 
-    DashboardController.$inject = ['Admin'];
-    function DashboardController(Admin) {
+    ListController.$inject = ['Admin'];
+    function ListController(Admin) {
         var vm = this;
 
         vm.categories = [];
