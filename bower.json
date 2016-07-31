@@ -31,6 +31,8 @@
     "dropzone": "^4.3.0",
     "angular-resource": "^1.5.7",
     "angular-formly-templates-bootstrap": "^6.3.2",
-    "angular-summernote": "^0.8.1"
+    "angular-summernote": "^0.8.1",
+    "angular-bootstrap-datetimepicker": "^1.0.1",
+    "moment": "^2.14.1"
   }
 }

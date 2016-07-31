@@ -60,18 +60,16 @@
             }
         }, {
             key: 'dateFrom',
-            type: 'input',
+            type: 'datetime',
             templateOptions: {
-                type: 'datetime',
                 label: 'Date Starting',
                 required: true,
                 placeholder: 'Date from'
             }
         }, {
             key: 'dateTo',
-            type: 'input',
+            type: 'datetime',
             templateOptions: {
-                type: 'datetime',
                 label: 'Date Ending',
                 required: false,
                 placeholder: 'Date to'

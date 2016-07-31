@@ -21,7 +21,7 @@
             createEvent: {
                 method: 'POST',
                 url: '/app_dev.php/api/secure/event',
-                isArray: true
+                isArray: false
             }
         });
     }
