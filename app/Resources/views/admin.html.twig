@@ -205,7 +205,7 @@
                 <li class="header">MAIN NAVIGATION</li>
 
                 <li ui-sref-active="active">
-                    <a ui-sref="category.list">
+                    <a href="">
                         <i class="fa fa-share"></i>
                         <span>Categories</span>
                         <span class="pull-right-container">
@@ -222,7 +222,7 @@
                     </ul>
                 </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="category.list">
+                    <a href="">
                         <i class="fa fa-share"></i>
                         <span>Events</span>
                         <span class="pull-right-container">
@@ -230,9 +230,9 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        {#<li>#}
-                            {#<a ui-sref=""><i class="fa fa-circle-o"></i>List</a>#}
-                        {#</li>#}
+                        <li>
+                            <a ui-sref="event.list"><i class="fa fa-circle-o"></i>List</a>
+                        </li>
                         <li>
                             <a ui-sref="event.new"><i class="fa fa-circle-o"></i>Create</a>
                         </li>
@@ -528,6 +528,7 @@
 <script type="text/javascript" src="{{ asset('assets/vendor/AdminLTE/dist/js/app.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/AdminLTE/dist/js/demo.js') }}"></script>
 
+{# Modules #}
 <script type="text/javascript" src="{{ asset('assets/admin/admin.js') }}"></script>
 
 {# Directives #}
@@ -535,12 +536,13 @@
 
 {# Routes #}
 <script type="text/javascript" src="{{ asset('assets/admin/routes/admin.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/category/routes/category.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/event/routes/event.js') }}"></script>
 
 {# Resources #}
 <script type="text/javascript" src="{{ asset('assets/admin/resources/admin.js') }}"></script>
-
-
-{# Controllers #}
+<script type="text/javascript" src="{{ asset('assets/admin/category/resources/category.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/event/resources/event.js') }}"></script>
 
 {% block javascripts %}{% endblock %}
 </body>

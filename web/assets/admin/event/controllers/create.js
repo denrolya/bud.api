@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('EventCreateController', EventCreateController);
+        .controller('CreateController', CreateController);
 
-    EventCreateController.$inject = ['$scope', 'EventFormFields', 'Admin'];
-    function EventCreateController($scope, EventFormFields, Admin) {
+    CreateController.$inject = ['$scope', 'EventFormFields', 'Event'];
+    function CreateController($scope, EventFormFields, Event) {
         var vm = this;
 
         vm.newEvent = {};
@@ -17,7 +17,7 @@
 
         vm.dropzoneConfig = {
             'options': {
-                url: "/app_dev.php/api/secure/event/files",
+                url: "/app_dev.php/api/secure/events/files",
                 maxFilesize: 100,
                 paramName: "uploadfile",
                 maxThumbnailFilesize: 5,
@@ -52,7 +52,8 @@
         };
 
         function submitEvent() {
-            Admin.createEvent(vm.newEvent, function sc(response) {
+            var newEvent = new Event(vm.newEvent);
+            newEvent.$save(function sc(response) {
                 console.log(response);
             });
         }

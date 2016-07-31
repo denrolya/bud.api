@@ -5,8 +5,8 @@
         .module('admin')
         .controller('CreateController', CreateController);
 
-    CreateController.$inject = ['$scope', 'CategoryFormFields', 'Admin'];
-    function CreateController($scope, CategoryFormFields, Admin) {
+    CreateController.$inject = ['$scope', 'CategoryFormFields', 'Category'];
+    function CreateController($scope, CategoryFormFields, Category) {
         var vm = this;
 
         vm.newCategory = {};
@@ -17,7 +17,7 @@
 
         vm.dropzoneConfig = {
             'options': {
-                url: "/app_dev.php/api/secure/category/files",
+                url: "/app_dev.php/api/secure/categories/files",
                 maxFilesize: 100,
                 paramName: "uploadfile",
                 maxThumbnailFilesize: 5,
@@ -49,7 +49,8 @@
         };
 
         function submitCategory() {
-            Admin.createCategory(vm.newCategory, function sc(response) {
+            var newCategory = new Category(vm.newCategory);
+            newCategory.$save(function sc(response) {
                 console.log(response);
             });
         }

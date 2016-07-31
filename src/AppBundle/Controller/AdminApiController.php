@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 class AdminApiController extends FOSRestController
 {
     /**
-     * @Get("/category/all")
+     * @Get("/categories")
      */
     public function getCategoriesAction()
     {
@@ -30,7 +30,7 @@ class AdminApiController extends FOSRestController
     }
 
     /**
-     * @Post("/category")
+     * @Post("/categories")
      */
     public function createCategoryAction(Request $request)
     {
@@ -53,65 +53,9 @@ class AdminApiController extends FOSRestController
     }
 
     /**
-     * @Get("/event/all")
-     */
-    public function getAllEventsAction()
-    {
-        return [
-            'events' => $this->getDoctrine()->getRepository(Event::class)->findAll()
-        ];
-    }
-
-    /**
-     * @Post("/event")
-     */
-    public function createEventAction(Request $request)
-    {
-        // TODO: Create category form class and validate $request with it
-        // TODO: Or just hook a custom validator with it
-
-        $data = $request->request;
-        $em = $this->getDoctrine()->getManager();
-
-        $newEvent = (new Event())
-            ->setTitle($data->get('title'))
-            ->setDescriptionBlock1($data->get('descriptionBlock1'))
-            ->setDescriptionBlock2($data->get('descriptionBlock2'))
-            ->setDateFrom(new \DateTime($data->get('dateFrom')))
-            ->setDateTo($data->get('dateTo') ? new \DateTime($data->get('dateTo')) : NULL)
-            ->setLocation($data->get('location'));
-
-        if (count($data->get('images')) > 0) {
-            $eventDir = $this->getParameter('events_dir') . '/' . $newEvent->getTitle();
-
-            // TODO: Exception handling here!
-            (new Filesystem())->mkdir($eventDir);
-
-            foreach($data->get('images') as $index => $image) {
-                $image = $em->getRepository(File::class)->find($image['file_id']);
-
-                // TODO: Exception handling here!
-                (new SymfonyFile($image->getAbsolutePath()))->move($eventDir, $image->getName());
-
-                $image->setAbsolutePath($eventDir . '/' . $image->getName())
-                    ->setRelativePath('uploads/events/' . $newEvent->getTitle() . '/' . $image->getName());
-
-                $em->flush();
-
-                $newEvent->addImage($image);
-            }
-        }
-
-        $em->persist($newEvent);
-        $em->flush();
-
-        return ['new_event' => $newEvent];
-    }
-
-    /**
      * Post category file
      *
-     * @Post("/category/files")
+     * @Post("/categories/files")
      */
     public function postCategoryFileAction(Request $request)
     {
@@ -144,9 +88,67 @@ class AdminApiController extends FOSRestController
     }
 
     /**
+     * @Get("/events")
+     */
+    public function getAllEventsAction()
+    {
+        return [
+            'events' => $this->getDoctrine()->getRepository(Event::class)->findAll()
+        ];
+    }
+
+    /**
+     * @Post("/events")
+     */
+    public function createEventAction(Request $request)
+    {
+        // TODO: Create category form class and validate $request with it
+        // TODO: Or just hook a custom validator with it
+
+        $data = $request->request;
+        $em = $this->getDoctrine()->getManager();
+
+        $newEvent = (new Event())
+            ->setTitle($data->get('title'))
+            ->setDescriptionBlock1($data->get('descriptionBlock1'))
+            ->setDescriptionBlock2($data->get('descriptionBlock2'))
+            ->setDateFrom(new \DateTime($data->get('dateFrom')))
+            ->setDateTo($data->get('dateTo') ? new \DateTime($data->get('dateTo')) : NULL)
+            ->setLocation($data->get('location'));
+
+        $em->persist($newEvent);
+        $em->flush();
+
+        if (count($data->get('images')) > 0) {
+            $fs = new Filesystem();
+
+            $eventDir = $this->getParameter('events_dir') . '/' . $newEvent->getId() . '-' . $newEvent->getSlug();
+
+            // TODO: Exception handling here!
+            $fs->mkdir($eventDir);
+
+            foreach($data->get('images') as $index => $image) {
+                $image = $em->getRepository(File::class)->find($image['file_id']);
+
+                // TODO: Exception handling here!
+                (new SymfonyFile($image->getAbsolutePath()))->move($eventDir, $image->getName());
+
+                $image->setAbsolutePath($eventDir . '/' . $image->getName())
+                    ->setRelativePath('/' . $fs->makePathRelative($eventDir, $this->getParameter('web_dir')) . $image->getName());
+
+                $em->flush();
+
+                $newEvent->addImage($image);
+            }
+        }
+
+        return ['new_event' => $newEvent];
+    }
+
+    /**
      * Post category file
      *
-     * @Post("/event/files")
+     * @Post("/events/files")
      */
     public function postEventFileAction(Request $request)
     {

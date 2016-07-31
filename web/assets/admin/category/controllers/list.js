@@ -5,8 +5,8 @@
         .module('admin')
         .controller('ListController', ListController);
 
-    ListController.$inject = ['Admin'];
-    function ListController(Admin) {
+    ListController.$inject = ['Category'];
+    function ListController(Category) {
         var vm = this;
 
         vm.categories = [];
@@ -16,9 +16,9 @@
         vm.getCategories();
 
         function getCategories() {
-            Admin.getCategories(function sc(response) {
+            Category.get(function sc(response) {
                 vm.categories = response.categories;
-            });
+            })
         }
     }
 })();

@@ -3,5 +3,7 @@
 3. Admin public files structure +
 4. Datetime picker +
 5. Display one event
-6. List events
-7. Admin states structure
+6. List events +
+7. Admin states structure +
+8. Refactor dropzone directive to take options from html template
+9. Slugify +

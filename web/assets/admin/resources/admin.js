@@ -8,16 +8,6 @@
     Admin.$inject = ['$resource'];
     function Admin($resource) {
         return $resource('/app_dev.php/api/secure', {}, {
-            getCategories: {
-                method: 'GET',
-                url: '/app_dev.php/api/secure/category/all',
-                isArray: false
-            },
-            createCategory: {
-                method: 'POST',
-                url: '/app_dev.php/api/secure/category',
-                isArray: true
-            },
             createEvent: {
                 method: 'POST',
                 url: '/app_dev.php/api/secure/event',

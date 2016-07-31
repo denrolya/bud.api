@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-3" ng-repeat="event in vm.events">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ event.title }}</h3>
+            </div>
+
+            <div class="box-body">
+                <img ng-src="{{ event.images[0].relative_path }}" class="img-thumbnail img-responsive" alt="{{ event.images[0].name }}" ng-if="event.images[0]">
+            </div>
+        </div>
+    </div>
+</div>
