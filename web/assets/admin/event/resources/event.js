@@ -7,6 +7,17 @@
 
     Event.$inject = ['$resource'];
     function Event($resource) {
-        return $resource('/app_dev.php/api/secure/events/:categorySlug', {eventSlug: '@eventSlug'}, {});
+        return $resource('/app_dev.php/api/secure/events/:slug', {slug: '@slug'}, {
+            edit: {
+                method: 'POST'
+            },
+            removeFile: {
+                method: 'DELETE',
+                url: '/app_dev.php/api/secure/events/:slug/files/:fileId',
+                params: {
+                    fileId: '@fileId'
+                }
+            }
+        });
     }
 })();

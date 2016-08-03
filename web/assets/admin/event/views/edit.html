@@ -1,10 +1,10 @@
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">Create new event</h3>
+        <h3 class="box-title">Edit</h3>
     </div>
 
     <div class="box-body">
-        <formly-form model="vm.newEvent" fields="vm.eventFormFields" options="vm.options" form="vm.eventForm">
+        <formly-form model="vm.event" fields="vm.eventFormFields" options="vm.options" form="vm.eventForm">
             <div class="form-group">
                 <div class="dropzone dropzone-custom-preview" dropzone config="vm.dropzoneConfig" id="file-dropzone">
                     <div class="dz-default dz-message">
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-disabled="vm.eventForm.$invalid" ng-click="vm.submitEvent()">Create</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="vm.eventForm.$invalid" ng-click="vm.editEvent()">Edit</button>
             </div>
         </formly-form>
     </div>

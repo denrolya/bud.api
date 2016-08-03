@@ -82,10 +82,10 @@ class Event
     /**
      * A Unidirectional One-To-Many relation, built by means of Doctrine2
      *
-     * @ORM\ManyToMany(targetEntity="File", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity="File", fetch="EAGER",  cascade={"remove", "persist"})
      * @ORM\JoinTable(name="events_images",
      *      joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true, onDelete="CASCADE")},
      *      )
      */
     private $images;

@@ -44,6 +44,31 @@
                                 }])
                             }
                         }
+                    })
+                    .state('event.edit', {
+                        url: '/:slug/edit',
+                        templateUrl: '/assets/admin/event/views/edit.html',
+                        controller: 'EditController',
+                        controllerAs: 'vm',
+                        resolve: {
+                            event: function($stateParams, Event) {
+                                return Event.get({slug: $stateParams.slug}, function sc(response) {
+                                    response.date_from = moment(response.date_from);
+                                    response.date_to = (response.date_to) ? moment(response.date_to) : null;
+
+                                    return response;
+                                });
+                            },
+                            loadPlugin: function($ocLazyLoad) {
+                                return $ocLazyLoad.load([{
+                                    serie: true,
+                                    files: [
+                                        '/assets/admin/forms/event.js',
+                                        '/assets/admin/event/controllers/edit.js'
+                                    ]
+                                }])
+                            }
+                        }
                     });
             }]);
 })();

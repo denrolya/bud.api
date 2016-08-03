@@ -3,11 +3,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category, AppBundle\Entity\Event, AppBundle\Entity\File;
+use AppBundle\Form\EventType;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Get,
+    FOS\RestBundle\Controller\Annotations\Put,
+    FOS\RestBundle\Controller\Annotations\Post,
+    FOS\RestBundle\Controller\Annotations\Delete;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -136,9 +139,9 @@ class AdminApiController extends FOSRestController
                 $image->setAbsolutePath($eventDir . '/' . $image->getName())
                     ->setRelativePath('/' . $fs->makePathRelative($eventDir, $this->getParameter('web_dir')) . $image->getName());
 
-                $em->flush();
-
                 $newEvent->addImage($image);
+
+                $em->flush();
             }
         }
 
@@ -146,11 +149,111 @@ class AdminApiController extends FOSRestController
     }
 
     /**
-     * Post category file
+     * @Get("/events/{eventSlug}", requirements={"eventSlug" = ".*"})
+     */
+    public function getEventAction($eventSlug)
+    {
+        $event = $this->getDoctrine()->getRepository(Event::class)
+            ->findOneBySlug($eventSlug);
+
+        return $event;
+    }
+
+    /**
+     * @Post("/events/{eventSlug}", requirements={"eventSlug" = ".*"})
+     */
+    public function editEventAction($eventSlug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$event = $em->getRepository(Event::class)->findOneBySlug($eventSlug)) {
+            // throw exception
+        }
+
+        $form = $this->createForm(EventType::class);
+        $form->handleRequest($request);
+
+        // TODO: How should regular symfony form request look like?
+        if ($form->isValid()) {
+            $data = $form->getData();
+        }
+
+        return ['event' => $event];
+    }
+
+    /**
+     * Post existing event file
+     *
+     * @Post("/events/{eventSlug}/files", requirements={"slug" = ".*"})
+     */
+    public function postExistingEventFileAction($eventSlug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$event = $em->getRepository(Event::class)->findOneBySlug($eventSlug)) {
+            // throw exception
+        }
+
+        $file = $request->files->get('uploadfile');
+        $status = ['status' => 'success', 'fileUploaded' => false];
+
+        if (!is_null($file)) {
+            $fs = new Filesystem();
+
+            $eventDir = $this->getParameter('events_dir') . '/' . $event->getId() . '-' . $event->getSlug();
+
+            $filename = $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            // TODO: Exception handling here!
+            $file->move($eventDir, $filename);
+
+            $newFile = (new File())
+                ->setName($filename)
+                ->setAbsolutePath($eventDir . '/' . $filename)
+                ->setRelativePath('/' . $fs->makePathRelative($eventDir, $this->getParameter('web_dir')) . $filename)
+                ->setSize($file->getClientSize());
+
+            $em->persist($newFile);
+
+            $event->addImage($newFile);
+
+            $em->flush();
+
+            $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newFile->getId()];
+        }
+
+        return new JsonResponse($status);
+    }
+
+    /**
+     * Remove existing event file
+     *
+     * @Delete("/events/{eventSlug}/files/{fileId}", requirements={"slug" = ".*", "fileId" = "\d+"})
+     */
+    public function removeEventFileAction($eventSlug, $fileId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$event = $em->getRepository(Event::class)->findOneBySlug($eventSlug)) {
+            // throw exception
+        }
+
+        if (!$file = $em->getRepository(File::class)->find($fileId)) {
+            // throw exception
+        }
+
+        $em->remove($file);
+
+        $em->flush();
+
+
+        return [
+            'success' => true
+        ];
+    }
+
+    /**
+     * Post new event file
      *
      * @Post("/events/files")
      */
-    public function postEventFileAction(Request $request)
+    public function postNewEventFileAction(Request $request)
     {
         $file = $request->files->get('uploadfile');
         $status = ['status' => "success", "fileUploaded" => false];

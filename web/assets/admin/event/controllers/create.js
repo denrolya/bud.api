@@ -27,7 +27,6 @@
                 init: function() {
                     vm.dropzone = this;
                 },
-                dictDefaultMessage: "<strong class=\"text-uppercase\"><i class=\"fa fa-upload\"></i> Drop files to attach, or <a href=\"#\" class=\"text-green\">browse</a></strong>",
                 thumbnailWidth: 160,
                 thumbnailHeight: 90
             },
