@@ -13,7 +13,7 @@
                 placeholder: 'Event title',
             }
         }, {
-            key: 'description_block1',
+            key: 'descriptionBlock1',
             type: 'wysiwyg',
             templateOptions: {
                 label: 'Description Block 1',
@@ -36,7 +36,7 @@
                 }
             }
         }, {
-            key: 'description_block2',
+            key: 'descriptionBlock2',
             type: 'wysiwyg',
             templateOptions: {
                 label: 'Description Block 2',
@@ -59,7 +59,7 @@
                 }
             }
         }, {
-            key: 'date_from',
+            key: 'dateFrom',
             type: 'datetime',
             templateOptions: {
                 label: 'Date Starting',
@@ -67,7 +67,7 @@
                 placeholder: 'Date from'
             }
         }, {
-            key: 'date_to',
+            key: 'dateTo',
             type: 'datetime',
             templateOptions: {
                 label: 'Date Ending',

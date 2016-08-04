@@ -53,8 +53,8 @@
                         resolve: {
                             event: function($stateParams, Event) {
                                 return Event.get({slug: $stateParams.slug}, function sc(response) {
-                                    response.date_from = moment(response.date_from);
-                                    response.date_to = (response.date_to) ? moment(response.date_to) : null;
+                                    response.dateFrom = moment(response.dateFrom);
+                                    response.dateTo = (response.dateTo) ? moment(response.dateTo) : null;
 
                                     return response;
                                 });

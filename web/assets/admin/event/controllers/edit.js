@@ -18,7 +18,7 @@
                 };
 
                 vm.dropzone.emit("addedfile", mockFile);
-                vm.dropzone.createThumbnailFromUrl(mockFile, file.relative_path);
+                vm.dropzone.createThumbnailFromUrl(mockFile, file.relativePath);
                 vm.dropzone.files.push(mockFile);
                 vm.dropzone.emit("complete", mockFile);
             }, vm.dropzone);
@@ -65,7 +65,32 @@
         }
 
         function editEvent() {
-            Event.edit({slug: vm.event.slug}, vm.event, function sc(response) {
+            // TODO: Move this shit to separate service
+            vm.event.dateFrom = moment(vm.event.dateFrom);
+            vm.event.dateTo = vm.event.dateTo ? moment(vm.event.dateTo) : null;
+
+            Event.edit({slug: vm.event.slug}, {
+                event: {
+                    title: vm.event.title,
+                    descriptionBlock1: vm.event.descriptionBlock1,
+                    descriptionBlock2: vm.event.descriptionBlock2,
+                    dateFrom: {
+                        date: vm.event.dateFrom.format('YYYY-MM-DD'),
+                        time: {
+                            hour: vm.event.dateFrom.get('hour'),
+                            minute: vm.event.dateFrom.get('minute')
+                        }
+                    },
+                    dateTo: vm.event.dateTo ? {
+                        date: vm.event.dateTo.format('YYYY-MM-DD'),
+                        time: {
+                            hour: vm.event.dateTo.get('hour'),
+                            minute: vm.event.dateTo.get('minute')
+                        }
+                    } : null,
+                    location: vm.event.location,
+                }
+            }, function sc(response) {
                 console.log(response);
             });
         }

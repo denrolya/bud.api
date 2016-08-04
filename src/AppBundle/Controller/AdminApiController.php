@@ -169,15 +169,20 @@ class AdminApiController extends FOSRestController
             // throw exception
         }
 
-        $form = $this->createForm(EventType::class);
+        $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
-        // TODO: How should regular symfony form request look like?
         if ($form->isValid()) {
-            $data = $form->getData();
+            $formData = $form->getData();
+
+            $em->flush();
+
+            $response = ['event' => $event];
+        } else {
+            // throw exception
         }
 
-        return ['event' => $event];
+        return $response;
     }
 
     /**
