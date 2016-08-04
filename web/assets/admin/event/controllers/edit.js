@@ -5,8 +5,8 @@
         .module('admin')
         .controller('EditController', EditController);
 
-    EditController.$inject = ['$scope', '$stateParams', 'EventFormFields', 'Event', 'event'];
-    function EditController($scope, $stateParams, EventFormFields, Event, event) {
+    EditController.$inject = ['$scope', '$stateParams', 'EventFormFields', 'Event', 'event', 'EventService'];
+    function EditController($scope, $stateParams, EventFormFields, Event, event, EventService) {
         var vm = this;
 
         event.$promise.then(function(r) {
@@ -65,32 +65,7 @@
         }
 
         function editEvent() {
-            // TODO: Move this shit to separate service
-            vm.event.dateFrom = moment(vm.event.dateFrom);
-            vm.event.dateTo = vm.event.dateTo ? moment(vm.event.dateTo) : null;
-
-            Event.edit({slug: vm.event.slug}, {
-                event: {
-                    title: vm.event.title,
-                    descriptionBlock1: vm.event.descriptionBlock1,
-                    descriptionBlock2: vm.event.descriptionBlock2,
-                    dateFrom: {
-                        date: vm.event.dateFrom.format('YYYY-MM-DD'),
-                        time: {
-                            hour: vm.event.dateFrom.get('hour'),
-                            minute: vm.event.dateFrom.get('minute')
-                        }
-                    },
-                    dateTo: vm.event.dateTo ? {
-                        date: vm.event.dateTo.format('YYYY-MM-DD'),
-                        time: {
-                            hour: vm.event.dateTo.get('hour'),
-                            minute: vm.event.dateTo.get('minute')
-                        }
-                    } : null,
-                    location: vm.event.location,
-                }
-            }, function sc(response) {
+            Event.edit({slug: vm.event.slug}, EventService.formatEventToEdit(vm.event), function sc(response) {
                 console.log(response);
             });
         }

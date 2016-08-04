@@ -64,6 +64,7 @@
                                     serie: true,
                                     files: [
                                         '/assets/admin/forms/event.js',
+                                        '/assets/admin/event/services/event.js',
                                         '/assets/admin/event/controllers/edit.js'
                                     ]
                                 }])

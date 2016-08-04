@@ -15,6 +15,7 @@
         }, {
             key: 'descriptionBlock1',
             type: 'wysiwyg',
+            className: 'col-md-6',
             templateOptions: {
                 label: 'Description Block 1',
                 required: true
@@ -38,6 +39,7 @@
         }, {
             key: 'descriptionBlock2',
             type: 'wysiwyg',
+            className: 'col-md-6',
             templateOptions: {
                 label: 'Description Block 2',
                 required: true
@@ -61,6 +63,7 @@
         }, {
             key: 'dateFrom',
             type: 'datetime',
+            className: 'col-md-6',
             templateOptions: {
                 label: 'Date Starting',
                 required: true,
@@ -69,6 +72,7 @@
         }, {
             key: 'dateTo',
             type: 'datetime',
+            className: 'col-md-6',
             templateOptions: {
                 label: 'Date Ending',
                 required: false,
