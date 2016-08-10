@@ -23,6 +23,22 @@ use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 class AdminApiController extends FOSRestController
 {
     /**
+     * Search for items
+     *
+     * @Get("/search/{query}", requirements={"query" = ".*"})
+     */
+    public function searchAction($query)
+    {
+        $finder = $this->container->get('fos_elastica.finder.budapp');
+
+        $result = $finder->find($query);
+
+        return [
+            'result' => $result
+        ];
+    }
+
+    /**
      * @Get("/categories")
      */
     public function getCategoriesAction()
@@ -160,7 +176,7 @@ class AdminApiController extends FOSRestController
     }
 
     /**
-     * @Post("/events/{eventSlug}", requirements={"eventSlug" = ".*"})
+     * @Post("/events/{eventSlug}", requirements={"eventSlug" = "^(?!files$).*"})
      */
     public function editEventAction($eventSlug, Request $request)
     {
@@ -179,7 +195,7 @@ class AdminApiController extends FOSRestController
 
             $response = ['event' => $event];
         } else {
-            // throw exception
+            $response = ['event' => false];
         }
 
         return $response;
