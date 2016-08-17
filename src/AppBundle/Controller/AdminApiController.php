@@ -62,8 +62,6 @@ class AdminApiController extends FOSRestController
 //        $form = $this->createForm(CategoryType::class, $category);
 //        $form->handleRequest($request);
 
-        $data = $request->request;
-
         $em = $this->getDoctrine()->getManager();
 
         $newCategory = (new Category())
@@ -71,14 +69,13 @@ class AdminApiController extends FOSRestController
             ->setCoverImage($em->getReference(File::class, $request->get('coverImage')));
 
         $em->persist($newCategory);
-
         $em->flush();
 
         return ['new_category' => $newCategory];
     }
 
     /**
-     * @Get("/categories/{categorySlug}")
+     * @Get("/categories/{categorySlug}", requirements={"categorySlug" = "^(?!files$).*"})
      */
     public function getCategoryAction($categorySlug)
     {
@@ -89,7 +86,7 @@ class AdminApiController extends FOSRestController
     }
 
     /**
-     * @Post("/categories/{categorySlug}")
+     * @Post("/categories/{categorySlug}", requirements={"categorySlug" = "^(?!files$).*"})
      */
     public function editCategoryAction($categorySlug, Request $request)
     {
@@ -102,20 +99,54 @@ class AdminApiController extends FOSRestController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $formData = $form->getData();
-
             $em->flush();
 
             $response = ['category' => $category];
         } else {
-            $response = ['event' => false];
+            $response = ['category' => false];
         }
 
         return $response;
     }
 
     /**
-     * @Post("/categories/{categorySlug}/files")
+     * Post category file
+     *
+     * @Post("/categories/files")
+     */
+    public function postCategoryFileAction(Request $request)
+    {
+        $file = $request->files->get('uploadfile');
+        $status = ['status' => "success", "fileUploaded" => false];
+
+        // If a file was uploaded
+        if(!is_null($file)){
+            $em = $this->getDoctrine()->getManager();
+            $filename = md5(uniqid()).'.'.$file->guessExtension();
+            // TODO: Exception handling here!
+            $file->move($this->getParameter('categories_dir'), $filename); // move the file to a path
+
+            $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/categories/' . $filename;
+            $newFile = (new File())
+                ->setName($filename)
+                ->setUri($fileUri)
+                ->setAbsolutePath($this->getParameter('categories_dir') . '/' . $filename)
+                ->setSize($file->getClientSize());
+
+            $em->persist($newFile);
+
+            $em->flush();
+
+            // generate a random name for the file but keep the extension
+
+            $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newFile->getId()];
+        }
+
+        return new JsonResponse($status);
+    }
+
+    /**
+     * @Post("/categories/{categorySlug}/files", requirements={"categorySlug" = "^(?!files$).*"})
      */
     public function updateCategoryCoverAction($categorySlug, Request $request)
     {
@@ -154,42 +185,6 @@ class AdminApiController extends FOSRestController
             $em->flush();
 
             $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newCoverImage->getId()];
-        }
-
-        return new JsonResponse($status);
-    }
-
-    /**
-     * Post category file
-     *
-     * @Post("/categories/files")
-     */
-    public function postCategoryFileAction(Request $request)
-    {
-        $file = $request->files->get('uploadfile');
-        $status = ['status' => "success", "fileUploaded" => false];
-
-        // If a file was uploaded
-        if(!is_null($file)){
-            $em = $this->getDoctrine()->getManager();
-            $filename = md5(uniqid()).'.'.$file->guessExtension();
-            // TODO: Exception handling here!
-            $file->move($this->getParameter('categories_dir'), $filename); // move the file to a path
-
-            $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/categories/' . $filename;
-            $newFile = (new File())
-                ->setName($filename)
-                ->setUri($fileUri)
-                ->setAbsolutePath($this->getParameter('categories_dir') . '/' . $filename)
-                ->setSize($file->getClientSize());
-
-            $em->persist($newFile);
-
-            $em->flush();
-
-            // generate a random name for the file but keep the extension
-
-            $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newFile->getId()];
         }
 
         return new JsonResponse($status);
