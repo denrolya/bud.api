@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category, AppBundle\Entity\Event, AppBundle\Entity\File;
+use AppBundle\Form\CategoryType;
 use AppBundle\Form\EventType;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -55,6 +56,11 @@ class AdminApiController extends FOSRestController
     {
         // TODO: Create category form class and validate $request with it
         // TODO: Or just hook a custom validator with it
+//        $em = $this->getDoctrine()->getManager();
+//        $category = new Category();
+//
+//        $form = $this->createForm(CategoryType::class, $category);
+//        $form->handleRequest($request);
 
         $data = $request->request;
 
@@ -72,6 +78,88 @@ class AdminApiController extends FOSRestController
     }
 
     /**
+     * @Get("/categories/{categorySlug}")
+     */
+    public function getCategoryAction($categorySlug)
+    {
+        $category = $this->getDoctrine()->getRepository(Category::class)
+            ->findOneBySlug($categorySlug);
+
+        return $category;
+    }
+
+    /**
+     * @Post("/categories/{categorySlug}")
+     */
+    public function editCategoryAction($categorySlug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$category = $em->getRepository(Category::class)->findOneBySlug($categorySlug)) {
+            // throw exception
+        }
+
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $formData = $form->getData();
+
+            $em->flush();
+
+            $response = ['category' => $category];
+        } else {
+            $response = ['event' => false];
+        }
+
+        return $response;
+    }
+
+    /**
+     * @Post("/categories/{categorySlug}/files")
+     */
+    public function updateCategoryCoverAction($categorySlug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$category = $em->getRepository(Category::class)->findOneBySlug($categorySlug)) {
+            // throw exception
+        }
+
+        $file = $request->files->get('uploadfile');
+        $status = ['status' => 'success', 'fileUploaded' => false];
+
+        if (!is_null($file)) {
+            $fs = new Filesystem();
+
+            $oldCoverImage = $category->getCoverImage();
+
+            $fs->remove($oldCoverImage->getAbsolutePath());
+
+            $em->remove($oldCoverImage);
+
+            $filename = md5(uniqid()).'.'.$file->guessExtension();
+            // TODO: Exception handling here!
+            $file->move($this->getParameter('categories_dir'), $filename); // move the file to a path
+
+            $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/categories/' . $filename;
+            $newCoverImage = (new File())
+                ->setName($filename)
+                ->setUri($fileUri)
+                ->setAbsolutePath($this->getParameter('categories_dir') . '/' . $filename)
+                ->setSize($file->getClientSize());
+
+            $em->persist($newCoverImage);
+
+            $category->setCoverImage($newCoverImage);
+
+            $em->flush();
+
+            $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newCoverImage->getId()];
+        }
+
+        return new JsonResponse($status);
+    }
+
+    /**
      * Post category file
      *
      * @Post("/categories/files")
@@ -84,13 +172,14 @@ class AdminApiController extends FOSRestController
         // If a file was uploaded
         if(!is_null($file)){
             $em = $this->getDoctrine()->getManager();
-            $filename = $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $filename = md5(uniqid()).'.'.$file->guessExtension();
             // TODO: Exception handling here!
             $file->move($this->getParameter('categories_dir'), $filename); // move the file to a path
 
+            $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/categories/' . $filename;
             $newFile = (new File())
                 ->setName($filename)
-                ->setRelativePath('/uploads/categories/' . $filename)
+                ->setUri($fileUri)
                 ->setAbsolutePath($this->getParameter('categories_dir') . '/' . $filename)
                 ->setSize($file->getClientSize());
 
@@ -129,6 +218,7 @@ class AdminApiController extends FOSRestController
 
         $newEvent = (new Event())
             ->setTitle($data->get('title'))
+            ->setShortDescription($data->get('shortDescription'))
             ->setDescriptionBlock1($data->get('descriptionBlock1'))
             ->setDescriptionBlock2($data->get('descriptionBlock2'))
             ->setDateFrom(new \DateTime($data->get('dateFrom')))
@@ -151,9 +241,10 @@ class AdminApiController extends FOSRestController
 
                 // TODO: Exception handling here!
                 (new SymfonyFile($image->getAbsolutePath()))->move($eventDir, $image->getName());
-
-                $image->setAbsolutePath($eventDir . '/' . $image->getName())
-                    ->setRelativePath('/' . $fs->makePathRelative($eventDir, $this->getParameter('web_dir')) . $image->getName());
+                $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/events/' .$newEvent->getId() . '-' . $newEvent->getSlug()  . '/' . $image->getName();
+                $image
+                    ->setAbsolutePath($eventDir . '/' . $image->getName())
+                    ->setUri($fileUri);
 
                 $newEvent->addImage($image);
 
@@ -221,14 +312,14 @@ class AdminApiController extends FOSRestController
 
             $eventDir = $this->getParameter('events_dir') . '/' . $event->getId() . '-' . $event->getSlug();
 
-            $filename = $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $filename = md5(uniqid()).'.'.$file->guessExtension();
             // TODO: Exception handling here!
             $file->move($eventDir, $filename);
-
+            $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/events/' .$event->getId() . '-' . $event->getSlug()  . '/' . $filename;
             $newFile = (new File())
                 ->setName($filename)
                 ->setAbsolutePath($eventDir . '/' . $filename)
-                ->setRelativePath('/' . $fs->makePathRelative($eventDir, $this->getParameter('web_dir')) . $filename)
+                ->setUri($fileUri)
                 ->setSize($file->getClientSize());
 
             $em->persist($newFile);
@@ -282,13 +373,14 @@ class AdminApiController extends FOSRestController
         // If a file was uploaded
         if(!is_null($file)){
             $em = $this->getDoctrine()->getManager();
-            $filename = $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $filename = md5(uniqid()).'.'.$file->guessExtension();
             // TODO: Exception handling here!
             $file->move($this->getParameter('temp_dir'), $filename); // move the file to a path
+            $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/tmp/' . $filename;
 
             $newFile = (new File())
                 ->setName($filename)
-                ->setRelativePath('/uploads/tmp/' . $filename)
+                ->setUri($fileUri)
                 ->setAbsolutePath($this->getParameter('temp_dir') . '/' . $filename)
                 ->setSize($file->getClientSize());
 

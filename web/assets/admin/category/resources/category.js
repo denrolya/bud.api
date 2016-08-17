@@ -7,6 +7,17 @@
 
     Category.$inject = ['$resource'];
     function Category($resource) {
-        return $resource('/app_dev.php/api/secure/categories/:categorySlug', {categorySlug: '@categorySlug'}, {});
+        return $resource('/app_dev.php/api/secure/categories/:categorySlug', {categorySlug: '@categorySlug'}, {
+            edit: {
+                method: 'POST'
+            },
+            removeFile: {
+                method: 'DELETE',
+                url: '/app_dev.php/api/secure/categories/:slug/files/:fileId',
+                params: {
+                    fileId: '@fileId'
+                }
+            }
+        });
     }
 })();

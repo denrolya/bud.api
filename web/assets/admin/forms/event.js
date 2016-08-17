@@ -13,15 +13,20 @@
                 placeholder: 'Event title',
             }
         }, {
+            key: 'shortDescription',
+            type: 'textarea',
+            templateOptions: {
+                label: 'shortDescription',
+                required: true
+            },
+        }, {
             key: 'descriptionBlock1',
             type: 'wysiwyg',
             className: 'col-md-6',
             templateOptions: {
                 label: 'Description Block 1',
-                required: true
-            },
-            controller: /*@ngInject*/ function($scope) {
-                $scope.config = {
+                required: true,
+                config: {
                     styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
                     height: 150,
                     disableDragAndDrop: true,
@@ -35,17 +40,15 @@
                         ['view', ['fullscreen', 'codeview']]
                     ]
                 }
-            }
+            },
         }, {
             key: 'descriptionBlock2',
             type: 'wysiwyg',
             className: 'col-md-6',
             templateOptions: {
                 label: 'Description Block 2',
-                required: true
-            },
-            controller: /*@ngInject*/ function($scope) {
-                $scope.config = {
+                required: true,
+                config: {
                     styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
                     height: 150,
                     disableDragAndDrop: true,
@@ -59,7 +62,7 @@
                         ['view', ['fullscreen', 'codeview']]
                     ]
                 }
-            }
+            },
         }, {
             key: 'dateFrom',
             type: 'datetime',

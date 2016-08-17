@@ -1,0 +1,22 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Edit</h3>
+    </div>
+
+    <div class="box-body">
+        <formly-form model="vm.category" fields="vm.categoryFormFields" options="vm.options" form="vm.categoryForm">
+            <div class="form-group">
+                <div class="dropzone dropzone-custom-preview" dropzone config="vm.dropzoneConfig" id="file-dropzone">
+                    <div class="dz-default dz-message">
+                        <strong class="text-uppercase">
+                            <i class="fa fa-upload"></i> Drop files to attach, or <a href="" class="text-green">browse</a>
+                        </strong>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-disabled="vm.categoryForm.$invalid" ng-click="vm.editCategory()">Edit</button>
+            </div>
+        </formly-form>
+    </div>
+</div>

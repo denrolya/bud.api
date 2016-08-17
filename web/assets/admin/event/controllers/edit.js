@@ -14,11 +14,13 @@
                 var mockFile = {
                     id: file.id,
                     name: file.name,
-                    size: file.size
+                    size: file.size,
+                    path: file.uri,
+                    accepted: true
                 };
 
                 vm.dropzone.emit("addedfile", mockFile);
-                vm.dropzone.createThumbnailFromUrl(mockFile, file.relativePath);
+                vm.dropzone.createThumbnailFromUrl(mockFile, mockFile.path);
                 vm.dropzone.files.push(mockFile);
                 vm.dropzone.emit("complete", mockFile);
             }, vm.dropzone);

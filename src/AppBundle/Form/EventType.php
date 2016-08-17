@@ -19,6 +19,7 @@ class EventType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, ['required' => true])
+            ->add('shortDescription', TextAreaType::class, ['required' => true])
             ->add('descriptionBlock1', TextAreaType::class, ['required' => true])
             ->add('descriptionBlock2', TextareaType::class, ['required' => true])
             ->add('dateFrom', DateTimeType::class, ['date_widget' => 'single_text', 'required' => true])

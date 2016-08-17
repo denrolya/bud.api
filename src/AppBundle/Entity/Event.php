@@ -45,6 +45,14 @@ class Event
      * @var string
      *
      * @Assert\NotBlank()
+     * @ORM\Column(name="short_description", type="text")
+     */
+    private $shortDescription;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="description_block_1", type="text")
      */
     private $descriptionBlock1;
@@ -147,6 +155,28 @@ class Event
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set shortDescription
+     *
+     * @param string $shortDescription
+     */
+    public function setShortDescription($shortDescription)
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get shortDescription
+     *
+     * @return string
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
     }
 
     /**

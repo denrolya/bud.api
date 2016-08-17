@@ -24,9 +24,9 @@ class File
     /**
      * @var string
      *
-     * @ORM\Column(name="relative_path", type="string", length=255, unique=true)
+     * @ORM\Column(name="uri", type="string", length=255, unique=true)
      */
-    private $relativePath;
+    private $uri;
 
     /**
      * @var string
@@ -61,27 +61,27 @@ class File
     }
 
     /**
-     * Set relative path
+     * Set uri
      *
-     * @param string $relativePath
+     * @param string $uri
      *
      * @return File
      */
-    public function setRelativePath($relativePath)
+    public function setUri($uri)
     {
-        $this->relativePath = $relativePath;
+        $this->uri = $uri;
 
         return $this;
     }
 
     /**
-     * Get relative path
+     * Get uri
      *
      * @return string
      */
-    public function getRelativePath()
+    public function getUri()
     {
-        return $this->relativePath;
+        return $this->uri;
     }
 
     /**

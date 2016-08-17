@@ -13,7 +13,7 @@
                         template: '<ui-view/>'
                     })
                     .state('event.new', {
-                        url: '/new',
+                        url: '/create',
                         templateUrl: '/assets/admin/event/views/create.html',
                         controller: 'CreateController',
                         controllerAs: 'vm',
