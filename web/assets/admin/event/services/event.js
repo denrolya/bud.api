@@ -20,6 +20,7 @@
             return {
                 event: {
                     title: event.title,
+                    shortDescription: event.shortDescription,
                     descriptionBlock1: event.descriptionBlock1,
                     descriptionBlock2: event.descriptionBlock2,
                     dateFrom: {
@@ -37,6 +38,7 @@
                         }
                     } : null,
                     location: event.location,
+                    images: event.images
                 }
             }
         }

@@ -65,9 +65,11 @@ doctrine:
         auto_mapping: true
 
 stof_doctrine_extensions:
+    default_locale: en
+    translation_fallback: true
     orm:
         default:
-            sluggable:   true
+            sluggable: true
 
 # Swiftmailer Configuration
 swiftmailer:

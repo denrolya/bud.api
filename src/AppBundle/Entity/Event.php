@@ -10,7 +10,7 @@ use AppBundle\Entity\File;
 /**
  * Event
  *
- * @ORM\Table(name="event")
+ * @ORM\Table(name="events")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EventRepository")
  */
 class Event
@@ -35,7 +35,6 @@ class Event
     /**
      * @var string
      *
-     * @Assert\NotBlank()
      * @Gedmo\Slug(fields={"title"}, updatable=false)
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */

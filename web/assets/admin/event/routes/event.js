@@ -10,40 +10,33 @@
                     .state('event', {
                         abstract: true,
                         url: '/events',
-                        template: '<ui-view/>'
-                    })
-                    .state('event.new', {
-                        url: '/create',
-                        templateUrl: '/assets/admin/event/views/create.html',
-                        controller: 'CreateController',
-                        controllerAs: 'vm',
+                        template: '<ui-view/>',
                         resolve: {
                             loadPlugin: function ($ocLazyLoad) {
                                 return $ocLazyLoad.load([{
                                     serie: true,
                                     files: [
                                         '/assets/admin/forms/event.js',
-                                        '/assets/admin/event/controllers/create.js'
+                                        '/assets/admin/event/controllers/create.js',
+                                        '/assets/admin/event/controllers/list.js',
+                                        '/assets/admin/event/controllers/edit.js',
+                                        '/assets/admin/event/services/event.js'
                                     ]
                                 }]);
                             }
                         }
+                    })
+                    .state('event.new', {
+                        url: '/create',
+                        templateUrl: '/assets/admin/event/views/create.html',
+                        controller: 'CreateController',
+                        controllerAs: 'vm',
                     })
                     .state('event.list', {
                         url: '/list',
                         templateUrl: '/assets/admin/event/views/list.html',
                         controller: 'ListController',
                         controllerAs: 'vm',
-                        resolve: {
-                            loadPlugin: function($ocLazyLoad) {
-                                return $ocLazyLoad.load([{
-                                    serie:true,
-                                    files: [
-                                        '/assets/admin/event/controllers/list.js'
-                                    ]
-                                }])
-                            }
-                        }
                     })
                     .state('event.edit', {
                         url: '/:slug/edit',
@@ -58,16 +51,6 @@
 
                                     return response;
                                 });
-                            },
-                            loadPlugin: function($ocLazyLoad) {
-                                return $ocLazyLoad.load([{
-                                    serie: true,
-                                    files: [
-                                        '/assets/admin/forms/event.js',
-                                        '/assets/admin/event/services/event.js',
-                                        '/assets/admin/event/controllers/edit.js'
-                                    ]
-                                }])
                             }
                         }
                     });

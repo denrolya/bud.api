@@ -5,8 +5,8 @@
         .module('admin')
         .controller('CreateController', CreateController);
 
-    CreateController.$inject = ['$scope', 'EventFormFields', 'Event'];
-    function CreateController($scope, EventFormFields, Event) {
+    CreateController.$inject = ['$scope', 'EventFormFields', 'Event', 'EventService'];
+    function CreateController($scope, EventFormFields, Event, EventService) {
         var vm = this;
 
         vm.newEvent = {};
@@ -51,7 +51,7 @@
         };
 
         function submitEvent() {
-            var newEvent = new Event(vm.newEvent);
+            var newEvent = new Event(EventService.formatEventToEdit(vm.newEvent));
             newEvent.$save(function sc(response) {
                 console.log(response);
             });

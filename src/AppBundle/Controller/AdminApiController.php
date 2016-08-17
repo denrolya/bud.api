@@ -213,46 +213,48 @@ class AdminApiController extends FOSRestController
         // TODO: Create category form class and validate $request with it
         // TODO: Or just hook a custom validator with it
 
-        $data = $request->request;
+
         $em = $this->getDoctrine()->getManager();
+        $event = new Event();
 
-        $newEvent = (new Event())
-            ->setTitle($data->get('title'))
-            ->setShortDescription($data->get('shortDescription'))
-            ->setDescriptionBlock1($data->get('descriptionBlock1'))
-            ->setDescriptionBlock2($data->get('descriptionBlock2'))
-            ->setDateFrom(new \DateTime($data->get('dateFrom')))
-            ->setDateTo($data->get('dateTo') ? new \DateTime($data->get('dateTo')) : NULL)
-            ->setLocation($data->get('location'));
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
 
-        $em->persist($newEvent);
-        $em->flush();
+        if ($form->isValid()) {
+            $em->persist($event);
+            $em->flush();
 
-        if (count($data->get('images')) > 0) {
-            $fs = new Filesystem();
+            $files = $request->get('event')['images'];
+            if (count($files) > 0) {
+                $fs = new Filesystem();
 
-            $eventDir = $this->getParameter('events_dir') . '/' . $newEvent->getId() . '-' . $newEvent->getSlug();
-
-            // TODO: Exception handling here!
-            $fs->mkdir($eventDir);
-
-            foreach($data->get('images') as $index => $image) {
-                $image = $em->getRepository(File::class)->find($image['file_id']);
+                $eventDir = $this->getParameter('events_dir') . '/' . $event->getId() . '-' . $event->getSlug();
 
                 // TODO: Exception handling here!
-                (new SymfonyFile($image->getAbsolutePath()))->move($eventDir, $image->getName());
-                $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/events/' .$newEvent->getId() . '-' . $newEvent->getSlug()  . '/' . $image->getName();
-                $image
-                    ->setAbsolutePath($eventDir . '/' . $image->getName())
-                    ->setUri($fileUri);
+                $fs->mkdir($eventDir);
 
-                $newEvent->addImage($image);
+                foreach($files as $index => $image) {
+                    $image = $em->getRepository(File::class)->find($image['file_id']);
 
-                $em->flush();
+                    // TODO: Exception handling here!
+                    (new SymfonyFile($image->getAbsolutePath()))->move($eventDir, $image->getName());
+                    $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/events/' .$event->getId() . '-' . $event->getSlug()  . '/' . $image->getName();
+                    $image
+                        ->setAbsolutePath($eventDir . '/' . $image->getName())
+                        ->setUri($fileUri);
+
+                    $event->addImage($image);
+
+                    $em->flush();
+                }
             }
+
+            $response = ['event' => $event];
+        } else {
+            $response = ['event' => false];
         }
 
-        return ['new_event' => $newEvent];
+        return $response;
     }
 
     /**
