@@ -56,22 +56,20 @@ class AdminApiController extends FOSRestController
     {
         // TODO: Create category form class and validate $request with it
         // TODO: Or just hook a custom validator with it
-//        $em = $this->getDoctrine()->getManager();
-//        $category = new Category();
-//
-//        $form = $this->createForm(CategoryType::class, $category);
-//        $form->handleRequest($request);
-
         $em = $this->getDoctrine()->getManager();
+        $category = new Category();
 
-        $newCategory = (new Category())
-            ->setName($request->get('name'))
-            ->setCoverImage($em->getReference(File::class, $request->get('coverImage')));
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
 
-        $em->persist($newCategory);
-        $em->flush();
+        if ($form->isValid()) {
+            $category->setCoverImage($em->getReference(File::class, $request->get('category')['coverImage']));
 
-        return ['new_category' => $newCategory];
+            $em->persist($category);
+            $em->flush();
+        }
+
+        return ['new_category' => $category];
     }
 
     /**
@@ -79,7 +77,9 @@ class AdminApiController extends FOSRestController
      */
     public function getCategoryAction($categorySlug)
     {
-        $category = $this->getDoctrine()->getRepository(Category::class)
+        $category = $this
+            ->getDoctrine()
+            ->getRepository(Category::class)
             ->findOneBySlug($categorySlug);
 
         return $category;
@@ -124,8 +124,9 @@ class AdminApiController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $filename = md5(uniqid()).'.'.$file->guessExtension();
             // TODO: Exception handling here!
-            $file->move($this->getParameter('categories_dir'), $filename); // move the file to a path
+            $file->move($this->getParameter('categories_dir'), $filename);
 
+            // TODO: Refactor URI Generation
             $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/categories/' . $filename;
             $newFile = (new File())
                 ->setName($filename)
@@ -142,7 +143,7 @@ class AdminApiController extends FOSRestController
             $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newFile->getId()];
         }
 
-        return new JsonResponse($status);
+        return $status;
     }
 
     /**
@@ -164,13 +165,13 @@ class AdminApiController extends FOSRestController
             $oldCoverImage = $category->getCoverImage();
 
             $fs->remove($oldCoverImage->getAbsolutePath());
-
             $em->remove($oldCoverImage);
 
             $filename = md5(uniqid()).'.'.$file->guessExtension();
             // TODO: Exception handling here!
-            $file->move($this->getParameter('categories_dir'), $filename); // move the file to a path
+            $file->move($this->getParameter('categories_dir'), $filename);
 
+            // TODO: Refactor URI Generation
             $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/categories/' . $filename;
             $newCoverImage = (new File())
                 ->setName($filename)
@@ -187,7 +188,7 @@ class AdminApiController extends FOSRestController
             $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newCoverImage->getId()];
         }
 
-        return new JsonResponse($status);
+        return $status;
     }
 
     /**
@@ -205,10 +206,6 @@ class AdminApiController extends FOSRestController
      */
     public function createEventAction(Request $request)
     {
-        // TODO: Create category form class and validate $request with it
-        // TODO: Or just hook a custom validator with it
-
-
         $em = $this->getDoctrine()->getManager();
         $event = new Event();
 
@@ -233,6 +230,8 @@ class AdminApiController extends FOSRestController
 
                     // TODO: Exception handling here!
                     (new SymfonyFile($image->getAbsolutePath()))->move($eventDir, $image->getName());
+
+                    // TODO: Refactor URI Generation
                     $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/events/' .$event->getId() . '-' . $event->getSlug()  . '/' . $image->getName();
                     $image
                         ->setAbsolutePath($eventDir . '/' . $image->getName())
@@ -257,7 +256,9 @@ class AdminApiController extends FOSRestController
      */
     public function getEventAction($eventSlug)
     {
-        $event = $this->getDoctrine()->getRepository(Event::class)
+        $event = $this
+            ->getDoctrine()
+            ->getRepository(Event::class)
             ->findOneBySlug($eventSlug);
 
         return $event;
@@ -277,8 +278,6 @@ class AdminApiController extends FOSRestController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $formData = $form->getData();
-
             $em->flush();
 
             $response = ['event' => $event];
@@ -312,6 +311,8 @@ class AdminApiController extends FOSRestController
             $filename = md5(uniqid()).'.'.$file->guessExtension();
             // TODO: Exception handling here!
             $file->move($eventDir, $filename);
+
+            // TODO: Refactor URI Generation
             $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/events/' .$event->getId() . '-' . $event->getSlug()  . '/' . $filename;
             $newFile = (new File())
                 ->setName($filename)
@@ -328,7 +329,7 @@ class AdminApiController extends FOSRestController
             $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newFile->getId()];
         }
 
-        return new JsonResponse($status);
+        return $status;
     }
 
     /**
@@ -372,7 +373,9 @@ class AdminApiController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $filename = md5(uniqid()).'.'.$file->guessExtension();
             // TODO: Exception handling here!
-            $file->move($this->getParameter('temp_dir'), $filename); // move the file to a path
+            $file->move($this->getParameter('temp_dir'), $filename);
+
+            // TODO: Refactor URI Generation
             $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/tmp/' . $filename;
 
             $newFile = (new File())
@@ -390,6 +393,6 @@ class AdminApiController extends FOSRestController
             $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newFile->getId()];
         }
 
-        return new JsonResponse($status);
+        return $status;
     }
 }

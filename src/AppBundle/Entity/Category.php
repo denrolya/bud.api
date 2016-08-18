@@ -35,14 +35,12 @@ class Category
     /**
      * @var string
      *
-     * @Assert\NotBlank()
      * @Gedmo\Slug(fields={"name"}, updatable=false)
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     private $slug;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\OneToOne(targetEntity="File", fetch="EAGER")
      * @ORM\JoinColumn(name="cover_image_id", referencedColumnName="id", unique=true, nullable=true)
      */

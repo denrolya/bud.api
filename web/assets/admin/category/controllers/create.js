@@ -50,7 +50,7 @@
         };
 
         function submitCategory() {
-            var newCategory = new Category(vm.newCategory);
+            var newCategory = new Category({'category': vm.newCategory});
             newCategory.$save(function sc(response) {
                 console.log(response);
             });

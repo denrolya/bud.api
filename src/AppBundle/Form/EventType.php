@@ -4,10 +4,9 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType,
     Symfony\Component\Form\Extension\Core\Type\TextareaType,
-    Symfony\Component\Form\Extension\Core\Type\TextType,
-    Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
+    Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\AbstractType,
+    Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EventType extends AbstractType
@@ -34,10 +33,10 @@ class EventType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Event',
-            'csrf_protection'   => false,
-            'allow_extra_fields' => true
-        ));
+        $resolver->setDefaults([
+            'data_class'            => 'AppBundle\Entity\Event',
+            'csrf_protection'       => false,
+            'allow_extra_fields'    => true
+        ]);
     }
 }
