@@ -4,6 +4,7 @@ namespace ApiBundle\Controller;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Event;
+use AppBundle\Entity\Place;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,6 +26,48 @@ class ApiController extends FOSRestController
 
         return [
             'categories' => $categories
+        ];
+    }
+
+    /**
+     * Get all places in categories
+     *
+     * @Get("/categories/{categorySlug}/places")
+     */
+    public function getCategoryPlacesAction($categorySlug)
+    {
+        $category = $this
+            ->getDoctrine()
+            ->getRepository(Category::class)
+            ->findOneBySlug($categorySlug);
+
+        if (!$category) {
+            // throw exception
+        }
+
+        return [
+            'places' => $category->getPlaces()
+        ];
+    }
+
+    /**
+     * Get place in categories
+     *
+     * @Get("/categories/{categorySlug}/places/{placeSlug}")
+     */
+    public function getPlaceAction($categorySlug, $placeSlug)
+    {
+        $place = $this
+            ->getDoctrine()
+            ->getRepository(Place::class)
+            ->findOneBySlug($placeSlug);
+
+        if (!$place) {
+            // throw exception
+        }
+
+        return [
+            'place' => $place
         ];
     }
 
