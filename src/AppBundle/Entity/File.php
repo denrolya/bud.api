@@ -24,14 +24,14 @@ class File
     /**
      * @var string
      *
-     * @ORM\Column(name="uri", type="string", length=255, unique=true)
+     * @ORM\Column(name="uri", type="string", length=255)
      */
     private $uri;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="absolute_path", type="string", length=255, unique=true)
+     * @ORM\Column(name="absolute_path", type="string", length=255)
      */
     private $absolutePath;
 

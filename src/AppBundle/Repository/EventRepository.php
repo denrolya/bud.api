@@ -10,4 +10,29 @@ namespace AppBundle\Repository;
  */
 class EventRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getEventsGroupedByDate(\DateTime $startDate)
+    {
+        $events = $this->createQueryBuilder('e')
+            ->where('DATE(e.dateFrom) >= :startDay')
+            ->orderBy('e.dateFrom')
+            ->setParameter('startDay', $startDate->format('Y-m-d'))
+            ->getQuery()
+            ->getResult();
+
+        $eventsGrouped = [];
+        foreach($events as $index => $event) {
+            if (!array_key_exists($event->getDateFrom()->format('Y-m-d'), $eventsGrouped)) {
+                $eventsGrouped[$event->getDateFrom()->format('Y-m-d')] = [];
+            }
+            array_push($eventsGrouped[$event->getDateFrom()->format('Y-m-d')], $event);
+        }
+
+        return $eventsGrouped;
+    }
+    
+    public function getEventsGroupedByDateStartingFromToday()
+    {
+        return $this->getEventsGroupedByDate(new \DateTime());
+    }
 }

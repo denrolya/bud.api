@@ -202,6 +202,16 @@ class AdminApiController extends FOSRestController
     }
 
     /**
+     * @Get("/events/grouped")
+     */
+    public function getEventsGrouppedAction()
+    {
+        return [
+            'events' => $this->getDoctrine()->getRepository(Event::class)->getEventsGroupedByDateStartingFromToday()
+        ];
+    }
+
+    /**
      * @Post("/events")
      */
     public function createEventAction(Request $request)
