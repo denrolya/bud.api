@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -41,10 +42,22 @@ class Category
     private $slug;
 
     /**
+     * @ORM\OneToMany(targetEntity="Place", mappedBy="category")
+     */
+    private $places;
+
+    /**
+     * @var File
+     *
      * @ORM\OneToOne(targetEntity="File", fetch="EAGER")
      * @ORM\JoinColumn(name="cover_image_id", referencedColumnName="id", unique=true, nullable=true)
      */
     private $coverImage;
+
+    public function __construct()
+    {
+        $this->places = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -122,5 +135,39 @@ class Category
     public function getCoverImage()
     {
         return $this->coverImage;
+    }
+
+    /**
+     * Add place
+     *
+     * @param \AppBundle\Entity\Place $place
+     *
+     * @return Category
+     */
+    public function addPlace(\AppBundle\Entity\Place $place)
+    {
+        $this->places[] = $place;
+
+        return $this;
+    }
+
+    /**
+     * Remove place
+     *
+     * @param \AppBundle\Entity\Place $place
+     */
+    public function removePlace(\AppBundle\Entity\Place $place)
+    {
+        $this->places->removeElement($place);
+    }
+
+    /**
+     * Get places
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlaces()
+    {
+        return $this->places;
     }
 }

@@ -11,6 +11,7 @@ parameters:
     web_dir: '%kernel.root_dir%/../web'
     uploads_dir: '%kernel.root_dir%/../web/uploads'
     temp_dir: '%kernel.root_dir%/../web/uploads/tmp'
+    places_dir: '%kernel.root_dir%/../web/uploads/places'
     categories_dir: '%kernel.root_dir%/../web/uploads/categories'
     events_dir: '%kernel.root_dir%/../web/uploads/events'
 

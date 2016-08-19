@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-3" ng-repeat="place in vm.places" ui-sref="places.edit({slug: place.slug})">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ place.name }}</h3>
+            </div>
+
+            <div class="box-body">
+                <img ng-src="{{ place.images[0].uri }}" class="img-thumbnail img-responsive" alt="{{ place.images[0].name }}" ng-if="place.images[0]">
+            </div>
+        </div>
+    </div>
+</div>

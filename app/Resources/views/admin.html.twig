@@ -223,6 +223,23 @@
                 <li ui-sref-active="active">
                     <a href="">
                         <i class="fa fa-share"></i>
+                        <span>Places</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a ui-sref="places.list"><i class="fa fa-circle-o"></i>List</a>
+                        </li>
+                        <li>
+                            <a ui-sref="places.new"><i class="fa fa-circle-o"></i>Create</a>
+                        </li>
+                    </ul>
+                </li>
+                <li ui-sref-active="active">
+                    <a href="">
+                        <i class="fa fa-share"></i>
                         <span>Events</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -510,6 +527,7 @@
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-ui-router/release/angular-ui-router.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-resource/angular-resource.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-bootstrap/ui-bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/oclazyload/dist/ocLazyLoad.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/api-check/dist/api-check.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/vendor/angular-formly/dist/formly.min.js') }}"></script>
@@ -540,11 +558,13 @@
 <script type="text/javascript" src="{{ asset('assets/admin/routes/admin.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/admin/category/routes/category.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/admin/event/routes/event.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/places/routes/place.js') }}"></script>
 
 {# Resources #}
 <script type="text/javascript" src="{{ asset('assets/admin/resources/admin.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/admin/category/resources/category.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/admin/event/resources/event.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/places/resources/place.js') }}"></script>
 
 {% block javascripts %}{% endblock %}
 </body>

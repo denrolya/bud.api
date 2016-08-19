@@ -1,4 +1,14 @@
-api:
+events_api:
     type: rest
-    resource: "AppBundle:AdminApi"
-    name_prefix: api_secure_
+    resource: "AppBundle:API/EventApi"
+    name_prefix: api_secure_events_
+
+categories_api:
+    type: rest
+    resource: "AppBundle:API/CategoryApi"
+    name_prefix: api_secure_categories_
+
+places_api:
+    type: rest
+    resource: "AppBundle:API/PlaceApi"
+    name_prefix: api_secure_places_
