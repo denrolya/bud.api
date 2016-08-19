@@ -25,6 +25,8 @@ class EventType extends AbstractType
             ->add('dateFrom', DateTimeType::class, ['date_widget' => 'single_text', 'required' => true])
             ->add('dateTo', DateTimeType::class, ['date_widget' => 'single_text'])
             ->add('location', TextType::class)
+            ->add('phonenumber', TextType::class)
+            ->add('website', TextType::class)
         ;
     }
     

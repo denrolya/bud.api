@@ -87,7 +87,21 @@ class Event
     private $location;
 
     /**
-     * A Unidirectional One-To-Many relation, built by means of Doctrine2
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
+     */
+    private $website;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phonenumber", type="string", length=255, nullable=true)
+     */
+    private $phonenumber;
+
+    /**
+     * A Unidirectional One-To-Many relation, built in Doctrine2 way
      *
      * @ORM\ManyToMany(targetEntity="File", fetch="EAGER",  cascade={"remove", "persist"})
      * @ORM\JoinTable(name="events_images",
@@ -296,6 +310,54 @@ class Event
     public function getLocation()
     {
         return $this->location;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     *
+     * @return Event
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set phonenumber
+     *
+     * @param string $phonenumber
+     *
+     * @return Event
+     */
+    public function setPhonenumber($phonenumber)
+    {
+        $this->phonenumber = $phonenumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phonenumber
+     *
+     * @return string
+     */
+    public function getPhonenumber()
+    {
+        return $this->phonenumber;
     }
 
     /**

@@ -91,6 +91,24 @@
                 placeholder: 'location'
             }
         }, {
+            key: 'phonenumber',
+            type: 'input',
+            templateOptions: {
+                type: 'string',
+                label: 'Phonenumber',
+                required: false,
+                placeholder: 'Phonenumber'
+            }
+        }, {
+            key: 'website',
+            type: 'input',
+            templateOptions: {
+                type: 'string',
+                label: 'Event WebSite',
+                required: false,
+                placeholder: 'Website'
+            }
+        }, {
             key: 'images',
             type: 'input',
             templateOptions: {

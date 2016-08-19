@@ -38,6 +38,8 @@
                         }
                     } : null,
                     location: event.location,
+                    website: event.website,
+                    phonenumber: event.phonenumber,
                     images: event.images
                 }
             }

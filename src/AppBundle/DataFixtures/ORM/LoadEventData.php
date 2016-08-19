@@ -54,7 +54,9 @@ class LoadEventData implements FixtureInterface, ContainerAwareInterface
                 ->setDescriptionBlock2("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
                 ->setDateFrom($dateFrom)
                 ->setDateTo($dateTo)
-                ->setLocation($faker->word);
+                ->setLocation($faker->word)
+                ->setPhonenumber($faker->phoneNumber)
+                ->setWebsite($faker->url);
 
             foreach($eventImages as $eventImage) {
                 $event->addImage($eventImage);
