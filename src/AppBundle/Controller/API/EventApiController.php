@@ -173,7 +173,7 @@ class EventApiController extends FOSRestController
     /**
      * Remove existing event file
      *
-     * @Delete("/events/{eventSlug}/files/{fileId}", requirements={"slug" = ".*", "fileId" = "\d+"})
+     * @Delete("/events/{eventSlug}/files/{fileId}", requirements={"eventSlug" = ".*", "fileId" = "\d+"})
      */
     public function removeEventFileAction($eventSlug, $fileId)
     {

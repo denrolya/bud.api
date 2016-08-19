@@ -36,7 +36,6 @@
                     formData.append("_token", angular.element.find('meta[name="csrf-token"]')[0].content);
                 },
                 'success': function(file, response) {
-                    console.log(response);
                     vm.newCategory.coverImage = response.file_id;
                     $scope.$apply();
                 },

@@ -30,7 +30,6 @@
             },
             controller: /*@ngInject*/ function($scope, Category) {
                 Category.get(function(response) {
-                    console.log(response);
                     $scope.to.options = $scope.to.options.concat(response.categories);
                 })
             },

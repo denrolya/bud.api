@@ -94,6 +94,30 @@ class PlaceApiController extends FOSRestController
     }
 
     /**
+     * @Post("/places/{placeSlug}", requirements={"placeSlug" = "^(?!files$).*"})
+     */
+    public function editPlaceAction($placeSlug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$place = $em->getRepository(Place::class)->findOneBySlug($placeSlug)) {
+            // throw exception
+        }
+
+        $form = $this->createForm(PlaceType::class, $place);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em->flush();
+
+            $response = ['place' => $place];
+        } else {
+            $response = ['place' => false];
+        }
+
+        return $response;
+    }
+
+    /**
      * Post new place's file
      *
      * @Post("/places/files")
@@ -129,5 +153,31 @@ class PlaceApiController extends FOSRestController
         }
 
         return $status;
+    }
+
+    /**
+     * Remove existing place's file
+     *
+     * @Delete("/places/{placeSlug}/files/{fileId}", requirements={"placeSlug" = ".*", "fileId" = "\d+"})
+     */
+    public function removePlaceFileAction($placeSlug, $fileId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$place = $em->getRepository(Place::class)->findOneBySlug($placeSlug)) {
+            // throw exception
+        }
+
+        if (!$file = $em->getRepository(File::class)->find($fileId)) {
+            // throw exception
+        }
+
+        $em->remove($file);
+
+        $em->flush();
+
+
+        return [
+            'success' => true
+        ];
     }
 }
