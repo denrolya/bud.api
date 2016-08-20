@@ -20,6 +20,26 @@
                 required: true
             },
         }, {
+            key: 'rating',
+            type: 'input',
+            templateOptions: {
+                type: 'number',
+                label: "Place's rating",
+                placeholder: 'Rating from 1 to 5',
+                required: true,
+                min: 1, max: 5
+            },
+        }, {
+            key: 'priceRange',
+            type: 'input',
+            templateOptions: {
+                type: 'number',
+                label: "Price range",
+                placeholder: 'Price range from 1 to 5',
+                required: true,
+                min: 1, max: 5
+            },
+        }, {
             key: 'category',
             type: 'typeahead',
             templateOptions: {

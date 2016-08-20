@@ -49,6 +49,22 @@ class Place
     private $shortDescription;
 
     /**
+     * @var integer
+     *
+     * @Assert\NotBlank()
+     * @ORM\Column(name="rating", type="integer")
+     */
+    private $rating;
+
+    /**
+     * @var integer
+     *
+     * @Assert\NotBlank()
+     * @ORM\Column(name="price_range", type="integer")
+     */
+    private $priceRange;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="places")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
@@ -187,6 +203,50 @@ class Place
     public function getShortDescription()
     {
         return $this->shortDescription;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * Set priceRange
+     *
+     * @param integer $priceRange
+     */
+    public function setPriceRange($priceRange)
+    {
+        $this->priceRange = $priceRange;
+
+        return $this;
+    }
+
+    /**
+     * Get priceRange
+     *
+     * @return integer
+     */
+    public function getPriceRange()
+    {
+        return $this->priceRange;
     }
 
     /**

@@ -51,6 +51,8 @@ class LoadPlaceData extends AbstractFixture implements OrderedFixtureInterface, 
                 ->setName($faker->sentence())
                 ->setCategory($this->getReference("category-" . rand(0,5)))
                 ->setShortDescription($faker->sentences(3, true))
+                ->setRating(rand(1,5))
+                ->setPriceRange(rand(1,5))
                 ->setDescriptionBlock1("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
                 ->setDescriptionBlock2("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
                 ->setLocation($faker->word)

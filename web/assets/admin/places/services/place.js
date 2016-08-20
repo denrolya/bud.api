@@ -18,6 +18,8 @@
                 place: {
                     name: place.name,
                     shortDescription: place.shortDescription,
+                    rating: place.rating,
+                    priceRange: place.priceRange,
                     category: place.category.id,
                     descriptionBlock1: place.descriptionBlock1,
                     descriptionBlock2: place.descriptionBlock2,

@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType,
     Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PlaceType extends AbstractType
@@ -22,6 +23,8 @@ class PlaceType extends AbstractType
         $builder
             ->add('name', TextType::class, ['required' => true])
             ->add('shortDescription', TextAreaType::class, ['required' => true])
+            ->add('rating', NumberType::class, ['required' => true])
+            ->add('priceRange', NumberType::class, ['required' => true])
             ->add('category', EntityType::class, ['class' => Category::class, 'required' => true])
             ->add('descriptionBlock1', TextAreaType::class, ['required' => true])
             ->add('descriptionBlock2', TextareaType::class, ['required' => true])
