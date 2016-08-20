@@ -53,9 +53,9 @@ class ApiController extends FOSRestController
     /**
      * Get place in categories
      *
-     * @Get("/categories/{categorySlug}/places/{placeSlug}")
+     * @Get("/places/{placeSlug}")
      */
-    public function getPlaceAction($categorySlug, $placeSlug)
+    public function getPlaceAction($placeSlug)
     {
         $place = $this
             ->getDoctrine()
