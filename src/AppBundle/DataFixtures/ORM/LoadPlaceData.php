@@ -2,8 +2,8 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\Event;
-use AppBundle\Entity\File;
+use AppBundle\Entity\File,
+    AppBundle\Entity\Place;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -12,7 +12,7 @@ use Faker\Factory;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LoadEventData extends AbstractFixture implements OrderedFixtureInterface, FixtureInterface, ContainerAwareInterface
+class LoadPlaceData extends AbstractFixture implements OrderedFixtureInterface, FixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -29,44 +29,42 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface, 
         $faker = Factory::create();
 
         for($i = 0; $i <= 50; $i++) {
-            $eventImages = [];
+            $placeImages = [];
             for($j = 0; $j <= rand(2,5); $j++) {
                 $files = glob($this->container->getParameter('uploads_dir') . '/fixtures/*');
                 $randomIndex = array_rand($files);
                 $randomFile = new \Symfony\Component\HttpFoundation\File\File($files[$randomIndex]);
 
-                $eventImage = new File();
-                $eventImage
+                $placeImage = new File();
+                $placeImage
                     ->setName($randomFile->getFilename())
                     ->setSize($randomFile->getSize())
                     ->setAbsolutePath($randomFile->getRealPath())
                     ->setUri('http://bud.api/uploads/fixtures/' . $randomFile->getFilename());
-                $manager->persist($eventImage);
+                $manager->persist($placeImage);
 
-                array_push($eventImages, $eventImage);
+                array_push($placeImages, $placeImage);
             }
 
-            $dateFrom = $faker->dateTimeBetween('+0 months', '+3 months');
-            $dateTo = $faker->dateTimeBetween($dateFrom, '+4 months');
-            $event = new Event();
-            $event
-                ->setTitle($faker->sentence())
+            $place = new Place();
+            $place
+                ->setName($faker->sentence())
+                ->setCategory($this->getReference("category-" . rand(0,5)))
                 ->setShortDescription($faker->sentences(3, true))
                 ->setDescriptionBlock1("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
                 ->setDescriptionBlock2("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
-                ->setDateFrom($dateFrom)
-                ->setDateTo($dateTo)
                 ->setLocation($faker->word)
                 ->setPhonenumber($faker->phoneNumber)
-                ->setWebsite($faker->url);
+                ->setWebsite($faker->url)
+                ->setOpened($faker->sentence(2,true));
 
-            foreach($eventImages as $eventImage) {
-                $event->addImage($eventImage);
+            foreach($placeImages as $placeImage) {
+                $place->addImage($placeImage);
             }
 
-            $manager->persist($event);
+            $manager->persist($place);
 
-            $this->addReference("event-$i", $event);
+            $this->addReference("place-$i", $place);
         }
 
         $manager->flush();
@@ -74,6 +72,6 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface, 
 
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 }
