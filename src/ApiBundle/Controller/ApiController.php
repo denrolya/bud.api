@@ -51,7 +51,7 @@ class ApiController extends FOSRestController
     }
 
     /**
-     * Get place in categories
+     * Get place
      *
      * @Get("/places/{placeSlug}")
      */
