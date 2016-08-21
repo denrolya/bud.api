@@ -50,8 +50,8 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface, 
             $dateTo = $faker->dateTimeBetween($dateFrom, '+4 months');
             $event = new Event();
             $event
-                ->setTitle($faker->sentence())
-                ->setShortDescription($faker->sentences(3, true))
+                ->setTitle(ucfirst($faker->words(2, true)))
+                ->setShortDescription($faker->sentences(1, true))
                 ->setDescriptionBlock1("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
                 ->setDescriptionBlock2("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
                 ->setDateFrom($dateFrom)
