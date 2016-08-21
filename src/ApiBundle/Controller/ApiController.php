@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations\Get;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ApiController extends FOSRestController
 {
@@ -32,40 +33,26 @@ class ApiController extends FOSRestController
     /**
      * Get all places in categories
      *
-     * @Get("/categories/{categorySlug}/places")
+     * @Get("/categories/{categorySlug}/places", requirements={"categorySlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("category", class="AppBundle:Category", options={"mapping": {"categorySlug": "slug"}})
      */
-    public function getCategoryPlacesAction($categorySlug)
+    public function getCategoryPlacesAction(Category $category)
     {
-        $category = $this
-            ->getDoctrine()
-            ->getRepository(Category::class)
-            ->findOneBySlug($categorySlug);
-
-        if (!$category) {
-            // throw exception
-        }
-
         return [
             'places' => $category->getPlaces()
         ];
     }
 
+
+
     /**
      * Get place
      *
-     * @Get("/places/{placeSlug}")
+     * @Get("/places/{placeSlug}", requirements={"placeSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("place", class="AppBundle:Place", options={"mapping": {"placeSlug": "slug"}})
      */
-    public function getPlaceAction($placeSlug)
+    public function getPlaceAction(Place $place)
     {
-        $place = $this
-            ->getDoctrine()
-            ->getRepository(Place::class)
-            ->findOneBySlug($placeSlug);
-
-        if (!$place) {
-            // throw exception
-        }
-
         return [
             'place' => $place
         ];
@@ -85,6 +72,29 @@ class ApiController extends FOSRestController
 
         return [
             'events' => $events
+        ];
+    }
+
+    /**
+     * @Get("/events/grouped")
+     */
+    public function getEventsGrouppedAction()
+    {
+        return [
+            'events' => $this->getDoctrine()->getRepository(Event::class)->getEventsGroupedByDateStartingFromToday()
+        ];
+    }
+
+    /**
+     * Get event
+     *
+     * @Get("/events/{eventSlug}", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
+     */
+    public function getEventAction(Event $event)
+    {
+        return [
+            'event' => $event
         ];
     }
 }

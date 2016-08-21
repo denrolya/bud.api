@@ -9,9 +9,12 @@ use FOS\RestBundle\Controller\Annotations\Get,
     FOS\RestBundle\Controller\Annotations\Put,
     FOS\RestBundle\Controller\Annotations\Post,
     FOS\RestBundle\Controller\Annotations\Delete;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class PlaceApiController
@@ -30,15 +33,11 @@ class PlaceApiController extends FOSRestController
     }
 
     /**
-     * @Get("/places/{placeSlug}", requirements={"placeSlug" = ".*"})
+     * @Get("/places/{placeSlug}", requirements={"placeSlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("place", class="AppBundle:Place", options={"mapping": {"placeSlug": "slug"}})
      */
-    public function getPlaceAction($placeSlug)
+    public function getPlaceAction(Place $place)
     {
-        $place = $this
-            ->getDoctrine()
-            ->getRepository(Place::class)
-            ->findOneBySlug($placeSlug);
-
         return $place;
     }
 
@@ -64,14 +63,20 @@ class PlaceApiController extends FOSRestController
 
                 $placeDir = $this->getParameter('places_dir') . '/' . $place->getId() . '-' . $place->getSlug();
 
-                // TODO: Exception handling here!
-                $fs->mkdir($placeDir);
+                try {
+                    $fs->mkdir($placeDir);
+                } catch (IOExceptionInterface $e) {
+                    throw new HttpException(500, "An error occurred while creating your directory at ".$e->getPath());
+                }
 
                 foreach ($files as $index => $image) {
                     $image = $em->getRepository(File::class)->find($image['file_id']);
 
-                    // TODO: Exception handling here!
-                    (new SymfonyFile($image->getAbsolutePath()))->move($placeDir, $image->getName());
+                    try {
+                        (new SymfonyFile($image->getAbsolutePath()))->move($placeDir, $image->getName());
+                    } catch(FileException $e) {
+                        throw new HttpException(500, $e->getMessage());
+                    }
 
                     // TODO: Refactor URI Generation
                     $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/places/' . $place->getId() . '-' . $place->getSlug() . '/' . $image->getName();
@@ -84,30 +89,6 @@ class PlaceApiController extends FOSRestController
                     $em->flush();
                 }
             }
-
-            $response = ['place' => $place];
-        } else {
-            $response = ['place' => false];
-        }
-
-        return $response;
-    }
-
-    /**
-     * @Post("/places/{placeSlug}", requirements={"placeSlug" = "^(?!files$).*"})
-     */
-    public function editPlaceAction($placeSlug, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        if (!$place = $em->getRepository(Place::class)->findOneBySlug($placeSlug)) {
-            // throw exception
-        }
-
-        $form = $this->createForm(PlaceType::class, $place);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em->flush();
 
             $response = ['place' => $place];
         } else {
@@ -131,8 +112,12 @@ class PlaceApiController extends FOSRestController
         if(!is_null($file)){
             $em = $this->getDoctrine()->getManager();
             $filename = md5(uniqid()).'.'.$file->guessExtension();
-            // TODO: Exception handling here!
-            $file->move($this->getParameter('temp_dir'), $filename);
+
+            try {
+                $file->move($this->getParameter('temp_dir'), $filename);
+            } catch(FileException $e) {
+                throw new HttpException(500, $e->getMessage());
+            }
 
             // TODO: Refactor URI Generation
             $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/tmp/' . $filename;
@@ -156,25 +141,40 @@ class PlaceApiController extends FOSRestController
     }
 
     /**
+     * @Post("/places/{placeSlug}", requirements={"placeSlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("place", class="AppBundle:Place", options={"mapping": {"placeSlug": "slug"}})
+     */
+    public function editPlaceAction(Place $place, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(PlaceType::class, $place);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em->flush();
+
+            $response = ['place' => $place];
+        } else {
+            $response = ['place' => false];
+        }
+
+        return $response;
+    }
+
+    /**
      * Remove existing place's file
      *
      * @Delete("/places/{placeSlug}/files/{fileId}", requirements={"placeSlug" = ".*", "fileId" = "\d+"})
+     * @ParamConverter("place", class="AppBundle:Place", options={"mapping": {"placeSlug": "slug"}})
+     * @ParamConverter("file", class="AppBundle:File", options={"mapping": {"fileId": "id"}})
      */
-    public function removePlaceFileAction($placeSlug, $fileId)
+    public function removePlaceFileAction(Place $place, File $file)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$place = $em->getRepository(Place::class)->findOneBySlug($placeSlug)) {
-            // throw exception
-        }
-
-        if (!$file = $em->getRepository(File::class)->find($fileId)) {
-            // throw exception
-        }
 
         $em->remove($file);
-
         $em->flush();
-
 
         return [
             'success' => true

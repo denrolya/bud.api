@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\Annotations\Get,
     FOS\RestBundle\Controller\Annotations\Put,
     FOS\RestBundle\Controller\Annotations\Post,
     FOS\RestBundle\Controller\Annotations\Delete;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
@@ -26,16 +27,6 @@ class EventApiController extends FOSRestController
     {
         return [
             'events' => $this->getDoctrine()->getRepository(Event::class)->findAll()
-        ];
-    }
-
-    /**
-     * @Get("/events/grouped")
-     */
-    public function getEventsGrouppedAction()
-    {
-        return [
-            'events' => $this->getDoctrine()->getRepository(Event::class)->getEventsGroupedByDateStartingFromToday()
         ];
     }
 
@@ -90,27 +81,21 @@ class EventApiController extends FOSRestController
     }
 
     /**
-     * @Get("/events/{eventSlug}", requirements={"eventSlug" = ".*"})
+     * @Get("/events/{eventSlug}", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
      */
-    public function getEventAction($eventSlug)
+    public function getEventAction(Event $event)
     {
-        $event = $this
-            ->getDoctrine()
-            ->getRepository(Event::class)
-            ->findOneBySlug($eventSlug);
-
         return $event;
     }
 
     /**
-     * @Post("/events/{eventSlug}", requirements={"eventSlug" = "^(?!files$).*"})
+     * @Post("/events/{eventSlug}", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
      */
-    public function editEventAction($eventSlug, Request $request)
+    public function editEventAction(Event $event, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$event = $em->getRepository(Event::class)->findOneBySlug($eventSlug)) {
-            // throw exception
-        }
 
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
@@ -129,14 +114,12 @@ class EventApiController extends FOSRestController
     /**
      * Post existing event file
      *
-     * @Post("/events/{eventSlug}/files", requirements={"slug" = ".*"})
+     * @Post("/events/{eventSlug}/files", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
      */
-    public function postExistingEventFileAction($eventSlug, Request $request)
+    public function postExistingEventFileAction(Event $event, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$event = $em->getRepository(Event::class)->findOneBySlug($eventSlug)) {
-            // throw exception
-        }
 
         $file = $request->files->get('uploadfile');
         $status = ['status' => 'success', 'fileUploaded' => false];
@@ -173,18 +156,13 @@ class EventApiController extends FOSRestController
     /**
      * Remove existing event file
      *
-     * @Delete("/events/{eventSlug}/files/{fileId}", requirements={"eventSlug" = ".*", "fileId" = "\d+"})
+     * @Delete("/events/{eventSlug}/files/{fileId}", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$", "fileId" = "\d+"})
+     * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
+     * @ParamConverter("file", class="AppBundle:File", options={"mapping": {"fileId": "id"}})
      */
-    public function removeEventFileAction($eventSlug, $fileId)
+    public function removeEventFileAction(Event $event, File $file)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$event = $em->getRepository(Event::class)->findOneBySlug($eventSlug)) {
-            // throw exception
-        }
-
-        if (!$file = $em->getRepository(File::class)->find($fileId)) {
-            // throw exception
-        }
 
         $em->remove($file);
 

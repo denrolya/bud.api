@@ -7,6 +7,7 @@
 7. Admin states structure +
 8. Refactor dropzone directive to take options from html template -
 9. Slugify +
-10. Create Event Form Type
-11. Validate requests through EventFormType
-12. Update Event via EventFormType
+10. Create Event Form Type +
+11. Validate requests through EventFormType +
+12. Update Event via EventFormType +
+13. Refactor restrictions to not use word files but slug regex +

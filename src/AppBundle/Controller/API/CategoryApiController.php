@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\Annotations\Get,
     FOS\RestBundle\Controller\Annotations\Put,
     FOS\RestBundle\Controller\Annotations\Post,
     FOS\RestBundle\Controller\Annotations\Delete;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
@@ -50,8 +51,6 @@ class CategoryApiController extends FOSRestController
      */
     public function createCategoryAction(Request $request)
     {
-        // TODO: Create category form class and validate $request with it
-        // TODO: Or just hook a custom validator with it
         $em = $this->getDoctrine()->getManager();
         $category = new Category();
 
@@ -69,27 +68,21 @@ class CategoryApiController extends FOSRestController
     }
 
     /**
-     * @Get("/categories/{categorySlug}", requirements={"categorySlug" = "^(?!files$).*"})
+     * @Get("/categories/{categorySlug}", requirements={"categorySlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("category", class="AppBundle:Category", options={"mapping": {"categorySlug": "slug"}})
      */
-    public function getCategoryAction($categorySlug)
+    public function getCategoryAction(Category $category)
     {
-        $category = $this
-            ->getDoctrine()
-            ->getRepository(Category::class)
-            ->findOneBySlug($categorySlug);
-
         return $category;
     }
 
     /**
-     * @Post("/categories/{categorySlug}", requirements={"categorySlug" = "^(?!files$).*"})
+     * @Post("/categories/{categorySlug}", requirements={"categorySlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("category", class="AppBundle:Category", options={"mapping": {"categorySlug": "slug"}})
      */
-    public function editCategoryAction($categorySlug, Request $request)
+    public function editCategoryAction(Category $category, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$category = $em->getRepository(Category::class)->findOneBySlug($categorySlug)) {
-            // throw exception
-        }
 
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -119,8 +112,12 @@ class CategoryApiController extends FOSRestController
         if(!is_null($file)){
             $em = $this->getDoctrine()->getManager();
             $filename = md5(uniqid()).'.'.$file->guessExtension();
-            // TODO: Exception handling here!
-            $file->move($this->getParameter('categories_dir'), $filename);
+
+            try {
+                $file->move($this->getParameter('categories_dir'), $filename);
+            } catch(FileException $e) {
+                throw new HttpException(500, $e->getMessage());
+            }
 
             // TODO: Refactor URI Generation
             $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/categories/' . $filename;
@@ -143,14 +140,12 @@ class CategoryApiController extends FOSRestController
     }
 
     /**
-     * @Post("/categories/{categorySlug}/files", requirements={"categorySlug" = "^(?!files$).*"})
+     * @Post("/categories/{categorySlug}/files", requirements={"categorySlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("category", class="AppBundle:Category", options={"mapping": {"categorySlug": "slug"}})
      */
-    public function updateCategoryCoverAction($categorySlug, Request $request)
+    public function updateCategoryCoverAction(Category $category, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$category = $em->getRepository(Category::class)->findOneBySlug($categorySlug)) {
-            // throw exception
-        }
 
         $file = $request->files->get('uploadfile');
         $status = ['status' => 'success', 'fileUploaded' => false];
@@ -164,8 +159,12 @@ class CategoryApiController extends FOSRestController
             $em->remove($oldCoverImage);
 
             $filename = md5(uniqid()).'.'.$file->guessExtension();
-            // TODO: Exception handling here!
-            $file->move($this->getParameter('categories_dir'), $filename);
+
+            try {
+                $file->move($this->getParameter('categories_dir'), $filename);
+            } catch(FileException $e) {
+                throw new HttpException(500, $e->getMessage());
+            }
 
             // TODO: Refactor URI Generation
             $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/categories/' . $filename;
