@@ -4,17 +4,24 @@
     <meta charset="UTF-8"/>
     <meta name="csrf-token" content="{{ csrf_token('admin') }}" />
     <title>{% block title %}Admin{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/AdminLTE/dist/css/AdminLTE.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/dist/summernote.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/angular-bootstrap-datetimepicker/src/css/datetimepicker.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/dropzone/dist/dropzone.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/dropzone/dist/basic.css') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    {% block stylesheets %}
+        {% stylesheets
+            'assets/vendor/bootstrap/dist/css/bootstrap.min.css'
+            'assets/vendor/AdminLTE/dist/css/AdminLTE.min.css'
+            'assets/vendor/AdminLTE/dist/css/skins/_all-skins.min.css'
+            'assets/vendor/summernote/dist/summernote.css'
+            'assets/vendor/angular-bootstrap-datetimepicker/src/css/datetimepicker.css'
+            'assets/vendor/dropzone/dist/dropzone.css'
+            'assets/vendor/dropzone/dist/basic.css'
+            'bundles/app/css/style.css'
+            filter='cssrewrite' %}
+            <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,56 +29,6 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <style>
-        .ss {
-            height: 220px;
-        }
-        #map {
-            height: 100%;
-        }
-        .controls {
-            margin-top: 10px;
-            border: 1px solid transparent;
-            border-radius: 2px 0 0 2px;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            height: 32px;
-            outline: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        #pac-input {
-            background-color: #fff;
-            font-family: Roboto;
-            font-size: 15px;
-            font-weight: 300;
-            margin-left: 12px;
-            padding: 0 11px 0 13px;
-            text-overflow: ellipsis;
-            width: 300px;
-        }
-
-        #pac-input:focus {
-            border-color: #4d90fe;
-        }
-
-        .pac-container {
-            font-family: Roboto;
-        }
-
-        #type-selector {
-            color: #fff;
-            background-color: #4d90fe;
-            padding: 5px 11px 0px 11px;
-        }
-
-        #type-selector label {
-            font-family: Roboto;
-            font-size: 13px;
-            font-weight: 300;
-        }
-    </style>
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini" ng-app="admin">
 <!-- Site wrapper -->
@@ -568,54 +525,44 @@
 </div>
 <!-- ./wrapper -->
 
-
-<script type="text/javascript" src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/moment/min/moment-with-locales.js') }}"></script>
-
-<script type="text/javascript" src="{{ asset('assets/vendor/angular/angular.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/angular-ui-router/release/angular-ui-router.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/angular-resource/angular-resource.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/angular-bootstrap/ui-bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/oclazyload/dist/ocLazyLoad.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/api-check/dist/api-check.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/angular-formly/dist/formly.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/summernote/dist/summernote.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/angular-summernote/dist/angular-summernote.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/angular-bootstrap-datetimepicker/src/js/datetimepicker.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js') }}"></script>
-
-<script type="text/javascript" src="{{ asset('assets/vendor/dropzone/dist/dropzone.js') }}"></script>
-
-
-<script type="text/javascript" src="{{ asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/fastclick/lib/fastclick.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/AdminLTE/dist/js/app.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendor/AdminLTE/dist/js/demo.js') }}"></script>
-
-{# Modules #}
-<script type="text/javascript" src="{{ asset('assets/admin/admin.js') }}"></script>
-
-{# Controllers #}
-<script type="text/javascript" src="{{ asset('assets/admin/controllers/app.js') }}"></script>
-
-{# Directives #}
-<script type="text/javascript" src="{{ asset('assets/admin/directives/dropzone.js') }}"></script>
-
-{# Routes #}
-<script type="text/javascript" src="{{ asset('assets/admin/routes/admin.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/category/routes/category.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/event/routes/event.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/places/routes/place.js') }}"></script>
-
-{# Resources #}
-<script type="text/javascript" src="{{ asset('assets/admin/resources/admin.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/category/resources/category.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/event/resources/event.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/places/resources/place.js') }}"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXLxGDZW_gX__F9xjWFGScckUZ_Sw0xjY&libraries=places"></script>
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXLxGDZW_gX__F9xjWFGScckUZ_Sw0xjY&libraries=places"></script>
+    {% javascripts
+        'assets/vendor/jquery/dist/jquery.min.js'
+        'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
+        'assets/vendor/moment/min/moment-with-locales.js'
+        'assets/vendor/angular/angular.min.js'
+        'assets/vendor/angular-ui-router/release/angular-ui-router.min.js'
+        'assets/vendor/angular-resource/angular-resource.min.js'
+        'assets/vendor/angular-bootstrap/ui-bootstrap.min.js'
+        'assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js'
+        'assets/vendor/oclazyload/dist/ocLazyLoad.min.js'
+        'assets/vendor/api-check/dist/api-check.min.js'
+        'assets/vendor/angular-formly/dist/formly.min.js'
+        'assets/vendor/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js'
+        'assets/vendor/summernote/dist/summernote.min.js'
+        'assets/vendor/angular-summernote/dist/angular-summernote.min.js'
+        'assets/vendor/angular-bootstrap-datetimepicker/src/js/datetimepicker.js'
+        'assets/vendor/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js'
+        'assets/vendor/dropzone/dist/dropzone.js'
+        'assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js'
+        'assets/vendor/fastclick/lib/fastclick.js'
+        'assets/vendor/AdminLTE/dist/js/app.min.js'
+        'assets/vendor/AdminLTE/dist/js/demo.js'
+        'assets/admin/admin.js'
+        'assets/admin/controllers/app.js'
+        'assets/admin/directives/dropzone.js'
+        'assets/admin/routes/admin.js'
+        'assets/admin/category/routes/category.js'
+        'assets/admin/event/routes/event.js'
+        'assets/admin/places/routes/place.js'
+        'assets/admin/resources/admin.js'
+        'assets/admin/category/resources/category.js'
+        'assets/admin/event/resources/event.js'
+        'assets/admin/places/resources/place.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 </body>
 </html>

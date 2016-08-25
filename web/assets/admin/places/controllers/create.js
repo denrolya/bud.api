@@ -16,8 +16,6 @@
         vm.submitPlace = submitPlace;
         vm.initMap = initMap;
 
-        google.maps.event.addDomListener(window, 'load', initMap);
-
         vm.dropzoneConfig = {
             'options': {
                 url: "/app_dev.php/api/secure/places/files",
@@ -65,12 +63,9 @@
                 center: {lat: -33.8688, lng: 151.2195},
                 zoom: 13
             });
-            var input = /** @type {!HTMLInputElement} */(
-                document.getElementById('pac-input'));
+            var input = document.getElementById('pac-input');
 
-            var types = document.getElementById('type-selector');
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
             var autocomplete = new google.maps.places.Autocomplete(input);
             autocomplete.bindTo('bounds', map);
@@ -81,7 +76,7 @@
                 anchorPoint: new google.maps.Point(0, -29)
             });
 
-            autocomplete.addListener('place_changed', function () {
+            autocomplete.addListener('place_changed', function() {
                 infowindow.close();
                 marker.setVisible(false);
                 var place = autocomplete.getPlace();
@@ -89,8 +84,6 @@
                     window.alert("Autocomplete's returned place contains no geometry");
                     return;
                 }
-
-                console.log(place);
 
                 // If the place has a geometry, then present it on a map.
                 if (place.geometry.viewport) {
@@ -120,6 +113,14 @@
 
                 infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
                 infowindow.open(map, marker);
+
+                vm.newPlace.name = place.name;
+                vm.newPlace.address = place.formatted_address;
+                vm.newPlace.phonenumber = place.international_phone_number;
+                vm.newPlace.website = place.website;
+                vm.newPlace.latitude = place.geometry.location.lat();
+                vm.newPlace.longitude = place.geometry.location.lng();
+                $scope.$apply();
             });
         }
     }

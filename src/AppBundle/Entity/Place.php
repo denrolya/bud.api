@@ -88,9 +88,23 @@ class Place
     /**
      * @var string
      *
-     * @ORM\Column(name="location", type="string", length=255, nullable=true)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
-    private $location;
+    private $address;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="latitude", type="decimal")
+     */
+    private $latitude;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="longitude", type="decimal")
+     */
+    private $longitude;
 
     /**
      * @var string
@@ -321,27 +335,75 @@ class Place
     }
 
     /**
-     * Set location
+     * Set address
      *
-     * @param string $location
+     * @param string $address
      *
      * @return Place
      */
-    public function setLocation($location)
+    public function setAddress($address)
     {
-        $this->location = $location;
+        $this->address = $address;
 
         return $this;
     }
 
     /**
-     * Get location
+     * Get address
      *
      * @return string
      */
-    public function getLocation()
+    public function getAddress()
     {
-        return $this->location;
+        return $this->address;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     *
+     * @return Place
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     *
+     * @return Place
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
     }
 
     /**

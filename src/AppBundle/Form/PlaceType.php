@@ -6,10 +6,11 @@ use AppBundle\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType,
     Symfony\Component\Form\Extension\Core\Type\TextareaType,
-    Symfony\Component\Form\Extension\Core\Type\TextType;
+    Symfony\Component\Form\Extension\Core\Type\TextType,
+    Symfony\Component\Form\Extension\Core\Type\NumberType;
+
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PlaceType extends AbstractType
@@ -28,7 +29,9 @@ class PlaceType extends AbstractType
             ->add('category', EntityType::class, ['class' => Category::class, 'required' => true])
             ->add('descriptionBlock1', TextAreaType::class, ['required' => true])
             ->add('descriptionBlock2', TextareaType::class, ['required' => true])
-            ->add('location', TextType::class)
+            ->add('address', TextType::class)
+            ->add('latitude', NumberType::class)
+            ->add('longitude', NumberType::class)
             ->add('phonenumber', TextType::class)
             ->add('website', TextType::class)
             ->add('opened', TextType::class)

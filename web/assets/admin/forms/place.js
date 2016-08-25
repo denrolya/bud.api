@@ -107,13 +107,27 @@
                 }
             },
         }, {
-            key: 'location',
+            key: 'address',
             type: 'input',
             templateOptions: {
                 type: 'string',
-                label: 'Event Location',
+                label: 'Place address',
                 required: false,
-                placeholder: 'location'
+                placeholder: 'Address'
+            }
+        }, {
+            key: 'latitude',
+            type: 'input',
+            templateOptions: {
+                type: 'hidden',
+                required: false,
+            }
+        }, {
+            key: 'longitude',
+            type: 'input',
+            templateOptions: {
+                type: 'hidden',
+                required: false,
             }
         }, {
             key: 'phonenumber',
