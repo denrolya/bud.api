@@ -68,14 +68,14 @@
         }
 
         function editPlace() {
-            Place.edit({slug: vm.place.slug}, PlaceService.formatPlaceToEdit(vm.place), function sc(response) {
+            Place.edit({slug: vm.place.slug}, PlaceService.formatPlaceToSubmit(vm.place), function sc(response) {
                 console.log(response);
             });
         }
 
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: -33.8688, lng: 151.2195},
+                center: {lat: Number(vm.place.latitude), lng: Number(vm.place.longitude)},
                 zoom: 13
             });
             var input = document.getElementById('pac-input');

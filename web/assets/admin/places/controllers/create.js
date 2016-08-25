@@ -52,7 +52,7 @@
         };
 
         function submitPlace() {
-            var newPlace = new Place(PlaceService.formatPlaceToEdit(vm.newPlace));
+            var newPlace = new Place(PlaceService.formatPlaceToSubmit(vm.newPlace));
             newPlace.$save(function sc(response) {
                 console.log(response);
             });

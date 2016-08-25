@@ -95,14 +95,14 @@ class Place
     /**
      * @var decimal
      *
-     * @ORM\Column(name="latitude", type="decimal", nullable=true)
+     * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
      */
     private $latitude;
 
     /**
      * @var decimal
      *
-     * @ORM\Column(name="longitude", type="decimal", nullable=true)
+     * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
      */
     private $longitude;
 

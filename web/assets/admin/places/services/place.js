@@ -8,12 +8,12 @@
     PlaceService.$inject = [];
     function PlaceService() {
         var placeService = {
-            formatPlaceToEdit: formatPlaceToEdit
+            formatPlaceToSubmit: formatPlaceToSubmit
         };
 
         return placeService;
 
-        function formatPlaceToEdit(place) {
+        function formatPlaceToSubmit(place) {
             return {
                 place: {
                     name: place.name,
