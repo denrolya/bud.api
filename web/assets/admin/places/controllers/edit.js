@@ -129,12 +129,12 @@
                 infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
                 infowindow.open(map, marker);
 
-                vm.newPlace.name = place.name;
-                vm.newPlace.address = place.formatted_address;
-                vm.newPlace.phonenumber = place.international_phone_number;
-                vm.newPlace.website = place.website;
-                vm.newPlace.latitude = place.geometry.location.lat();
-                vm.newPlace.longitude = place.geometry.location.lng();
+                vm.place.name = place.name;
+                vm.place.address = place.formatted_address;
+                vm.place.phonenumber = place.international_phone_number;
+                vm.place.website = place.website;
+                vm.place.latitude = place.geometry.location.lat();
+                vm.place.longitude = place.geometry.location.lng();
                 $scope.$apply();
             });
         }

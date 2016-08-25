@@ -80,6 +80,8 @@
                 infowindow.close();
                 marker.setVisible(false);
                 var place = autocomplete.getPlace();
+
+                console.log(place);
                 if (!place.geometry) {
                     window.alert("Autocomplete's returned place contains no geometry");
                     return;
@@ -120,6 +122,7 @@
                 vm.newPlace.website = place.website;
                 vm.newPlace.latitude = place.geometry.location.lat();
                 vm.newPlace.longitude = place.geometry.location.lng();
+                vm.newPlace.googleID = place.place_id;
                 $scope.$apply();
             });
         }

@@ -95,14 +95,14 @@ class Place
     /**
      * @var decimal
      *
-     * @ORM\Column(name="latitude", type="decimal")
+     * @ORM\Column(name="latitude", type="decimal", nullable=true)
      */
     private $latitude;
 
     /**
      * @var decimal
      *
-     * @ORM\Column(name="longitude", type="decimal")
+     * @ORM\Column(name="longitude", type="decimal", nullable=true)
      */
     private $longitude;
 
@@ -126,6 +126,13 @@ class Place
      * @ORM\Column(name="opened", type="string", length=255, nullable=true)
      */
     private $opened;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
+     */
+    private $googleID;
 
     /**
      * A Unidirectional One-To-Many relation, built in Doctrine2 way
@@ -476,6 +483,30 @@ class Place
     public function getOpened()
     {
         return $this->opened;
+    }
+
+    /**
+     * Set googleID
+     *
+     * @param string $googleID
+     *
+     * @return Place
+     */
+    public function setGoogleID($googleID)
+    {
+        $this->googleID = $googleID;
+
+        return $this;
+    }
+
+    /**
+     * Get googleID
+     *
+     * @return string
+     */
+    public function getGoogleID()
+    {
+        return $this->googleID;
     }
 
     /**

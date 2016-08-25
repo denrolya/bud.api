@@ -157,6 +157,13 @@
                 placeholder: 'Opened'
             }
         }, {
+            key: 'googleID',
+            type: 'input',
+            templateOptions: {
+                type: 'hidden',
+                required: false,
+            }
+        }, {
             key: 'images',
             type: 'input',
             templateOptions: {

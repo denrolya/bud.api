@@ -55,10 +55,11 @@ class LoadPlaceData extends AbstractFixture implements OrderedFixtureInterface, 
                 ->setPriceRange(rand(1,5))
                 ->setDescriptionBlock1("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
                 ->setDescriptionBlock2("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
-                ->setLocation($faker->word)
+                ->setAddress($faker->address)
                 ->setPhonenumber($faker->phoneNumber)
                 ->setWebsite($faker->url)
-                ->setOpened($faker->sentence(2,true));
+                ->setOpened($faker->sentence(2,true))
+            ;
 
             foreach($placeImages as $placeImage) {
                 $place->addImage($placeImage);

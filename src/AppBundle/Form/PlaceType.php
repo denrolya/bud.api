@@ -30,11 +30,12 @@ class PlaceType extends AbstractType
             ->add('descriptionBlock1', TextAreaType::class, ['required' => true])
             ->add('descriptionBlock2', TextareaType::class, ['required' => true])
             ->add('address', TextType::class)
-            ->add('latitude', NumberType::class)
-            ->add('longitude', NumberType::class)
+            ->add('latitude', TextType::class)
+            ->add('longitude', TextType::class)
             ->add('phonenumber', TextType::class)
             ->add('website', TextType::class)
             ->add('opened', TextType::class)
+            ->add('googleID', TextType::class)
         ;
     }
     

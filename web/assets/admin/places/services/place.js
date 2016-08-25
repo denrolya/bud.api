@@ -29,7 +29,8 @@
                     website: place.website,
                     phonenumber: place.phonenumber,
                     images: place.images,
-                    opened: place.opened
+                    opened: place.opened,
+                    googleID: place.googleID
                 }
             }
         }

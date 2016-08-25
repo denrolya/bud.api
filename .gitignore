@@ -34,6 +34,9 @@
 /web/bundles/
 /web/js/
 /web/css/
+/web/uploads/*
+!/web/uploads/tmp/
+/web/uploads/tmp/*
 !/web/uploads/
 
 # Assets managed by Bower
