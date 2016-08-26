@@ -5,8 +5,8 @@
         .module('admin')
         .controller('ListController', ListController);
 
-    ListController.$inject = ['Event', 'SweetAlert'];
-    function ListController(Event, SweetAlert) {
+    ListController.$inject = ['$state', 'Event', 'SweetAlert'];
+    function ListController($state, Event, SweetAlert) {
         var vm = this;
 
         vm.events = [];
@@ -18,6 +18,9 @@
 
         function getEvents() {
             Event.get(function sc(response) {
+                if (response.events.length === 0) {
+                    $state.go('event.new');
+                }
                 vm.events = response.events;
             });
         }

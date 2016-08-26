@@ -5,8 +5,8 @@
         .module('admin')
         .controller('ListController', ListController);
 
-    ListController.$inject = ['Category', 'SweetAlert'];
-    function ListController(Category, SweetAlert) {
+    ListController.$inject = ['$state', 'Category', 'SweetAlert'];
+    function ListController($state, Category, SweetAlert) {
         var vm = this;
 
         vm.categories = [];
@@ -18,6 +18,9 @@
 
         function getCategories() {
             Category.get(function sc(response) {
+                if (response.categories.length === 0) {
+                    $state.go('category.new');
+                }
                 vm.categories = response.categories;
             })
         }

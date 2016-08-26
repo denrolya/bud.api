@@ -5,8 +5,8 @@
         .module('admin')
         .controller('ListController', ListController);
 
-    ListController.$inject = ['Place', 'SweetAlert'];
-    function ListController(Place, SweetAlert) {
+    ListController.$inject = ['$state', 'Place', 'SweetAlert'];
+    function ListController($state, Place, SweetAlert) {
         var vm = this;
 
         vm.places = [];
@@ -18,6 +18,9 @@
 
         function getPlaces() {
             Place.get(function sc(response) {
+                if (response.places.length === 0) {
+                    $state.go('place.new');
+                }
                 vm.places = response.places;
             });
         }

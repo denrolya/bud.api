@@ -7,7 +7,7 @@
         .config(['$stateProvider',
             function($stateProvider) {
                 $stateProvider
-                    .state('places', {
+                    .state('place', {
                         abstract: true,
                         url: '/places',
                         template: '<ui-view/>',
@@ -26,19 +26,19 @@
                             }
                         }
                     })
-                    .state('places.new', {
+                    .state('place.new', {
                         url: '/create',
                         templateUrl: '/assets/admin/places/views/create.html',
                         controller: 'CreateController',
                         controllerAs: 'vm',
                     })
-                    .state('places.list', {
+                    .state('place.list', {
                         url: '/list',
                         templateUrl: '/assets/admin/places/views/list.html',
                         controller: 'ListController',
                         controllerAs: 'vm',
                     })
-                    .state('places.edit', {
+                    .state('place.edit', {
                         url: '/:slug/edit',
                         templateUrl: '/assets/admin/places/views/edit.html',
                         controller: 'EditController',

@@ -5,8 +5,8 @@
         .module('admin')
         .controller('CreateController', CreateController);
 
-    CreateController.$inject = ['$scope', 'CategoryFormFields', 'Category'];
-    function CreateController($scope, CategoryFormFields, Category) {
+    CreateController.$inject = ['$scope', '$state', 'CategoryFormFields', 'Category'];
+    function CreateController($scope, $state, CategoryFormFields, Category) {
         var vm = this;
 
         vm.newCategory = {};
@@ -48,10 +48,16 @@
             }
         };
 
-        function submitCategory() {
+        function submitCategory(goToListing) {
             var newCategory = new Category({'category': vm.newCategory});
             newCategory.$save(function sc(response) {
-                console.log(response);
+                if (goToListing) {
+                    $state.go('category.list');
+                } else {
+                    vm.options.resetModel();
+                    vm.dropzone.removeAllFiles(true);
+                    vm.newCategory = {};
+                }
             });
         }
     }

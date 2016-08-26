@@ -51,10 +51,16 @@
             }
         };
 
-        function submitPlace() {
+        function submitPlace(goToListing) {
             var newPlace = new Place(PlaceService.formatPlaceToSubmit(vm.newPlace));
             newPlace.$save(function sc(response) {
-                console.log(response);
+                if (goToListing) {
+                    $state.go('place.list');
+                } else {
+                    vm.options.resetModel();
+                    vm.dropzone.removeAllFiles(true);
+                    vm.newCategory = {};
+                }
             });
         }
 

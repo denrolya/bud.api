@@ -53,7 +53,13 @@
         function submitEvent() {
             var newEvent = new Event(EventService.formatEventToEdit(vm.newEvent));
             newEvent.$save(function sc(response) {
-                console.log(response);
+                if (goToListing) {
+                    $state.go('event.list');
+                } else {
+                    vm.options.resetModel();
+                    vm.dropzone.removeAllFiles(true);
+                    vm.newCategory = {};
+                }
             });
         }
     }
