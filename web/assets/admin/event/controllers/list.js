@@ -34,7 +34,10 @@
                     closeOnCancel: false },
                 function(isConfirm){
                     if (isConfirm) {
-                        SweetAlert.swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        Event.delete({slug: event.slug}, function(response) {
+                            vm.events.splice(vm.events.indexOf(event), 1);
+                            SweetAlert.swal("Deleted!", "Removed your fuckin event.", "success");
+                        });
                     } else {
                         SweetAlert.swal("Cancelled", "Your imaginary file is safe :)", "error");
                     }

@@ -112,6 +112,20 @@ class EventApiController extends FOSRestController
     }
 
     /**
+     * @Delete("/events/{eventSlug}", requirements={"eventSlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
+     */
+    public function deleteEventAction(Event $event)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($event);
+        $em->flush();
+
+        return true;
+    }
+
+    /**
      * Post existing event file
      *
      * @Post("/events/{eventSlug}/files", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
