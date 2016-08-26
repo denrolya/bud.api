@@ -99,6 +99,20 @@ class CategoryApiController extends FOSRestController
     }
 
     /**
+     * @Delete("/categories/{categorySlug}", requirements={"categorySlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("category", class="AppBundle:Category", options={"mapping": {"categorySlug": "slug"}})
+     */
+    public function deleteCategoryAction(Category $category)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($category);
+        $em->flush();
+
+        return true;
+    }
+
+    /**
      * Post category file
      *
      * @Post("/categories/files")

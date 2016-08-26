@@ -45,7 +45,7 @@
                         controllerAs: 'vm',
                         resolve: {
                             place: function($stateParams, Place) {
-                                return Place.get({slug: $stateParams.slug}, function sc(response) {
+                                return Place.get({placeSlug: $stateParams.placeSlug}, function sc(response) {
                                     return response;
                                 });
                             }

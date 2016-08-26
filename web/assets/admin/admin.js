@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('admin', ['ui.router', 'ngResource', 'oc.lazyLoad', 'ui.bootstrap', 'formly', 'formlyBootstrap', 'summernote', 'ui.bootstrap.datetimepicker', 'dropzone'])
+        .module('admin', ['ui.router', 'ngResource', 'oc.lazyLoad', 'ui.bootstrap', 'formly', 'formlyBootstrap', 'summernote', 'ui.bootstrap.datetimepicker', 'dropzone', 'oitozero.ngSweetAlert'])
         .run(function(formlyConfig, formlyValidationMessages) {
             formlyConfig.setType([{
                 name: 'typeahead',

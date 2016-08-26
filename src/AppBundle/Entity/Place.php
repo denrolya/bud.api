@@ -66,7 +66,7 @@ class Place
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="places")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $category;
 
@@ -137,9 +137,9 @@ class Place
     /**
      * A Unidirectional One-To-Many relation, built in Doctrine2 way
      *
-     * @ORM\ManyToMany(targetEntity="File", fetch="EAGER",  cascade={"remove", "persist"})
+     * @ORM\ManyToMany(targetEntity="File", fetch="EAGER",  cascade={"all"})
      * @ORM\JoinTable(name="places_images",
-     *      joinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true, onDelete="CASCADE")},
      *      )
      */

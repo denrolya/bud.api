@@ -7,13 +7,16 @@
 
     Place.$inject = ['$resource'];
     function Place($resource) {
-        return $resource('/app_dev.php/api/secure/places/:slug', {slug: '@slug'}, {
+        return $resource('/app_dev.php/api/secure/places/:slug', {slug: '@placeSlug'}, {
             edit: {
                 method: 'POST'
             },
+            delete: {
+                method: 'DELETE'
+            },
             removeFile: {
                 method: 'DELETE',
-                url: '/app_dev.php/api/secure/places/:slug/files/:fileId',
+                url: '/app_dev.php/api/secure/places/:placeSlug/files/:fileId',
                 params: {
                     fileId: '@fileId'
                 }

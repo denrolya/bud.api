@@ -34,6 +34,10 @@
     "angular-summernote": "^0.8.1",
     "angular-bootstrap-datetimepicker": "^1.0.1",
     "moment": "^2.14.1",
-    "oclazyload": "ocLazyLoad#^1.0.9"
+    "oclazyload": "ocLazyLoad#^1.0.9",
+    "ngSweetAlert": "angular-sweetalert#^1.1.0"
+  },
+  "resolutions": {
+    "angular": "^1.5.7"
   }
 }

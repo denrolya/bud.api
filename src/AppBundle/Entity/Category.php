@@ -49,8 +49,8 @@ class Category
     /**
      * @var File
      *
-     * @ORM\OneToOne(targetEntity="File", fetch="EAGER")
-     * @ORM\JoinColumn(name="cover_image_id", referencedColumnName="id", unique=true, nullable=true)
+     * @ORM\OneToOne(targetEntity="File", fetch="EAGER", cascade={"all"})
+     * @ORM\JoinColumn(name="cover_image_id", referencedColumnName="id", unique=true, nullable=true, onDelete="CASCADE")
      */
     private $coverImage;
 

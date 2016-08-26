@@ -59,7 +59,7 @@
                 },
                 'removedfile': function (file) {
                     if (file.id) {
-                        Place.removeFile({slug: $stateParams.slug, fileId: file.id}, function sc(response) {
+                        Place.removeFile({placeSlug: $stateParams.placeSlug, fileId: file.id}, function sc(response) {
                             console.log('File successfully removed!');
                         })
                     }

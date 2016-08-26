@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class PlaceApiController
@@ -160,6 +161,63 @@ class PlaceApiController extends FOSRestController
         }
 
         return $response;
+    }
+
+    /**
+     * @Delete("/places/{placeSlug}", requirements={"placeSlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("place", class="AppBundle:Place", options={"mapping": {"placeSlug": "slug"}})
+     */
+    public function deletePlaceAction(Place $place)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($place);
+        $em->flush();
+
+        return true;
+    }
+
+    /**
+     * Post existing event file
+     *
+     * @Post("/places/{placeSlug}/files", requirements={"placeSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("place", class="AppBundle:Place", options={"mapping": {"placeSlug": "slug"}})
+     */
+    public function postExistingPlaceFileAction(Place $place, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var UploadedFile $file */
+        $file = $request->files->get('uploadfile');
+        $status = ['status' => 'success', 'fileUploaded' => false];
+
+        if (!is_null($file)) {
+            $fs = new Filesystem();
+
+            $placeDir = $this->getParameter('places_dir') . '/' . $place->getId() . '-' . $place->getSlug();
+
+            $filename = md5(uniqid()).'.'.$file->guessExtension();
+            // TODO: Exception handling here!
+            $file->move($placeDir, $filename);
+
+            // TODO: Refactor URI Generation
+            $fileUri = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/uploads/places/' . $place->getId() . '-' . $place->getSlug() . '/' . $filename;
+            $newFile = (new File())
+                ->setName($filename)
+                ->setAbsolutePath($placeDir . '/' . $filename)
+                ->setUri($fileUri)
+                ->setSize($file->getClientSize());
+
+            $em->persist($newFile);
+
+            $place->addImage($newFile);
+
+            $em->flush();
+
+            $status = ['status' => "success", "fileUploaded" => true, 'file_id' => $newFile->getId()];
+        }
+
+        return $status;
     }
 
     /**
