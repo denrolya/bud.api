@@ -4,7 +4,7 @@
             <h2 class="box-title">List</h2>
         </div>
         <div class="box-body">
-            <table class="table table-bordered table-condensed table-hover">
+            <table class="table table-bordered table-condensed table-hover table">
                 <thead>
                     <th>Category</th>
                     <th>Name</th>
@@ -14,14 +14,22 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="place in vm.places">
-                        <td>{{ place.category.name }}</td>
+                        <td>
+                            <a href="">
+                                {{ place.category.name }}
+                            </a>
+                        </td>
                         <td>
                             <span uib-tooltip="{{ place.shortDescription }}">
                                 {{ place.name }}
                             </span>
                         </td>
                         <td>{{ place.address }}</td>
-                        <td>{{ place.website | limitTo : 50 }}</td>
+                        <td>
+                            <a ng-href="{{ place.website }}">
+                                {{ place.website | limitTo : 50 }}
+                            </a>
+                        </td>
                         <td>
                             <a href="" class="btn btn-default btn-flat" ng-click="vm.removePlace(place)">
                                 <i class="fa fa-trash" aria-hidden="true" ></i>

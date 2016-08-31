@@ -21,7 +21,11 @@
                             </span>
                         </td>
                         <td>{{ event.location }}</td>
-                        <td>{{ event.website }}</td>
+                        <td>
+                            <a ng-href="{{ event.website}}">
+                                {{ event.website | limitTo : 50 }}
+                            </a>
+                        </td>
                         <td>{{ event.dateFrom | date }} - {{ event.dateTo | date }}</td>
                         <td>
                             <a href="" class="btn btn-default btn-flat" ui-sref="event.edit({eventSlug: event.slug})">
