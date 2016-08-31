@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('EditController', EditController);
+        .controller('EditPlaceController', EditPlaceController);
 
-    EditController.$inject = ['$scope', '$state', '$stateParams', 'PlaceFormFields', 'Place', 'place', 'PlaceService', 'SweetAlert'];
-    function EditController($scope, $state, $stateParams, PlaceFormFields, Place, place, PlaceService, SweetAlert) {
+    EditPlaceController.$inject = ['$scope', '$state', '$stateParams', 'PlaceFormFields', 'Place', 'place', 'PlaceService', 'SweetAlert'];
+    function EditPlaceController($scope, $state, $stateParams, PlaceFormFields, Place, place, PlaceService, SweetAlert) {
         var vm = this;
 
         place.$promise.then(function(r) {

@@ -15,7 +15,7 @@
                     .state('category.list', {
                         url: '/list',
                         templateUrl: '/assets/admin/category/views/list.html',
-                        controller: 'ListController',
+                        controller: 'ListCategoryController',
                         controllerAs: 'vm',
                         resolve: {
                             loadPlugin: function ($ocLazyLoad) {
@@ -31,7 +31,7 @@
                     .state('category.new', {
                         url: '/create',
                         templateUrl: '/assets/admin/category/views/create.html',
-                        controller: 'CreateController',
+                        controller: 'CreateCategoryController',
                         controllerAs: 'vm',
                         resolve: {
                             loadPlugin: function ($ocLazyLoad) {
@@ -46,13 +46,13 @@
                         }
                     })
                     .state('category.edit', {
-                        url: '/:slug/edit',
+                        url: '/:categorySlug/edit',
                         templateUrl: '/assets/admin/category/views/edit.html',
-                        controller: 'EditController',
+                        controller: 'EditCategoryController',
                         controllerAs: 'vm',
                         resolve: {
                             category: function($stateParams, Category) {
-                                return Category.get({categorySlug: $stateParams.slug}, function sc(response) {
+                                return Category.get({categorySlug: $stateParams.categorySlug}, function sc(response) {
                                     return response;
                                 });
                             },

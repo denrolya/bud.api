@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('CreateController', CreateController);
+        .controller('CreatePlaceController', CreatePlaceController);
 
-    CreateController.$inject = ['$scope', '$state', 'PlaceFormFields', 'Place', 'PlaceService'];
-    function CreateController($scope, $state, PlaceFormFields, Place, PlaceService) {
+    CreatePlaceController.$inject = ['$scope', '$state', 'PlaceFormFields', 'Place', 'PlaceService'];
+    function CreatePlaceController($scope, $state, PlaceFormFields, Place, PlaceService) {
         var vm = this;
 
         vm.newPlace = {};

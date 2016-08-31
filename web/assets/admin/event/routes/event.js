@@ -29,19 +29,19 @@
                     .state('event.new', {
                         url: '/create',
                         templateUrl: '/assets/admin/event/views/create.html',
-                        controller: 'CreateController',
+                        controller: 'CreateEventController',
                         controllerAs: 'vm',
                     })
                     .state('event.list', {
                         url: '/list',
                         templateUrl: '/assets/admin/event/views/list.html',
-                        controller: 'ListController',
+                        controller: 'ListEventController',
                         controllerAs: 'vm',
                     })
                     .state('event.edit', {
                         url: '/:eventSlug/edit',
                         templateUrl: '/assets/admin/event/views/edit.html',
-                        controller: 'EditController',
+                        controller: 'EditEventController',
                         controllerAs: 'vm',
                         resolve: {
                             event: function($stateParams, Event) {

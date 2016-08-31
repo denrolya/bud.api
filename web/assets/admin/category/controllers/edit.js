@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('EditController', EditController);
+        .controller('EditCategoryController', EditCategoryController);
 
-    EditController.$inject = ['$scope', '$stateParams', 'CategoryFormFields', 'category', 'Category'];
-    function EditController($scope, $stateParams, CategoryFormFields, category, Category) {
+    EditCategoryController.$inject = ['$scope', '$stateParams', 'CategoryFormFields', 'category', 'Category'];
+    function EditCategoryController($scope, $stateParams, CategoryFormFields, category, Category) {
         var vm = this;
 
         category.$promise.then(function(r) {

@@ -29,19 +29,19 @@
                     .state('place.new', {
                         url: '/create',
                         templateUrl: '/assets/admin/places/views/create.html',
-                        controller: 'CreateController',
+                        controller: 'CreatePlaceController',
                         controllerAs: 'vm',
                     })
                     .state('place.list', {
                         url: '/list',
                         templateUrl: '/assets/admin/places/views/list.html',
-                        controller: 'ListController',
+                        controller: 'ListPlaceController',
                         controllerAs: 'vm',
                     })
                     .state('place.edit', {
                         url: '/:placeSlug/edit',
                         templateUrl: '/assets/admin/places/views/edit.html',
-                        controller: 'EditController',
+                        controller: 'EditPlaceController',
                         controllerAs: 'vm',
                         resolve: {
                             place: function($stateParams, Place) {

@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('ListController', ListController);
+        .controller('ListEventController', ListEventController);
 
-    ListController.$inject = ['$state', 'Event', 'SweetAlert'];
-    function ListController($state, Event, SweetAlert) {
+    ListEventController.$inject = ['$state', 'Event', 'SweetAlert'];
+    function ListEventController($state, Event, SweetAlert) {
         var vm = this;
 
         vm.events = [];

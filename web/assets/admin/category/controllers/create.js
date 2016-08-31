@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('CreateController', CreateController);
+        .controller('CreateCategoryController', CreateCategoryController);
 
-    CreateController.$inject = ['$scope', '$state', 'CategoryFormFields', 'Category'];
-    function CreateController($scope, $state, CategoryFormFields, Category) {
+    CreateCategoryController.$inject = ['$scope', '$state', 'CategoryFormFields', 'Category'];
+    function CreateCategoryController($scope, $state, CategoryFormFields, Category) {
         var vm = this;
 
         vm.newCategory = {};

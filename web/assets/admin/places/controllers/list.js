@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('ListController', ListController);
+        .controller('ListPlaceController', ListPlaceController);
 
-    ListController.$inject = ['$state', 'Place', 'SweetAlert'];
-    function ListController($state, Place, SweetAlert) {
+    ListPlaceController.$inject = ['$state', 'Place', 'SweetAlert'];
+    function ListPlaceController($state, Place, SweetAlert) {
         var vm = this;
 
         vm.places = [];

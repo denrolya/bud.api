@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('CreateController', CreateController);
+        .controller('CreateEventController', CreateEventController);
 
-    CreateController.$inject = ['$scope', 'EventFormFields', 'Event', 'EventService'];
-    function CreateController($scope, EventFormFields, Event, EventService) {
+    CreateEventController.$inject = ['$scope', 'EventFormFields', 'Event', 'EventService'];
+    function CreateEventController($scope, EventFormFields, Event, EventService) {
         var vm = this;
 
         vm.newEvent = {};

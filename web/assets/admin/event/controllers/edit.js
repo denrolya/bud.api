@@ -3,10 +3,10 @@
 
     angular
         .module('admin')
-        .controller('EditController', EditController);
+        .controller('EditEventController', EditEventController);
 
-    EditController.$inject = ['$scope', '$state', '$stateParams', 'EventFormFields', 'Event', 'event', 'EventService', 'SweetAlert'];
-    function EditController($scope, $state, $stateParams, EventFormFields, Event, event, EventService, SweetAlert) {
+    EditEventController.$inject = ['$scope', '$state', '$stateParams', 'EventFormFields', 'Event', 'event', 'EventService', 'SweetAlert'];
+    function EditEventController($scope, $state, $stateParams, EventFormFields, Event, event, EventService, SweetAlert) {
         var vm = this;
 
         event.$promise.then(function(r) {
