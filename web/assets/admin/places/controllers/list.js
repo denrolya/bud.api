@@ -31,18 +31,19 @@
                     text: "Your will not be able to recover this shit!",
                     type: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
                     cancelButtonText: "No, cancel pls!",
                     closeOnConfirm: false,
                     closeOnCancel: false },
                 function(isConfirm){
                     if (isConfirm) {
-                        Place.delete({slug: place.slug}, function sc(response) {
+                        Place.delete({placeSlug: place.slug}, function sc(response) {
                             vm.places.splice(vm.places.indexOf(place), 1);
-                            SweetAlert.swal("Deleted!", "Removed your fuckin place.", "success");
+                            SweetAlert.swal("Deleted!", "Removed place.", "success");
                         });
                     } else {
-                        SweetAlert.swal("Cancelled", "Place is fuckin safe.", "error");
+                        SweetAlert.swal("Cancelled", "Place is safe.", "error");
                     }
                 });
         }

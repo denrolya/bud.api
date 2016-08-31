@@ -1,16 +1,38 @@
 <div class="row">
-    <div class="col-md-3" ng-repeat="place in vm.places">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ place.name }}</h3>
-                <a href="" class="pull-right">
-                    <i class="fa fa-trash" aria-hidden="true" ng-click="vm.removePlace(place)"></i>
-                </a>
-            </div>
-
-            <div class="box-body" ui-sref="place.edit({placeSlug: place.slug})">
-                <img ng-src="{{ place.images[0].uri }}" class="img-thumbnail img-responsive" alt="{{ place.images[0].name }}" ng-if="place.images[0]">
-            </div>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h2 class="box-title">List</h2>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered table-condensed table-hover">
+                <thead>
+                    <th>Category</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Website</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="place in vm.places">
+                        <td>{{ place.category.name }}</td>
+                        <td>
+                            <span uib-tooltip="{{ place.shortDescription }}">
+                                {{ place.name }}
+                            </span>
+                        </td>
+                        <td>{{ place.address }}</td>
+                        <td>{{ place.website | limitTo : 50 }}</td>
+                        <td>
+                            <a href="" class="btn btn-default btn-flat" ng-click="vm.removePlace(place)">
+                                <i class="fa fa-trash" aria-hidden="true" ></i>
+                            </a>
+                            <a href="" class="btn btn-default btn-flat" ui-sref="place.edit({placeSlug: place.slug})">
+                                <i class="fa fa-pencil" aria-hidden="true" ></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

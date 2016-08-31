@@ -1,16 +1,39 @@
 <div class="row">
-    <div class="col-md-3" ng-repeat="event in vm.events">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ event.title }}</h3>
-                <a href="" class="pull-right">
-                    <i class="fa fa-trash" aria-hidden="true" ng-click="vm.removeEvent(event)"></i>
-                </a>
-            </div>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">List</h3>
+        </div>
 
-            <div class="box-body" ui-sref="event.edit({eventSlug: event.slug})">
-                <img ng-src="{{ event.images[0].uri }}" class="img-thumbnail img-responsive" alt="{{ event.images[0].name }}" ng-if="event.images[0]">
-            </div>
+        <div class="box-body">
+            <table class="table table-bordered table-condensed table-hover">
+                <thead>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Website</th>
+                    <th>Dates</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="event in vm.events">
+                        <td>
+                            <span uib-tooltip="{{ event.shortDescription }}">
+                                {{ event.title }}
+                            </span>
+                        </td>
+                        <td>{{ event.location }}</td>
+                        <td>{{ event.website }}</td>
+                        <td>{{ event.dateFrom | date }} - {{ event.dateTo | date }}</td>
+                        <td>
+                            <a href="" class="btn btn-default btn-flat" ui-sref="event.edit({eventSlug: event.slug})">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a href="" class="btn btn-default btn-flat" ng-click="vm.removeEvent(event)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
