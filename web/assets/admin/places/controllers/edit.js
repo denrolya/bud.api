@@ -5,8 +5,8 @@
         .module('admin')
         .controller('EditController', EditController);
 
-    EditController.$inject = ['$scope', '$stateParams', 'PlaceFormFields', 'Place', 'place', 'PlaceService'];
-    function EditController($scope, $stateParams, PlaceFormFields, Place, place, PlaceService) {
+    EditController.$inject = ['$scope', '$state', '$stateParams', 'PlaceFormFields', 'Place', 'place', 'PlaceService', 'SweetAlert'];
+    function EditController($scope, $state, $stateParams, PlaceFormFields, Place, place, PlaceService, SweetAlert) {
         var vm = this;
 
         place.$promise.then(function(r) {
@@ -34,7 +34,7 @@
 
         vm.dropzoneConfig = {
             'options': {
-                url: "/app_dev.php/api/secure/places/" + $stateParams.slug + "/files",
+                url: "/app_dev.php/api/secure/places/" + $stateParams.placeSlug + "/files",
                 maxFilesize: 100,
                 paramName: "uploadfile",
                 addRemoveLinks: true,
@@ -60,16 +60,31 @@
                 'removedfile': function (file) {
                     if (file.id) {
                         Place.removeFile({placeSlug: $stateParams.placeSlug, fileId: file.id}, function sc(response) {
-                            console.log('File successfully removed!');
+                            SweetAlert.swal({
+                                title: "Success!",
+                                text: "File was fuckin deleted.",
+                                timer: 1500,
+                                showConfirmButton: true
+                            })
                         })
                     }
                 }
             }
         }
 
-        function editPlace() {
-            Place.edit({slug: vm.place.slug}, PlaceService.formatPlaceToSubmit(vm.place), function sc(response) {
-                console.log(response);
+        function editPlace(goToListing) {
+            Place.edit({placeSlug: vm.place.slug}, PlaceService.formatPlaceToSubmit(vm.place), function sc(response) {
+                vm.placeForm = undefined;
+                if (goToListing) {
+                    $state.go('place.list')
+                } else {
+                    SweetAlert.swal({
+                        title: "Success!",
+                        text: "Place was edited successfully.",
+                        timer: 1500,
+                        showConfirmButton: true
+                    })
+                }
             });
         }
 

@@ -8,7 +8,7 @@
                 </a>
             </div>
 
-            <div class="box-body" ui-sref="place.edit({slug: place.slug})">
+            <div class="box-body" ui-sref="place.edit({placeSlug: place.slug})">
                 <img ng-src="{{ place.images[0].uri }}" class="img-thumbnail img-responsive" alt="{{ place.images[0].name }}" ng-if="place.images[0]">
             </div>
         </div>

@@ -5,8 +5,8 @@
         .module('admin')
         .controller('EditController', EditController);
 
-    EditController.$inject = ['$scope', '$stateParams', 'EventFormFields', 'Event', 'event', 'EventService'];
-    function EditController($scope, $stateParams, EventFormFields, Event, event, EventService) {
+    EditController.$inject = ['$scope', '$state', '$stateParams', 'EventFormFields', 'Event', 'event', 'EventService', 'SweetAlert'];
+    function EditController($scope, $state, $stateParams, EventFormFields, Event, event, EventService, SweetAlert) {
         var vm = this;
 
         event.$promise.then(function(r) {
@@ -33,7 +33,7 @@
 
         vm.dropzoneConfig = {
             'options': {
-                url: "/app_dev.php/api/secure/events/" + $stateParams.slug + "/files",
+                url: "/app_dev.php/api/secure/events/" + $stateParams.eventSlug + "/files",
                 maxFilesize: 100,
                 paramName: "uploadfile",
                 addRemoveLinks: true,
@@ -58,17 +58,32 @@
                 },
                 'removedfile': function (file) {
                     if (file.id) {
-                        Event.removeFile({slug: $stateParams.slug, fileId: file.id}, function sc(response) {
-                            console.log('File successfully removed!');
+                        Event.removeFile({eventSlug: $stateParams.eventSlug, fileId: file.id}, function sc(response) {
+                            SweetAlert.swal({
+                                title: "Success!",
+                                text: "File was fuckin deleted.",
+                                timer: 1500,
+                                showConfirmButton: true
+                            })
                         })
                     }
                 }
             }
         }
 
-        function editEvent() {
-            Event.edit({slug: vm.event.slug}, EventService.formatEventToEdit(vm.event), function sc(response) {
-                console.log(response);
+        function editEvent(goToListing) {
+            Event.edit({eventSlug: vm.event.slug}, EventService.formatEventToEdit(vm.event), function sc(response) {
+                vm.eventForm = undefined;
+                if (goToListing) {
+                    $state.go('event.list')
+                } else {
+                    SweetAlert.swal({
+                        title: "Success!",
+                        text: "Event was edited successfully.",
+                        timer: 1500,
+                        showConfirmButton: true
+                    })
+                }
             });
         }
     }

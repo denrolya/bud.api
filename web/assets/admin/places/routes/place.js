@@ -39,7 +39,7 @@
                         controllerAs: 'vm',
                     })
                     .state('place.edit', {
-                        url: '/:slug/edit',
+                        url: '/:placeSlug/edit',
                         templateUrl: '/assets/admin/places/views/edit.html',
                         controller: 'EditController',
                         controllerAs: 'vm',

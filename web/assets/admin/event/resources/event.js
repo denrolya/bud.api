@@ -7,7 +7,7 @@
 
     Event.$inject = ['$resource'];
     function Event($resource) {
-        return $resource('/app_dev.php/api/secure/events/:slug', {slug: '@slug'}, {
+        return $resource('/app_dev.php/api/secure/events/:eventSlug', {eventSlug: '@eventSlug'}, {
             edit: {
                 method: 'POST'
             },
@@ -16,7 +16,7 @@
             },
             removeFile: {
                 method: 'DELETE',
-                url: '/app_dev.php/api/secure/events/:slug/files/:fileId',
+                url: '/app_dev.php/api/secure/events/:eventSlug/files/:fileId',
                 params: {
                     fileId: '@fileId'
                 }

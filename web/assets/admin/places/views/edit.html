@@ -19,7 +19,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-disabled="vm.placeForm.$invalid" ng-click="vm.editPlace()">Edit</button>
+                <button type="submit" class="btn btn-success" ng-disabled="vm.placeForm.$invalid" ng-click="vm.editPlace(true)">Edit and go to List</button>
+                <button type="submit" class="btn btn-success" ng-disabled="vm.placeForm.$invalid" ng-click="vm.editPlace(false)">Edit</button>
             </div>
         </formly-form>
     </div>

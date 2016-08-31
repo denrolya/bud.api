@@ -39,13 +39,13 @@
                         controllerAs: 'vm',
                     })
                     .state('event.edit', {
-                        url: '/:slug/edit',
+                        url: '/:eventSlug/edit',
                         templateUrl: '/assets/admin/event/views/edit.html',
                         controller: 'EditController',
                         controllerAs: 'vm',
                         resolve: {
                             event: function($stateParams, Event) {
-                                return Event.get({slug: $stateParams.slug}, function sc(response) {
+                                return Event.get({eventSlug: $stateParams.eventSlug}, function sc(response) {
                                     response.dateFrom = moment(response.dateFrom);
                                     response.dateTo = (response.dateTo) ? moment(response.dateTo) : null;
 

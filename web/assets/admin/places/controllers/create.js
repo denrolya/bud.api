@@ -5,8 +5,8 @@
         .module('admin')
         .controller('CreateController', CreateController);
 
-    CreateController.$inject = ['$scope', 'PlaceFormFields', 'Place', 'PlaceService'];
-    function CreateController($scope, PlaceFormFields, Place, PlaceService) {
+    CreateController.$inject = ['$scope', '$state', 'PlaceFormFields', 'Place', 'PlaceService'];
+    function CreateController($scope, $state, PlaceFormFields, Place, PlaceService) {
         var vm = this;
 
         vm.newPlace = {};
@@ -54,6 +54,7 @@
         function submitPlace(goToListing) {
             var newPlace = new Place(PlaceService.formatPlaceToSubmit(vm.newPlace));
             newPlace.$save(function sc(response) {
+                vm.placeForm = undefined;
                 if (goToListing) {
                     $state.go('place.list');
                 } else {
