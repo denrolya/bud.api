@@ -24,12 +24,13 @@
                 vm.dropzone.files.push(mockFile);
                 vm.dropzone.emit("complete", mockFile);
             }, vm.dropzone);
+            vm.initializeMap(vm.place);
         });
 
         vm.place = place;
         vm.placeFormFields = PlaceFormFields;
 
-        vm.initMap = initMap;
+        vm.initializeMap = initializeMap;
         vm.editPlace = editPlace;
 
         vm.dropzoneConfig = {
@@ -88,25 +89,44 @@
             });
         }
 
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: Number(vm.place.latitude), lng: Number(vm.place.longitude)},
-                zoom: 13
+        function initializeMap(place) {
+            var placeLocation = new google.maps.LatLng(place.latitude, place.longitude),
+                infowindow = new google.maps.InfoWindow(),
+                mapElement = document.getElementById('map'),
+                input = document.getElementById('pac-input');
+
+            var map = new google.maps.Map(mapElement, {
+                center: placeLocation,
+                zoom: 15
             });
-            var input = document.getElementById('pac-input');
+
+            var marker = new google.maps.Marker({
+                map: map,
+                position: placeLocation
+            });
 
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
             var autocomplete = new google.maps.places.Autocomplete(input);
             autocomplete.bindTo('bounds', map);
 
-            var infowindow = new google.maps.InfoWindow();
+            $scope.map = map;
+            var marker = new google.maps.Marker({
+                map: map,
+                position: vm.place.location
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.setContent(vm.place.name);
+                infowindow.open(map, this);
+            });
+
             var marker = new google.maps.Marker({
                 map: map,
                 anchorPoint: new google.maps.Point(0, -29)
             });
 
-            autocomplete.addListener('place_changed', function() {
+            autocomplete.addListener('place_changed', function () {
                 infowindow.close();
                 marker.setVisible(false);
                 var place = autocomplete.getPlace();
