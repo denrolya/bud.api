@@ -114,6 +114,7 @@
                     window.alert("Autocomplete's returned place contains no geometry");
                     return;
                 }
+                console.log(place);
 
                 // If the place has a geometry, then present it on a map.
                 if (place.geometry.viewport) {
@@ -150,6 +151,7 @@
                 vm.place.website = place.website;
                 vm.place.latitude = place.geometry.location.lat();
                 vm.place.longitude = place.geometry.location.lng();
+                vm.newPlace.googleID = place.place_id;
                 $scope.$apply();
             });
         }
