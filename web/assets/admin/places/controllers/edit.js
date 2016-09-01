@@ -151,7 +151,7 @@
                 vm.place.website = place.website;
                 vm.place.latitude = place.geometry.location.lat();
                 vm.place.longitude = place.geometry.location.lng();
-                vm.newPlace.googleID = place.place_id;
+                vm.place.googleID = place.place_id;
                 $scope.$apply();
             });
         }
