@@ -100,30 +100,19 @@
                 zoom: 15
             });
 
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
             var marker = new google.maps.Marker({
                 map: map,
                 position: placeLocation
             });
 
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
             var autocomplete = new google.maps.places.Autocomplete(input);
             autocomplete.bindTo('bounds', map);
 
-            $scope.map = map;
-            var marker = new google.maps.Marker({
-                map: map,
-                position: vm.place.location
-            });
-
             google.maps.event.addListener(marker, 'click', function () {
-                infowindow.setContent(vm.place.name);
+                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + place.address);
                 infowindow.open(map, this);
-            });
-
-            var marker = new google.maps.Marker({
-                map: map,
-                anchorPoint: new google.maps.Point(0, -29)
             });
 
             autocomplete.addListener('place_changed', function () {

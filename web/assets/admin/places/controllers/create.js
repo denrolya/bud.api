@@ -9,7 +9,7 @@
     function CreatePlaceController($scope, $state, PlaceFormFields, Place, PlaceService) {
         var vm = this;
 
-        vm.newPlace = {};
+        vm.place = {};
 
         vm.placeFormFields = PlaceFormFields;
 
@@ -36,9 +36,9 @@
                     formData.append("_token", angular.element.find('meta[name="csrf-token"]')[0].content);
                 },
                 'success': function(file, response) {
-                    vm.newPlace.images = vm.newPlace.images || [];
+                    vm.place.images = vm.place.images || [];
 
-                    vm.newPlace.images.push(response);
+                    vm.place.images.push(response);
 
                     $scope.$apply();
                 },
@@ -52,7 +52,7 @@
         };
 
         function submitPlace(goToListing) {
-            var newPlace = new Place(PlaceService.formatPlaceToSubmit(vm.newPlace));
+            var newPlace = new Place(PlaceService.formatPlaceToSubmit(vm.place));
             newPlace.$save(function sc(response) {
                 vm.placeForm = undefined;
                 if (goToListing) {
@@ -99,7 +99,7 @@
                     map.fitBounds(place.geometry.viewport);
                 } else {
                     map.setCenter(place.geometry.location);
-                    map.setZoom(17);  // Why 17? Because it looks good.
+                    map.setZoom(13);
                 }
                 marker.setIcon(/** @type {google.maps.Icon} */({
                     url: place.icon,
@@ -123,13 +123,13 @@
                 infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
                 infowindow.open(map, marker);
 
-                vm.newPlace.name = place.name;
-                vm.newPlace.address = place.formatted_address;
-                vm.newPlace.phonenumber = place.international_phone_number;
-                vm.newPlace.website = place.website;
-                vm.newPlace.latitude = place.geometry.location.lat();
-                vm.newPlace.longitude = place.geometry.location.lng();
-                vm.newPlace.googleID = place.place_id;
+                vm.place.name = place.name;
+                vm.place.address = place.formatted_address;
+                vm.place.phonenumber = place.international_phone_number;
+                vm.place.website = place.website;
+                vm.place.latitude = place.geometry.location.lat();
+                vm.place.longitude = place.geometry.location.lng();
+                vm.place.googleID = place.place_id;
                 $scope.$apply();
             });
         }

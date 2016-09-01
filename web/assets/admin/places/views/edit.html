@@ -5,7 +5,7 @@
 
     <div class="box-body">
         <div class="form-group map-input">
-            <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+            <input id="pac-input" class="controls" type="text" placeholder="Enter a location" ng-model="vm.place.name">
             <div id="map"></div>
         </div>
         <formly-form model="vm.place" fields="vm.placeFormFields" options="vm.options" form="vm.placeForm">
