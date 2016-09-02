@@ -52,15 +52,6 @@
                 Category.get(function(response) {
                     $scope.to.options = $scope.to.options.concat(response.categories);
                 })
-            },
-            validators: {
-                isInList: {
-                    expression: function(viewValue, modelValue, scope) {
-                        var value = modelValue || viewValue;
-                        return (scope.to.options.length > 0) ? (scope.to.options.indexOf(value) !== -1) : true;
-                    },
-                    message: '$viewValue + " is not in the list'
-                }
             }
         }, {
             key: 'descriptionBlock1',

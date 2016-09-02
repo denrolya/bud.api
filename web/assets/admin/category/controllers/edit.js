@@ -5,8 +5,8 @@
         .module('admin')
         .controller('EditCategoryController', EditCategoryController);
 
-    EditCategoryController.$inject = ['$scope', '$stateParams', 'CategoryFormFields', 'category', 'Category'];
-    function EditCategoryController($scope, $stateParams, CategoryFormFields, category, Category) {
+    EditCategoryController.$inject = ['$state', '$stateParams', 'CategoryFormFields', 'category', 'Category', 'SweetAlert'];
+    function EditCategoryController($state, $stateParams, CategoryFormFields, category, Category, SweetAlert) {
         var vm = this;
 
         category.$promise.then(function(r) {
@@ -59,7 +59,7 @@
             }
         }
 
-        function editCategory() {
+        function editCategory(goToListing) {
             var category = {
                 category: {
                     name: vm.category.name
@@ -67,7 +67,16 @@
             };
 
             Category.edit({categorySlug: vm.category.slug}, category, function sc(response) {
-                console.log(response);
+                if (goToListing) {
+                    $state.go('category.list')
+                } else {
+                    SweetAlert.swal({
+                        title: "Success!",
+                        text: "Category was edited successfully.",
+                        timer: 1500,
+                        showConfirmButton: true
+                    })
+                }
             });
         }
     }

@@ -15,8 +15,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success" ng-disabled="vm.eventForm.$invalid" ng-click="vm.editEvent(true)">Edit and go to List</button>
-                <button type="submit" class="btn btn-success" ng-disabled="vm.eventForm.$invalid" ng-click="vm.editEvent(false)">Edit</button>
+                <div class="btn-group pull-left" role="group" aria-label="Edit">
+                    <button type="submit" class="btn btn-success" ng-disabled="vm.eventForm.$invalid" ng-click="vm.editEvent(true)">Edit and go to List</button>
+                    <button type="submit" class="btn btn-success" ng-disabled="vm.eventForm.$invalid" ng-click="vm.editEvent(false)">Edit</button>
+                </div>
+                <div class="pull-right">
+                    <a ui-sref="event.list" class="btn btn-primary">Back to List</a>
+                </div>
+                <div class="clearfix"></div>
             </div>
         </formly-form>
     </div>

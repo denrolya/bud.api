@@ -24,7 +24,7 @@
                 vm.dropzone.files.push(mockFile);
                 vm.dropzone.emit("complete", mockFile);
             }, vm.dropzone);
-            vm.initializeMap(vm.place);
+            vm.initializeMap(place);
         });
 
         vm.place = place;
@@ -111,7 +111,6 @@
             autocomplete.bindTo('bounds', map);
 
             google.maps.event.addListener(marker, 'click', function () {
-                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + place.address);
                 infowindow.open(map, this);
             });
 
