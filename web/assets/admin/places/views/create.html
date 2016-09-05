@@ -4,7 +4,7 @@
     </div>
 
     <div class="box-body">
-        <div class="form-group map-input">
+        <div class="form-group map-input" ng-init="vm.initMap()">
             <input id="pac-input" class="controls" type="text" placeholder="Enter a location" ng-model="vm.place.name">
             <div id="map"></div>
         </div>

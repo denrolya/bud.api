@@ -134,19 +134,74 @@
             type: 'input',
             templateOptions: {
                 type: 'string',
-                label: 'Event WebSite',
+                label: "Place's WebSite",
                 required: false,
                 placeholder: 'Website'
             }
         }, {
             key: 'opened',
-            type: 'input',
             templateOptions: {
-                type: 'string',
                 label: 'Opened hours',
                 required: false,
                 placeholder: 'Opened'
-            }
+            },
+            fieldGroup: [{
+                key: 'Mon',
+                type: 'input',
+                templateOptions: {
+                    required: true,
+                    type: 'text',
+                    label: 'Monday'
+                }
+            }, {
+                key: 'Tue',
+                type: 'input',
+                templateOptions: {
+                    required: true,
+                    type: 'text',
+                    label: 'Tuesday'
+                }
+            }, {
+                key: 'Wed',
+                type: 'input',
+                templateOptions: {
+                    required: true,
+                    type: 'text',
+                    label: 'Wednesday'
+                }
+            }, {
+                key: 'Thu',
+                type: 'input',
+                templateOptions: {
+                    required: true,
+                    type: 'text',
+                    label: 'Thursday'
+                }
+            }, {
+                key: 'Fri',
+                type: 'input',
+                templateOptions: {
+                    required: true,
+                    type: 'text',
+                    label: 'Friday'
+                }
+            }, {
+                key: 'Sat',
+                type: 'input',
+                templateOptions: {
+                    required: true,
+                    type: 'text',
+                    label: 'Saturday'
+                }
+            }, {
+                key: 'Sun',
+                type: 'input',
+                templateOptions: {
+                    required: true,
+                    type: 'text',
+                    label: 'Sunday'
+                }
+            }]
         }, {
             key: 'googleID',
             type: 'input',

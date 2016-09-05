@@ -123,7 +123,7 @@ class Place
     /**
      * @var string
      *
-     * @ORM\Column(name="opened", type="string", length=255, nullable=true)
+     * @ORM\Column(name="opened", type="json_array", nullable=true)
      */
     private $opened;
 
