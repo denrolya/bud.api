@@ -37,7 +37,6 @@
 /web/uploads/*
 !/web/uploads/tmp/
 /web/uploads/tmp/*
-!/web/uploads/
 
 # Assets managed by Bower
 /web/assets/vendor/

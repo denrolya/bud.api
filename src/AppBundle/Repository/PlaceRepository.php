@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class PlaceRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getClosestPlacesInCategory($coordinates, $category, $limit = 10)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.category = :category')
+            ->orderBy('SQRT(POWER(69.1 * (p.latitude - :latitude), 2) + POWER(69.1 * (:longitude - p.longitude) * COS(p.latitude / 57.3), 2))')
+            ->setParameters([
+                'latitude' => $coordinates['latitude'],
+                'longitude' => $coordinates['longitude'],
+                'category' => $category->getId()
+            ])
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -27,3 +27,8 @@
     text-overflow: ellipsis;
     width: 300px;
 }
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}

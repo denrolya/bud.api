@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 
 class ApiController extends FOSRestController
 {
@@ -36,13 +37,17 @@ class ApiController extends FOSRestController
      * @Get("/categories/{categorySlug}/places", requirements={"categorySlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
      * @ParamConverter("category", class="AppBundle:Category", options={"mapping": {"categorySlug": "slug"}})
      */
-    public function getCategoryPlacesAction(Category $category)
+    public function getCategoryPlacesAction(Request $request, Category $category)
     {
+        $places = $this->getDoctrine()->getRepository(Place::class)->getClosestPlacesInCategory([
+            'latitude' => $request->get('latitude'),
+            'longitude' => $request->get('longitude')
+        ], $category);
+
         return [
-            'places' => $category->getPlaces()
+            'places' => $places
         ];
     }
-
 
 
     /**

@@ -4,6 +4,29 @@
     angular
         .module('admin')
         .constant('PlaceFormFields', [{
+            className: 'row no-gutter',
+            fieldGroup: [{
+                key: 'latitude',
+                type: 'input',
+                className: 'col-xs-6',
+                templateOptions: {
+                    label: 'Latitude',
+                    type: 'text',
+                    required: true,
+                    disabled: true
+                }
+            }, {
+                key: 'longitude',
+                type: 'input',
+                className: 'col-xs-6',
+                templateOptions: {
+                    label: 'Longitude',
+                    type: 'text',
+                    required: true,
+                    disabled: true
+                }
+            }]
+        }, {
             key: 'name',
             type: 'input',
             templateOptions: {
@@ -12,33 +35,6 @@
                 required: true,
                 placeholder: 'Place name',
             }
-        }, {
-            key: 'shortDescription',
-            type: 'textarea',
-            templateOptions: {
-                label: 'shortDescription',
-                required: true
-            },
-        }, {
-            key: 'rating',
-            type: 'input',
-            templateOptions: {
-                type: 'number',
-                label: "Place's rating",
-                placeholder: 'Rating from 1 to 5',
-                required: true,
-                min: 1, max: 5
-            },
-        }, {
-            key: 'priceRange',
-            type: 'input',
-            templateOptions: {
-                type: 'number',
-                label: "Price range",
-                placeholder: 'Price range from 1 to 5',
-                required: true,
-                min: 1, max: 5
-            },
         }, {
             key: 'category',
             type: 'typeahead',
@@ -54,50 +50,6 @@
                 })
             }
         }, {
-            key: 'descriptionBlock1',
-            type: 'wysiwyg',
-            className: 'col-md-6',
-            templateOptions: {
-                label: 'Description Block 1',
-                required: true,
-                config: {
-                    styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
-                    height: 150,
-                    disableDragAndDrop: true,
-                    toolbar: [
-                        ['style', ['style']],
-                        ['edit',['undo','redo']],
-                        ['style', ['bold', 'italic', 'underline', 'clear']],
-                        ['alignment', ['ul', 'ol']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'hr']],
-                        ['view', ['fullscreen', 'codeview']]
-                    ]
-                }
-            },
-        }, {
-            key: 'descriptionBlock2',
-            type: 'wysiwyg',
-            className: 'col-md-6',
-            templateOptions: {
-                label: 'Description Block 2',
-                required: true,
-                config: {
-                    styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
-                    height: 150,
-                    disableDragAndDrop: true,
-                    toolbar: [
-                        ['style', ['style']],
-                        ['edit',['undo','redo']],
-                        ['style', ['bold', 'italic', 'underline', 'clear']],
-                        ['alignment', ['ul', 'ol']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'hr']],
-                        ['view', ['fullscreen', 'codeview']]
-                    ]
-                }
-            },
-        }, {
             key: 'address',
             type: 'input',
             templateOptions: {
@@ -107,37 +59,107 @@
                 placeholder: 'Address'
             }
         }, {
-            key: 'latitude',
-            type: 'input',
+            key: 'shortDescription',
+            type: 'textarea',
             templateOptions: {
-                type: 'hidden',
-                required: false,
-            }
+                label: 'shortDescription',
+                required: true
+            },
         }, {
-            key: 'longitude',
-            type: 'input',
-            templateOptions: {
-                type: 'hidden',
-                required: false,
-            }
+            className: 'row no-gutter',
+            fieldGroup: [{
+                key: 'rating',
+                type: 'input',
+                className: 'col-xs-6',
+                templateOptions: {
+                    type: 'number',
+                    label: "Place's rating",
+                    placeholder: 'Rating from 1 to 5',
+                    required: true,
+                    min: 1, max: 5
+                },
+            }, {
+                key: 'priceRange',
+                type: 'input',
+                className: 'col-xs-6',
+                templateOptions: {
+                    type: 'number',
+                    label: "Price range",
+                    placeholder: 'Price range from 1 to 5',
+                    required: true,
+                    min: 1, max: 5
+                },
+            }]
         }, {
-            key: 'phonenumber',
-            type: 'input',
-            templateOptions: {
-                type: 'string',
-                label: 'Phonenumber',
-                required: false,
-                placeholder: 'Phonenumber'
-            }
+            className: 'row no-gutter',
+            fieldGroup: [{
+                key: 'descriptionBlock1',
+                type: 'wysiwyg',
+                className: 'col-xs-6',
+                templateOptions: {
+                    label: 'Description Block 1',
+                    required: true,
+                    config: {
+                        styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
+                        height: 150,
+                        disableDragAndDrop: true,
+                        toolbar: [
+                            ['style', ['style']],
+                            ['edit',['undo','redo']],
+                            ['style', ['bold', 'italic', 'underline', 'clear']],
+                            ['alignment', ['ul', 'ol']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'hr']],
+                            ['view', ['fullscreen', 'codeview']]
+                        ]
+                    }
+                },
+            }, {
+                key: 'descriptionBlock2',
+                type: 'wysiwyg',
+                className: 'col-xs-6',
+                templateOptions: {
+                    label: 'Description Block 2',
+                    required: true,
+                    config: {
+                        styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
+                        height: 150,
+                        disableDragAndDrop: true,
+                        toolbar: [
+                            ['style', ['style']],
+                            ['edit',['undo','redo']],
+                            ['style', ['bold', 'italic', 'underline', 'clear']],
+                            ['alignment', ['ul', 'ol']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'hr']],
+                            ['view', ['fullscreen', 'codeview']]
+                        ]
+                    }
+                },
+            }]
         }, {
-            key: 'website',
-            type: 'input',
-            templateOptions: {
-                type: 'string',
-                label: "Place's WebSite",
-                required: false,
-                placeholder: 'Website'
-            }
+            className: 'row no-gutter',
+            fieldGroup: [{
+                key: 'phonenumber',
+                type: 'input',
+                className: 'col-xs-6',
+                templateOptions: {
+                    type: 'string',
+                    label: 'Phonenumber',
+                    required: false,
+                    placeholder: 'Phonenumber'
+                }
+            }, {
+                key: 'website',
+                type: 'input',
+                className: 'col-xs-6',
+                templateOptions: {
+                    type: 'string',
+                    label: "Place's WebSite",
+                    required: false,
+                    placeholder: 'Website'
+                }
+            }]
         }, {
             key: 'opened',
             templateOptions: {
