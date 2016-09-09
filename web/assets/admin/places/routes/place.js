@@ -33,7 +33,7 @@
                         controllerAs: 'vm',
                     })
                     .state('place.list', {
-                        url: '/list',
+                        url: '/:categorySlug/list',
                         templateUrl: '/assets/admin/places/views/list.html',
                         controller: 'ListPlaceController',
                         controllerAs: 'vm',

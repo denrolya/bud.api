@@ -8,6 +8,9 @@
     Category.$inject = ['$resource'];
     function Category($resource) {
         return $resource('/app_dev.php/api/secure/categories/:categorySlug', {categorySlug: '@categorySlug'}, {
+            getPlaces: {
+                url: '/app_dev.php/api/secure/categories/:categorySlug/places'
+            },
             edit: {
                 method: 'POST'
             },

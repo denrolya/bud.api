@@ -3,12 +3,17 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ category.name }}</h3>
-                <a href="" class="pull-right">
-                    <i class="fa fa-trash" aria-hidden="true" ng-click="vm.removeCategory(category)"></i>
-                </a>
+                <div class="pull-right">
+                    <a ui-sref="category.edit({categorySlug: category.slug})">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a href="" ng-click="vm.removeCategory(category)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </div>
             </div>
 
-            <div class="box-body" ui-sref="category.edit({categorySlug: category.slug})">
+            <div class="box-body" ui-sref="place.list({categorySlug: category.slug})">
                 <img ng-src="{{ category.coverImage.uri }}" class="img-thumbnail img-responsive" alt="{{ category.coverImage.name }}" ng-if="category.coverImage">
             </div>
         </div>

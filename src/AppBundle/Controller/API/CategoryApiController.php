@@ -199,4 +199,15 @@ class CategoryApiController extends FOSRestController
 
         return $status;
     }
+
+    /**
+     * @Get("/categories/{categorySlug}/places", requirements={"categorySlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @ParamConverter("category", class="AppBundle:Category", options={"mapping": {"categorySlug": "slug"}})
+     */
+    public function getCategoryPlacesAction(Category $category)
+    {
+        return [
+            'places' => $category->getPlaces()
+        ];
+    }
 }

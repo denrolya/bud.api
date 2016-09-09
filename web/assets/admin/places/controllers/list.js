@@ -5,8 +5,8 @@
         .module('admin')
         .controller('ListPlaceController', ListPlaceController);
 
-    ListPlaceController.$inject = ['$state', 'Place', 'SweetAlert'];
-    function ListPlaceController($state, Place, SweetAlert) {
+    ListPlaceController.$inject = ['$state', '$stateParams', 'Category', 'Place', 'SweetAlert'];
+    function ListPlaceController($state, $stateParams, Category, Place, SweetAlert) {
         var vm = this;
 
         vm.places = [];
@@ -17,12 +17,22 @@
         vm.getPlaces();
 
         function getPlaces() {
-            Place.get(function sc(response) {
-                if (response.places.length === 0) {
-                    $state.go('place.new');
-                }
-                vm.places = response.places;
-            });
+            // TODO: Refactor resources usage. Possibly merge places and categories; just leave /places for all places
+            if ($stateParams.categorySlug) {
+                Category.getPlaces({categorySlug: $stateParams.categorySlug}, function sc(response) {
+                    if (response.places.length === 0) {
+                        $state.go('place.new');
+                    }
+                    vm.places = response.places;
+                });
+            } else {
+                Place.get(function sc(response) {
+                    if (response.places.length === 0) {
+                        $state.go('place.new');
+                    }
+                    vm.places = response.places;
+                });
+            }
         }
 
         function removePlace(place) {
