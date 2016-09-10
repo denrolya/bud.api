@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use GuzzleHttp\Client;
+
 /**
  * PlaceRepository
  *
@@ -12,7 +14,7 @@ class PlaceRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getClosestPlacesInCategory($coordinates, $category, $limit = 10)
     {
-        return $this->createQueryBuilder('p')
+        $places = $this->createQueryBuilder('p')
             ->where('p.category = :category')
             ->orderBy('SQRT(POWER(69.1 * (p.latitude - :latitude), 2) + POWER(69.1 * (:longitude - p.longitude) * COS(p.latitude / 57.3), 2))')
             ->setParameters([
@@ -22,5 +24,36 @@ class PlaceRepository extends \Doctrine\ORM\EntityRepository
             ])
             ->getQuery()
             ->getResult();
+
+        $destinations = '';
+        $placesCount = count($places);
+        foreach($places as $index => $place) {
+            $destinations .= $place->getLatitude() . ',' . $place->getLongitude();
+            if ($index != $placesCount - 1) {
+                $destinations .= '|';
+            }
+        }
+
+        $client = new Client();
+        $res = $client->request('GET', 'https://maps.googleapis.com/maps/api/distancematrix/json', [
+            'query' => [
+                'origins' => $coordinates['latitude'] .  ',' . $coordinates['longitude'],
+                'destinations' => $destinations,
+                'key' => 'AIzaSyAXLxGDZW_gX__F9xjWFGScckUZ_Sw0xjY',
+                'travelMode' => 'WALKING'
+            ]
+        ])->getBody();
+        $res = json_decode($res, false);
+
+        foreach($res->rows[0]->elements as $index => $distance) {
+            $places[$index]->distance = $distance->distance->text;
+            $places[$index]->distanceValue = $distance->distance->value;
+        }
+
+        usort($places, function($a,$b) {
+            return $a->distanceValue > $b->distanceValue;
+        });
+
+        return $places;
     }
 }

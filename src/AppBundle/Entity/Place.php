@@ -6,6 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\File;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Place
@@ -144,6 +145,10 @@ class Place
      *      )
      */
     private $images;
+
+    // Virtual properties
+    public $distance;
+    public $distanceValue;
 
     public function __construct()
     {
@@ -541,5 +546,21 @@ class Place
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * @VirtualProperty
+     */
+    public function distance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @VirtualProperty
+     */
+    public function distanceValue()
+    {
+        return $this->distanceValue;
     }
 }
