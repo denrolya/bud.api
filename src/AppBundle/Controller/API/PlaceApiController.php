@@ -53,7 +53,6 @@ class PlaceApiController extends FOSRestController
         $form = $this->createForm(PlaceType::class, $place);
         $form->handleRequest($request);
 
-
         if ($form->isValid()) {
             $em->persist($place);
             $em->flush();

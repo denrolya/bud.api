@@ -162,67 +162,167 @@
             }]
         }, {
             key: 'opened',
-            templateOptions: {
-                label: 'Opened hours',
-                required: false,
-                placeholder: 'Opened'
-            },
             fieldGroup: [{
-                key: 'Mon',
-                type: 'input',
-                templateOptions: {
-                    required: true,
-                    type: 'text',
-                    label: 'Monday'
-                }
+                className: 'row no-gutter',
+                fieldGroup: [{
+                    key: 'Mon.from',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Mon from',
+                        required: true,
+                        type: 'text',
+                        placeholder: 'From'
+                    }
+                }, {
+                    key: 'Mon.to',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Mon to',
+                        type: 'text',
+                        required: true,
+                        placeholder: 'To'
+                    }
+                }]
             }, {
-                key: 'Tue',
-                type: 'input',
-                templateOptions: {
-                    required: true,
-                    type: 'text',
-                    label: 'Tuesday'
-                }
+                className: 'row no-gutter',
+                fieldGroup: [{
+                    key: 'Tue.from',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Tue from',
+                        required: true,
+                        type: 'text',
+                        placeholder: 'From'
+                    }
+                }, {
+                    key: 'Tue.to',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Tue to',
+                        type: 'text',
+                        required: true,
+                        placeholder: 'To'
+                    }
+                }]
             }, {
-                key: 'Wed',
-                type: 'input',
-                templateOptions: {
-                    required: true,
-                    type: 'text',
-                    label: 'Wednesday'
-                }
+                className: 'row no-gutter',
+                fieldGroup: [{
+                    key: 'Wed.from',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Wed from',
+                        required: true,
+                        type: 'text',
+                        placeholder: 'From'
+                    }
+                }, {
+                    key: 'Wed.to',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Wed to',
+                        type: 'text',
+                        required: true,
+                        placeholder: 'To'
+                    }
+                }]
             }, {
-                key: 'Thu',
-                type: 'input',
-                templateOptions: {
-                    required: true,
-                    type: 'text',
-                    label: 'Thursday'
-                }
+                className: 'row no-gutter',
+                fieldGroup: [{
+                    key: 'Thu.from',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Thu from',
+                        required: true,
+                        type: 'text',
+                        placeholder: 'From'
+                    }
+                }, {
+                    key: 'Thu.to',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Thu to',
+                        type: 'text',
+                        required: true,
+                        placeholder: 'To'
+                    }
+                }]
             }, {
-                key: 'Fri',
-                type: 'input',
-                templateOptions: {
-                    required: true,
-                    type: 'text',
-                    label: 'Friday'
-                }
+                className: 'row no-gutter',
+                fieldGroup: [{
+                    key: 'Fri.from',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Fri from',
+                        required: true,
+                        type: 'text',
+                        placeholder: 'From'
+                    }
+                }, {
+                    key: 'Fri.to',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Fri to',
+                        type: 'text',
+                        required: true,
+                        placeholder: 'To'
+                    }
+                }]
             }, {
-                key: 'Sat',
-                type: 'input',
-                templateOptions: {
-                    required: true,
-                    type: 'text',
-                    label: 'Saturday'
-                }
+                className: 'row no-gutter',
+                fieldGroup: [{
+                    key: 'Sat.from',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Sat from',
+                        required: true,
+                        type: 'text',
+                        placeholder: 'From'
+                    }
+                }, {
+                    key: 'Sat.to',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Sat to',
+                        type: 'text',
+                        required: true,
+                        placeholder: 'To'
+                    }
+                }]
             }, {
-                key: 'Sun',
-                type: 'input',
-                templateOptions: {
-                    required: true,
-                    type: 'text',
-                    label: 'Sunday'
-                }
+                className: 'row no-gutter',
+                fieldGroup: [{
+                    key: 'Sun.from',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Sun from',
+                        required: true,
+                        type: 'text',
+                        placeholder: 'From'
+                    }
+                }, {
+                    key: 'Sun.to',
+                    type: 'input',
+                    className: 'col-xs-6',
+                    templateOptions: {
+                        label: 'Sun to',
+                        type: 'text',
+                        required: true,
+                        placeholder: 'To'
+                    }
+                }]
             }]
         }, {
             key: 'googleID',
