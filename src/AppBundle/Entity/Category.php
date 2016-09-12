@@ -42,7 +42,7 @@ class Category
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="Place", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="Place", mappedBy="categories")
      */
     private $places;
 

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -66,10 +67,10 @@ class Place
     private $priceRange;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="places")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="places")
+     * @ORM\JoinTable(name="places_categories")
      */
-    private $category;
+    private $categories;
 
     /**
      * @var string
@@ -152,7 +153,8 @@ class Place
 
     public function __construct()
     {
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     /**
@@ -275,27 +277,40 @@ class Place
         return $this->priceRange;
     }
 
+
+
     /**
-     * Set category
+     * Add category
      *
      * @param Category $category
-     * @return $this
+     *
+     * @return Place
      */
-    public function setCategory(Category $category)
+    public function addCategory(Category $category)
     {
-        $this->category = $category;
+        $this->categories[] = $category;
 
         return $this;
     }
 
     /**
-     * Get category
+     * Remove category
      *
-     * @return Category
+     * @param Category $category
      */
-    public function getCategory()
+    public function removeCategory(Category $category)
     {
-        return $this->category;
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 
     /**

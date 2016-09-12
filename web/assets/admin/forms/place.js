@@ -36,18 +36,22 @@
                 placeholder: 'Place name',
             }
         }, {
-            key: 'category',
-            type: 'typeahead',
+            key: 'categories',
+            type: 'tags',
             templateOptions: {
                 label: 'Category Name',
                 placeholder: 'Start typing category',
                 options: [],
+                keyProperty: 'name',
+                displayProperty: 'name',
                 required: true
             },
             controller: /*@ngInject*/ function($scope, Category) {
-                Category.get(function(response) {
-                    $scope.to.options = $scope.to.options.concat(response.categories);
-                })
+                $scope.to.getOptions = function (query) {
+                    return Category.get(function(response) {
+                        return response.categories;
+                    })
+                }
             }
         }, {
             key: 'address',
