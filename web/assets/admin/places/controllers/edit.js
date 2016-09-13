@@ -10,6 +10,18 @@
         var vm = this;
 
         place.$promise.then(function(r) {
+            // Fix opened edition
+            if (!place.opened) {
+                place.opened = {
+                    Mon: { from: '', to: '' },
+                    Tue: { from: '', to: '' },
+                    Wed: { from: '', to: '' },
+                    Thu: { from: '', to: '' },
+                    Fri: { from: '', to: '' },
+                    Sat: { from: '', to: '' },
+                    Sun: { from: '', to: '' }
+                }
+            }
             angular.forEach(vm.place.images, function (file, index) {
                 var mockFile = {
                     id: file.id,
