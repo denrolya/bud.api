@@ -6,7 +6,7 @@
         .run(function(formlyConfig, formlyValidationMessages) {
             formlyConfig.setType([{
                 name: 'tags',
-                template: '<tags-input ng-model="model[options.key]" key-property="{{ to.keyProperty }}" display-property="{{ to.displayProperty }}">'
+                template: '<tags-input ng-model="model[options.key]" key-property="{{ to.keyProperty }}" display-property="{{ to.displayProperty }}" add-from-autocomplete-only="{{ to.addFromAutocompleOnly }}">'
                     + '<auto-complete source="to.getOptions($query)"></auto-complete>'
                     + '</tags-input>',
                 wrapper: ['bootstrapLabel', 'bootstrapHasError']

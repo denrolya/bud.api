@@ -39,14 +39,12 @@ class ApiController extends FOSRestController
      */
     public function getCategoryPlacesAction(Request $request, Category $category)
     {
-        if ($request->get('closest')) {
-            $places = $this->getDoctrine()->getRepository(Place::class)->getClosestPlacesInCategory([
-                'latitude' => $request->get('latitude'),
-                'longitude' => $request->get('longitude')
-            ], $category);
-        } else {
-            $places = $this->getDoctrine()->getRepository(Place::class)->findBy([], [], 10);
-        }
+        $places = (!$request->get('closest'))
+            ? $category->getPlaces()
+            : $this->getDoctrine()->getRepository(Place::class)->getClosestPlacesInCategory([
+                    'latitude' => $request->get('latitude'),
+                    'longitude' => $request->get('longitude')
+                ], $category);
 
         return [
             'places' => $places

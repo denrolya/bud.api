@@ -26,7 +26,7 @@ class PlaceType extends AbstractType
             ->add('shortDescription', TextAreaType::class, ['required' => true])
             ->add('rating', NumberType::class, ['required' => true])
             ->add('priceRange', NumberType::class, ['required' => true])
-            ->add('category', EntityType::class, ['class' => Category::class, 'multiple' => true, 'required' => true])
+            ->add('categories', EntityType::class, ['class' => Category::class, 'multiple' => true, 'required' => true])
             ->add('descriptionBlock1', TextAreaType::class, ['required' => true])
             ->add('descriptionBlock2', TextareaType::class, ['required' => true])
             ->add('address', TextType::class)

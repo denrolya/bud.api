@@ -20,7 +20,9 @@
                     shortDescription: place.shortDescription,
                     rating: place.rating,
                     priceRange: place.priceRange,
-                    category: place.category.id,
+                    categories: place.categories.map(function(v) {
+                        return v.id
+                    }),
                     descriptionBlock1: place.descriptionBlock1,
                     descriptionBlock2: place.descriptionBlock2,
                     address: place.address,

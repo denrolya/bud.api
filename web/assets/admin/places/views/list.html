@@ -6,7 +6,6 @@
         <div class="box-body">
             <table class="table table-bordered table-condensed table-hover table">
                 <thead>
-                    <th>Category</th>
                     <th>Name</th>
                     <th>Address</th>
                     <th>Website</th>
@@ -15,14 +14,12 @@
                 <tbody>
                     <tr ng-repeat="place in vm.places">
                         <td>
-                            <a href="">
-                                {{ place.category.name }}
-                            </a>
-                        </td>
-                        <td>
                             <span uib-tooltip="{{ place.shortDescription }}">
                                 {{ place.name }}
                             </span>
+                            [ <a href="" ng-repeat="category in place.categories">
+                                <span class="label label-primary">{{ category.name }}</span>
+                            </a> ]
                         </td>
                         <td>{{ place.address }}</td>
                         <td>

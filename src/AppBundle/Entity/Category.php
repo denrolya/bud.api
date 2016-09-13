@@ -59,6 +59,11 @@ class Category
         $this->places = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * Get id
      *

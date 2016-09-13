@@ -44,13 +44,16 @@
                 options: [],
                 keyProperty: 'name',
                 displayProperty: 'name',
+                addFromAutocompleOnly: true,
                 required: true
             },
             controller: /*@ngInject*/ function($scope, Category) {
+                Category.get(function(response) {
+                    $scope.to.options = response.categories;
+                });
+
                 $scope.to.getOptions = function (query) {
-                    return Category.get(function(response) {
-                        return response.categories;
-                    })
+                    return $scope.to.options;
                 }
             }
         }, {

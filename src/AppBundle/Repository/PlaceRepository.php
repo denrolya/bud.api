@@ -15,7 +15,8 @@ class PlaceRepository extends \Doctrine\ORM\EntityRepository
     public function getClosestPlacesInCategory($coordinates, $category, $limit = 10)
     {
         $places = $this->createQueryBuilder('p')
-            ->where('p.category = :category')
+            ->leftJoin('p.categories', 'c')
+            ->where('c.id = :category')
             ->orderBy('SQRT(POWER(69.1 * (p.latitude - :latitude), 2) + POWER(69.1 * (:longitude - p.longitude) * COS(p.latitude / 57.3), 2))')
             ->setParameters([
                 'latitude' => $coordinates['latitude'],
