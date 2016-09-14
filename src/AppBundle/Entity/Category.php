@@ -186,6 +186,7 @@ class Category
     }
 
     /**
+     * @Groups({"category_list"})
      * @VirtualProperty
      */
     public function placesCount()
