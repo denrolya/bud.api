@@ -159,7 +159,14 @@ class Place
     private $images;
 
     // Virtual properties
+    /**
+     * @Groups({"place_list", "place_view"})
+     */
     public $distance;
+
+    /**
+     * @Groups({"place_list", "place_view"})
+     */
     public $distanceValue;
 
     public function __construct()
@@ -551,7 +558,6 @@ class Place
     }
 
     /**
-     * @Groups({"place_list", "place_view"})
      * @VirtualProperty
      */
     public function distance()
@@ -560,7 +566,6 @@ class Place
     }
 
     /**
-     * @Groups({"place_list", "place_view"})
      * @VirtualProperty
      */
     public function distanceValue()
