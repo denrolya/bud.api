@@ -7,18 +7,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\File;
-use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\Groups, JMS\Serializer\Annotation\ExclusionPolicy,
+    JMS\Serializer\Annotation\Exclude, JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Place
  *
  * @ORM\Table(name="places")
+ * @ExclusionPolicy("none")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
  */
 class Place
 {
     /**
      * @var int
+     * @Exclude()
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -28,6 +31,7 @@ class Place
 
     /**
      * @var string
+     * @Groups({"place_list", "place_view"})
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
@@ -36,6 +40,7 @@ class Place
 
     /**
      * @var string
+     * @Groups({"place_list", "place_view"})
      *
      * @Gedmo\Slug(fields={"name"}, updatable=false)
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
@@ -44,6 +49,7 @@ class Place
 
     /**
      * @var string
+     * @Groups({"place_list", "place_view"})
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="short_description", type="text")
@@ -52,6 +58,7 @@ class Place
 
     /**
      * @var integer
+     * @Groups({"place_view"})
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="rating", type="integer")
@@ -60,6 +67,7 @@ class Place
 
     /**
      * @var integer
+     * @Groups({"place_view"})
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="price_range", type="integer")
@@ -67,6 +75,8 @@ class Place
     private $priceRange;
 
     /**
+     * @Groups({"place_view"})
+     *
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="places")
      * @ORM\JoinTable(name="places_categories")
      */
@@ -74,6 +84,7 @@ class Place
 
     /**
      * @var string
+     * @Groups({"place_view"})
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="full_description", type="text")
@@ -81,6 +92,7 @@ class Place
     private $fullDescription;
     /**
      * @var string
+     * @Groups({"place_view"})
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
@@ -88,6 +100,7 @@ class Place
 
     /**
      * @var decimal
+     * @Groups({"place_view"})
      *
      * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
      */
@@ -95,6 +108,7 @@ class Place
 
     /**
      * @var decimal
+     * @Groups({"place_view"})
      *
      * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
      */
@@ -102,6 +116,7 @@ class Place
 
     /**
      * @var string
+     * @Groups({"place_view"})
      *
      * @ORM\Column(name="website", type="string", length=255, nullable=true)
      */
@@ -109,6 +124,7 @@ class Place
 
     /**
      * @var string
+     * @Groups({"place_view"})
      *
      * @ORM\Column(name="phonenumber", type="string", length=255, nullable=true)
      */
@@ -116,6 +132,7 @@ class Place
 
     /**
      * @var string
+     * @Groups({"place_view"})
      *
      * @ORM\Column(name="opened", type="json_array", nullable=true)
      */
@@ -123,6 +140,7 @@ class Place
 
     /**
      * @var string
+     * @Exclude
      *
      * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
      */
@@ -130,6 +148,7 @@ class Place
 
     /**
      * A Unidirectional One-To-Many relation, built in Doctrine2 way
+     * @Groups({"place_list", "place_view"})
      *
      * @ORM\ManyToMany(targetEntity="File", fetch="EAGER",  cascade={"all"})
      * @ORM\JoinTable(name="places_images",

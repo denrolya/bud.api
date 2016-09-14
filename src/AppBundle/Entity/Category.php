@@ -7,17 +7,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\File;
+use JMS\Serializer\Annotation\Groups, JMS\Serializer\Annotation\ExclusionPolicy,
+    JMS\Serializer\Annotation\Exclude, JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Category
  *
  * @ORM\Table(name="categories")
+ * @ExclusionPolicy("none")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  */
 class Category
 {
     /**
      * @var int
+     * @Exclude()
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -27,6 +31,7 @@ class Category
 
     /**
      * @var string
+     * @Groups({"category_list"})
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255, unique=true)
@@ -35,6 +40,7 @@ class Category
 
     /**
      * @var string
+     * @Groups({"category_list"})
      *
      * @Gedmo\Slug(fields={"name"}, updatable=false)
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
@@ -42,12 +48,15 @@ class Category
     private $slug;
 
     /**
+     * @Exclude()
+     *
      * @ORM\ManyToMany(targetEntity="Place", mappedBy="categories")
      */
     private $places;
 
     /**
      * @var File
+     * @Groups({"category_list"})
      *
      * @ORM\OneToOne(targetEntity="File", fetch="EAGER", cascade={"all"})
      * @ORM\JoinColumn(name="cover_image_id", referencedColumnName="id", unique=true, nullable=true, onDelete="CASCADE")
@@ -174,5 +183,13 @@ class Category
     public function getPlaces()
     {
         return $this->places;
+    }
+
+    /**
+     * @VirtualProperty
+     */
+    public function placesCount()
+    {
+        return $this->getPlaces()->count();
     }
 }

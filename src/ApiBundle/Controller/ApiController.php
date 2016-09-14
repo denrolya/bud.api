@@ -11,12 +11,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations\View;
 
 class ApiController extends FOSRestController
 {
     /**
      * Get all categories
      *
+     * @View(serializerGroups={"category_list"})
      * @Get("/categories")
      */
     public function getCategoriesAction()
@@ -34,6 +36,7 @@ class ApiController extends FOSRestController
     /**
      * Get all places in categories
      *
+     * @View(serializerGroups={"place_list"})
      * @Get("/categories/{categorySlug}/places", requirements={"categorySlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
      * @ParamConverter("category", class="AppBundle:Category", options={"mapping": {"categorySlug": "slug"}})
      */
@@ -55,6 +58,7 @@ class ApiController extends FOSRestController
     /**
      * Get place
      *
+     * @View(serializerGroups={"place_view"})
      * @Get("/places/{placeSlug}", requirements={"placeSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
      * @ParamConverter("place", class="AppBundle:Place", options={"mapping": {"placeSlug": "slug"}})
      */

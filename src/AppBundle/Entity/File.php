@@ -3,17 +3,21 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups, JMS\Serializer\Annotation\ExclusionPolicy,
+    JMS\Serializer\Annotation\Exclude;
 
 /**
  * File
  *
  * @ORM\Table(name="files")
+ * @ExclusionPolicy("none")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FileRepository")
  */
 class File
 {
     /**
      * @var int
+     * @Exclude()
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -23,6 +27,7 @@ class File
 
     /**
      * @var string
+     * @Groups({"category_list", "place_list", "place_view"})
      *
      * @ORM\Column(name="uri", type="string", length=255)
      */
@@ -37,6 +42,7 @@ class File
 
     /**
      * @var string
+     * @Groups({"category_list", "place_list", "place_view"})
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
