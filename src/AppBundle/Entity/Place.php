@@ -551,6 +551,7 @@ class Place
     }
 
     /**
+     * @Groups({"place_list", "place_view"})
      * @VirtualProperty
      */
     public function distance()
@@ -559,6 +560,7 @@ class Place
     }
 
     /**
+     * @Groups({"place_list", "place_view"})
      * @VirtualProperty
      */
     public function distanceValue()
