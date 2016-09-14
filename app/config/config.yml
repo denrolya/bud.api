@@ -103,8 +103,7 @@ fos_rest:
 #                event:
 #                    mappings:
 #                        title: ~
-#                        descriptionBlock1: ~
-#                        descriptionBlock2: ~
+#                        fullDescription: ~
 #                        location: ~
 #                    persistence:
 #                        driver: orm

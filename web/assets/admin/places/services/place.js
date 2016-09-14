@@ -23,8 +23,7 @@
                     categories: place.categories.map(function(v) {
                         return v.id
                     }),
-                    descriptionBlock1: place.descriptionBlock1,
-                    descriptionBlock2: place.descriptionBlock2,
+                    fullDescription: place.fullDescription,
                     address: place.address,
                     latitude: place.latitude,
                     longitude: place.longitude,

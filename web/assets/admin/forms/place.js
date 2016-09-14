@@ -98,52 +98,26 @@
                 },
             }]
         }, {
-            className: 'row no-gutter',
-            fieldGroup: [{
-                key: 'descriptionBlock1',
-                type: 'wysiwyg',
-                className: 'col-xs-6',
-                templateOptions: {
-                    label: 'Description Block 1',
-                    required: true,
-                    config: {
-                        styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
-                        height: 150,
-                        disableDragAndDrop: true,
-                        toolbar: [
-                            ['style', ['style']],
-                            ['edit',['undo','redo']],
-                            ['style', ['bold', 'italic', 'underline', 'clear']],
-                            ['alignment', ['ul', 'ol']],
-                            ['table', ['table']],
-                            ['insert', ['link', 'hr']],
-                            ['view', ['fullscreen', 'codeview']]
-                        ]
-                    }
-                },
-            }, {
-                key: 'descriptionBlock2',
-                type: 'wysiwyg',
-                className: 'col-xs-6',
-                templateOptions: {
-                    label: 'Description Block 2',
-                    required: true,
-                    config: {
-                        styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
-                        height: 150,
-                        disableDragAndDrop: true,
-                        toolbar: [
-                            ['style', ['style']],
-                            ['edit',['undo','redo']],
-                            ['style', ['bold', 'italic', 'underline', 'clear']],
-                            ['alignment', ['ul', 'ol']],
-                            ['table', ['table']],
-                            ['insert', ['link', 'hr']],
-                            ['view', ['fullscreen', 'codeview']]
-                        ]
-                    }
-                },
-            }]
+            key: 'fullDescription',
+            type: 'wysiwyg',
+            templateOptions: {
+                label: 'Full Description',
+                required: true,
+                config: {
+                    styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
+                    height: 150,
+                    disableDragAndDrop: true,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['edit',['undo','redo']],
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['alignment', ['ul', 'ol']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'hr']],
+                        ['view', ['fullscreen', 'codeview']]
+                    ]
+                }
+            },
         }, {
             className: 'row no-gutter',
             fieldGroup: [{
@@ -177,7 +151,7 @@
                     className: 'col-xs-6',
                     templateOptions: {
                         label: 'Mon from',
-                        required: true,
+                        required: false,
                         type: 'text',
                         placeholder: 'From'
                     }
@@ -188,8 +162,11 @@
                     templateOptions: {
                         label: 'Mon to',
                         type: 'text',
-                        required: true,
                         placeholder: 'To'
+                    },
+                    expressionProperties: {
+                        "templateOptions.required": "model.Mon.from",
+                        "templateOptions.disabled": "!model.Mon.from"
                     }
                 }]
             }, {
@@ -200,7 +177,7 @@
                     className: 'col-xs-6',
                     templateOptions: {
                         label: 'Tue from',
-                        required: true,
+                        required: false,
                         type: 'text',
                         placeholder: 'From'
                     }
@@ -213,6 +190,10 @@
                         type: 'text',
                         required: true,
                         placeholder: 'To'
+                    },
+                    expressionProperties: {
+                        "templateOptions.required": "model.Tue.from",
+                        "templateOptions.disabled": "!model.Tue.from"
                     }
                 }]
             }, {
@@ -223,7 +204,7 @@
                     className: 'col-xs-6',
                     templateOptions: {
                         label: 'Wed from',
-                        required: true,
+                        required: false,
                         type: 'text',
                         placeholder: 'From'
                     }
@@ -236,6 +217,10 @@
                         type: 'text',
                         required: true,
                         placeholder: 'To'
+                    },
+                    expressionProperties: {
+                        "templateOptions.required": "model.Wed.from",
+                        "templateOptions.disabled": "!model.Wed.from"
                     }
                 }]
             }, {
@@ -246,7 +231,7 @@
                     className: 'col-xs-6',
                     templateOptions: {
                         label: 'Thu from',
-                        required: true,
+                        required: false,
                         type: 'text',
                         placeholder: 'From'
                     }
@@ -259,6 +244,10 @@
                         type: 'text',
                         required: true,
                         placeholder: 'To'
+                    },
+                    expressionProperties: {
+                        "templateOptions.required": "model.Thu.from",
+                        "templateOptions.disabled": "!model.Thu.from"
                     }
                 }]
             }, {
@@ -269,7 +258,7 @@
                     className: 'col-xs-6',
                     templateOptions: {
                         label: 'Fri from',
-                        required: true,
+                        required: false,
                         type: 'text',
                         placeholder: 'From'
                     }
@@ -282,6 +271,10 @@
                         type: 'text',
                         required: true,
                         placeholder: 'To'
+                    },
+                    expressionProperties: {
+                        "templateOptions.required": "model.Fri.from",
+                        "templateOptions.disabled": "!model.Fri.from"
                     }
                 }]
             }, {
@@ -292,7 +285,7 @@
                     className: 'col-xs-6',
                     templateOptions: {
                         label: 'Sat from',
-                        required: true,
+                        required: false,
                         type: 'text',
                         placeholder: 'From'
                     }
@@ -305,6 +298,10 @@
                         type: 'text',
                         required: true,
                         placeholder: 'To'
+                    },
+                    expressionProperties: {
+                        "templateOptions.required": "model.Sat.from",
+                        "templateOptions.disabled": "!model.Sat.from"
                     }
                 }]
             }, {
@@ -315,7 +312,7 @@
                     className: 'col-xs-6',
                     templateOptions: {
                         label: 'Sun from',
-                        required: true,
+                        required: false,
                         type: 'text',
                         placeholder: 'From'
                     }
@@ -328,6 +325,10 @@
                         type: 'text',
                         required: true,
                         placeholder: 'To'
+                    },
+                    expressionProperties: {
+                        "templateOptions.required": "model.Sun.from",
+                        "templateOptions.disabled": "!model.Sun.from"
                     }
                 }]
             }]

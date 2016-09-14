@@ -76,17 +76,9 @@ class Place
      * @var string
      *
      * @Assert\NotBlank()
-     * @ORM\Column(name="description_block_1", type="text")
+     * @ORM\Column(name="full_description", type="text")
      */
-    private $descriptionBlock1;
-
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     * @ORM\Column(name="description_block_2", type="text")
-     */
-    private $descriptionBlock2;
+    private $fullDescription;
     /**
      * @var string
      *
@@ -314,51 +306,27 @@ class Place
     }
 
     /**
-     * Set descriptionBlock1
+     * Set fullDescription
      *
-     * @param string $descriptionBlock1
+     * @param string $fullDescription
      *
      * @return Place
      */
-    public function setDescriptionBlock1($descriptionBlock1)
+    public function setFullDescription($fullDescription)
     {
-        $this->descriptionBlock1 = $descriptionBlock1;
+        $this->fullDescription = $fullDescription;
 
         return $this;
     }
 
     /**
-     * Get descriptionBlock1
+     * Get fullDescription
      *
      * @return string
      */
-    public function getDescriptionBlock1()
+    public function getFullDescription()
     {
-        return $this->descriptionBlock1;
-    }
-
-    /**
-     * Set descriptionBlock2
-     *
-     * @param string $descriptionBlock2
-     *
-     * @return Place
-     */
-    public function setDescriptionBlock2($descriptionBlock2)
-    {
-        $this->descriptionBlock2 = $descriptionBlock2;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptionBlock1
-     *
-     * @return string
-     */
-    public function getDescriptionBlock2()
-    {
-        return $this->descriptionBlock2;
+        return $this->fullDescription;
     }
 
     /**
