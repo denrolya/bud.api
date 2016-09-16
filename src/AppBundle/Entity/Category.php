@@ -21,7 +21,7 @@ class Category
 {
     /**
      * @var int
-     * @Exclude()
+     * @Groups({"place_create", "place_edit"})
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
