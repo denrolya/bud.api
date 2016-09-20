@@ -54,15 +54,6 @@ class Category
      */
     private $places;
 
-    /**
-     * @var File
-     * @Groups({"category_list"})
-     *
-     * @ORM\OneToOne(targetEntity="File", fetch="EAGER", cascade={"all"})
-     * @ORM\JoinColumn(name="cover_image_id", referencedColumnName="id", unique=true, nullable=true, onDelete="CASCADE")
-     */
-    private $coverImage;
-
     public function __construct()
     {
         $this->places = new ArrayCollection();
@@ -125,30 +116,6 @@ class Category
     public function getSlug()
     {
         return $this->slug;
-    }
-
-    /**
-     * Set coverImage
-     *
-     * @param File $coverImage
-     *
-     * @return Category
-     */
-    public function setCoverImage(File $coverImage)
-    {
-        $this->coverImage = $coverImage;
-
-        return $this;
-    }
-
-    /**
-     * Get coverImage
-     *
-     * @return string
-     */
-    public function getCoverImage()
-    {
-        return $this->coverImage;
     }
 
     /**

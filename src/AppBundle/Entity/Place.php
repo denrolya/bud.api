@@ -58,7 +58,7 @@ class Place
 
     /**
      * @var integer
-     * @Groups({"place_view"})
+     * @Groups({"place_list", "place_view"})
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="rating", type="integer")
