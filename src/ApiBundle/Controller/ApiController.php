@@ -108,4 +108,19 @@ class ApiController extends FOSRestController
             'event' => $event
         ];
     }
+
+    /**
+     * Search
+     *
+     * @Get("/search/{searchQuery}", requirements={})
+     */
+    public function searchAction($searchQuery)
+    {
+        $finder = $this->container->get('fos_elastica.finder.budapp.place');
+        $places = $finder->find("*$searchQuery*");
+
+        return [
+            'places' => $places
+        ];
+    }
 }

@@ -83,34 +83,36 @@ fos_rest:
     routing_loader:
         default_format: json
 
-#fos_elastica:
-#    clients:
-#        default: { host: localhost, port: 9200 }
-#    indexes:
-#        budapp:
-#            finder: ~
-#            index_name: "budapp_%kernel.environment%"
-#            types:
-#                category:
-#                    mappings:
-#                        name: ~
-#                    persistence:
-#                        driver: orm
-#                        model: AppBundle\Entity\Category
-#                        provider: ~
-#                        listener: ~
-#                        finder: ~
-#                event:
-#                    mappings:
-#                        title: ~
-#                        fullDescription: ~
-#                        location: ~
-#                    persistence:
-#                        driver: orm
-#                        model: AppBundle\Entity\Event
-#                        provider: ~
-#                        listener: ~
-#                        finder: ~
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        budapp:
+            finder: ~
+            index_name: "budapp_%kernel.environment%"
+            types:
+                category:
+                    mappings:
+                        name: ~
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Category
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                place:
+                    mappings:
+                        name: ~
+                        shortDescription: ~
+                        fullDescription: ~
+                        address: ~
+                        website: ~
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Place
+                        provider: ~
+                        listener: ~
+                        finder: ~
 # Doctrine Configuration
 doctrine:
     dbal:
