@@ -17,7 +17,7 @@ class File
 {
     /**
      * @var int
-     * @Exclude()
+     * @Groups({"place_edit"})
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
