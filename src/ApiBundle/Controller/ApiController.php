@@ -26,7 +26,7 @@ class ApiController extends FOSRestController
         $categories = $this
             ->getDoctrine()
             ->getRepository(Category::class)
-            ->findAll();
+            ->findNotEmptyCategories();
 
         return [
             'categories' => $categories

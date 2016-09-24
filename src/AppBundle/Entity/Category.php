@@ -158,6 +158,6 @@ class Category
      */
     public function placesCount()
     {
-        return $this->getPlaces()->count();
+        return $this->places->count();
     }
 }

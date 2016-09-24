@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findNotEmptyCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.places', 'p')
+            ->where('SIZE(c.places) > 0')
+            ->getQuery()
+            ->getResult();
+    }
 }
