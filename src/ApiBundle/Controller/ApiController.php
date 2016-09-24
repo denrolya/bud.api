@@ -70,6 +70,37 @@ class ApiController extends FOSRestController
     }
 
     /**
+     * Get distance to places
+     * @Get("/distance")
+     */
+    public function getDistanceToPlacesAction(Request $request)
+    {
+        $slugs = $request->query->get('placesSlugs');
+
+        $placesRepo = $this->getDoctrine()->getRepository(Place::class);
+        $places = $placesRepo->findBy(['slug' => $slugs]);
+
+        $distances = $placesRepo->getDistanceToPlaces($places, [
+            'latitude' => $request->get('latitude'),
+            'longitude' => $request->get('longitude')
+        ]);
+
+        $response = [];
+
+        foreach($distances->rows[0]->elements as $index => $distance) {
+            $response[] = [
+                'slug' => $slugs[$index],
+                'distance' => $distance->distance->text,
+                'distanceValue' => $distance->distance->value
+            ];
+        }
+
+        return [
+            'data' => $response
+        ];
+    }
+
+    /**
      * Get all Events
      *
      * @Get("/events")

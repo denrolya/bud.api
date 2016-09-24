@@ -26,6 +26,22 @@ class PlaceRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
 
+        $distances = $this->getDistanceToPlaces($places, $coordinates);
+
+        foreach($distances->rows[0]->elements as $index => $distance) {
+            $places[$index]->distance = $distance->distance->text;
+            $places[$index]->distanceValue = $distance->distance->value;
+        }
+
+        usort($places, function($a,$b) {
+            return $a->distanceValue > $b->distanceValue;
+        });
+
+        return $places;
+    }
+
+    public function getDistanceToPlaces($places, $coordinates)
+    {
         $destinations = '';
         $placesCount = count($places);
         foreach($places as $index => $place) {
@@ -46,15 +62,6 @@ class PlaceRepository extends \Doctrine\ORM\EntityRepository
         ])->getBody();
         $res = json_decode($res, false);
 
-        foreach($res->rows[0]->elements as $index => $distance) {
-            $places[$index]->distance = $distance->distance->text;
-            $places[$index]->distanceValue = $distance->distance->value;
-        }
-
-        usort($places, function($a,$b) {
-            return $a->distanceValue > $b->distanceValue;
-        });
-
-        return $places;
+        return $res;
     }
 }
