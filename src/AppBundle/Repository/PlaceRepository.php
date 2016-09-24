@@ -33,11 +33,23 @@ class PlaceRepository extends \Doctrine\ORM\EntityRepository
             $places[$index]->distanceValue = $distance->distance->value;
         }
 
-        usort($places, function($a,$b) {
-            return $a->distanceValue > $b->distanceValue;
-        });
-
         return $places;
+    }
+
+    public function getDistanceToPlace($place, $coordinates)
+    {
+        $client = new Client();
+        $res = $client->request('GET', 'https://maps.googleapis.com/maps/api/distancematrix/json', [
+            'query' => [
+                'origins' => $coordinates['latitude'] .  ',' . $coordinates['longitude'],
+                'destinations' => $place->getLatitude() . ',' . $place->getLongitude(),
+                'key' => 'AIzaSyAXLxGDZW_gX__F9xjWFGScckUZ_Sw0xjY',
+                'travelMode' => 'WALKING'
+            ]
+        ])->getBody();
+        $res = json_decode($res, false);
+
+        return $res->rows[0]->elements[0]->distance;
     }
 
     public function getDistanceToPlaces($places, $coordinates)

@@ -62,8 +62,16 @@ class ApiController extends FOSRestController
      * @Get("/places/{placeSlug}", requirements={"placeSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
      * @ParamConverter("place", class="AppBundle:Place", options={"mapping": {"placeSlug": "slug"}})
      */
-    public function getPlaceAction(Place $place)
+    public function getPlaceAction(Request $request, Place $place)
     {
+        $distance = $this->getDoctrine()->getRepository(Place::class)->getDistanceToPlace($place, [
+            'latitude' => $request->get('latitude'),
+            'longitude' => $request->get('longitude')
+        ]);
+
+        $place->distance = $distance->text;
+        $place->distanceValue = $distance->value;
+
         return [
             'place' => $place
         ];
