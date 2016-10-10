@@ -36,14 +36,14 @@
                 vm.dropzone.files.push(mockFile);
                 vm.dropzone.emit("complete", mockFile);
             }, vm.dropzone);
-            vm.initializeMap(place);
+            vm.initMap(place);
         });
 
         vm.place = place;
         vm.placeFormFields = PlaceFormFields;
 
-        vm.initializeMap = initializeMap;
         vm.editPlace = editPlace;
+        vm.initMap = initMap;
 
         vm.dropzoneConfig = {
             'options': {
@@ -101,7 +101,7 @@
             });
         }
 
-        function initializeMap(place) {
+        function initMap(place) {
             var placeLocation = new google.maps.LatLng(place.latitude, place.longitude),
                 infowindow = new google.maps.InfoWindow(),
                 mapElement = document.getElementById('map'),
