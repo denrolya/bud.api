@@ -20,10 +20,10 @@
                                 {{ event.title }}
                             </span>
                         </td>
-                        <td>{{ event.location }}</td>
+                        <td>{{ event.address }}</td>
                         <td>
                             <a ng-href="{{ event.website}}" target="_blank">
-                                {{ event.website | limitTo : 50 }}
+                                {{ event.website | limitTo : 25 }}
                             </a>
                         </td>
                         <td>{{ event.dateFrom | date }} - {{ event.dateTo | date }}</td>

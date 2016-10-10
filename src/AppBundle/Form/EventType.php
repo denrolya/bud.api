@@ -20,11 +20,12 @@ class EventType extends AbstractType
         $builder
             ->add('title', TextType::class, ['required' => true])
             ->add('shortDescription', TextAreaType::class, ['required' => true])
-            ->add('descriptionBlock1', TextAreaType::class, ['required' => true])
-            ->add('descriptionBlock2', TextareaType::class, ['required' => true])
+            ->add('fullDescription', TextAreaType::class, ['required' => true])
             ->add('dateFrom', DateTimeType::class, ['date_widget' => 'single_text', 'required' => true])
             ->add('dateTo', DateTimeType::class, ['date_widget' => 'single_text'])
-            ->add('location', TextType::class)
+            ->add('address', TextType::class)
+            ->add('latitude', TextType::class)
+            ->add('longitude', TextType::class)
             ->add('phonenumber', TextType::class)
             ->add('website', TextType::class)
         ;

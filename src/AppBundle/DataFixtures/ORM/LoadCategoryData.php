@@ -27,21 +27,8 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $manager)
     {
         foreach($this->categories as $index => $categoryName) {
-            $files = glob($this->container->getParameter('uploads_dir') . '/fixtures/*');
-            $randomIndex = array_rand($files);
-            $randomFile = new \Symfony\Component\HttpFoundation\File\File($files[$randomIndex]);
-
-            $coverImage = new File();
-            $coverImage
-                ->setName($randomFile->getFilename())
-                ->setSize($randomFile->getSize())
-                ->setAbsolutePath($randomFile->getRealPath())
-                ->setUri('http://bud.api/uploads/fixtures/' . $randomFile->getFilename());
-            $manager->persist($coverImage);
-
             $category = new Category();
-            $category->setName($categoryName)
-                ->setCoverImage($coverImage);
+            $category->setName($categoryName);
 
             $manager->persist($category);
 

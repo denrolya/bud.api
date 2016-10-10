@@ -81,7 +81,7 @@ class EventApiController extends FOSRestController
     }
 
     /**
-     * @Get("/events/{eventSlug}", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @Get("/events/{eventSlug}", requirements={"eventSlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
      * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
      */
     public function getEventAction(Event $event)
@@ -90,7 +90,7 @@ class EventApiController extends FOSRestController
     }
 
     /**
-     * @Post("/events/{eventSlug}", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @Post("/events/{eventSlug}", requirements={"eventSlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
      * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
      */
     public function editEventAction(Event $event, Request $request)
@@ -128,7 +128,7 @@ class EventApiController extends FOSRestController
     /**
      * Post existing event file
      *
-     * @Post("/events/{eventSlug}/files", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
+     * @Post("/events/{eventSlug}/files", requirements={"eventSlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$"})
      * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
      */
     public function postExistingEventFileAction(Event $event, Request $request)
@@ -170,7 +170,7 @@ class EventApiController extends FOSRestController
     /**
      * Remove existing event file
      *
-     * @Delete("/events/{eventSlug}/files/{fileId}", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$", "fileId" = "\d+"})
+     * @Delete("/events/{eventSlug}/files/{fileId}", requirements={"eventSlug" = "^(?!files)[a-z0-9]+(?:-[a-z0-9]+)*$", "fileId" = "\d+"})
      * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
      * @ParamConverter("file", class="AppBundle:File", options={"mapping": {"fileId": "id"}})
      */

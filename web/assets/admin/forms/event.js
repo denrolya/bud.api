@@ -4,6 +4,29 @@
     angular
         .module('admin')
         .constant('EventFormFields', [{
+            className: 'row no-gutter',
+            fieldGroup: [{
+                key: 'latitude',
+                type: 'input',
+                className: 'col-xs-6',
+                templateOptions: {
+                    label: 'Latitude',
+                    type: 'text',
+                    required: true,
+                    disabled: true
+                }
+            }, {
+                key: 'longitude',
+                type: 'input',
+                className: 'col-xs-6',
+                templateOptions: {
+                    label: 'Longitude',
+                    type: 'text',
+                    required: true,
+                    disabled: true
+                }
+            }]
+        }, {
             key: 'title',
             type: 'input',
             templateOptions: {
@@ -13,55 +36,20 @@
                 placeholder: 'Event title',
             }
         }, {
+            key: 'address',
+            type: 'input',
+            templateOptions: {
+                type: 'string',
+                label: 'Event address',
+                required: false,
+                placeholder: 'Address'
+            }
+        }, {
             key: 'shortDescription',
             type: 'textarea',
             templateOptions: {
                 label: 'shortDescription',
                 required: true
-            },
-        }, {
-            key: 'descriptionBlock1',
-            type: 'wysiwyg',
-            className: 'col-md-6',
-            templateOptions: {
-                label: 'Description Block 1',
-                required: true,
-                config: {
-                    styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
-                    height: 150,
-                    disableDragAndDrop: true,
-                    toolbar: [
-                        ['style', ['style']],
-                        ['edit',['undo','redo']],
-                        ['style', ['bold', 'italic', 'underline', 'clear']],
-                        ['alignment', ['ul', 'ol']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'hr']],
-                        ['view', ['fullscreen', 'codeview']]
-                    ]
-                }
-            },
-        }, {
-            key: 'descriptionBlock2',
-            type: 'wysiwyg',
-            className: 'col-md-6',
-            templateOptions: {
-                label: 'Description Block 2',
-                required: true,
-                config: {
-                    styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
-                    height: 150,
-                    disableDragAndDrop: true,
-                    toolbar: [
-                        ['style', ['style']],
-                        ['edit',['undo','redo']],
-                        ['style', ['bold', 'italic', 'underline', 'clear']],
-                        ['alignment', ['ul', 'ol']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'hr']],
-                        ['view', ['fullscreen', 'codeview']]
-                    ]
-                }
             },
         }, {
             key: 'dateFrom',
@@ -82,14 +70,26 @@
                 placeholder: 'Date to'
             }
         }, {
-            key: 'location',
-            type: 'input',
+            key: 'fullDescription',
+            type: 'wysiwyg',
             templateOptions: {
-                type: 'string',
-                label: 'Event Location',
-                required: false,
-                placeholder: 'location'
-            }
+                label: 'Full Description',
+                required: true,
+                config: {
+                    styleTags: ['p', 'pre', 'blockquote', 'h4', 'h5', 'h6'],
+                    height: 150,
+                    disableDragAndDrop: true,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['edit',['undo','redo']],
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['alignment', ['ul', 'ol']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'hr']],
+                        ['view', ['fullscreen', 'codeview']]
+                    ]
+                }
+            },
         }, {
             key: 'phonenumber',
             type: 'input',

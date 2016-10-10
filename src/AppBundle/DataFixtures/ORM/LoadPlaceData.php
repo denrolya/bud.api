@@ -49,16 +49,21 @@ class LoadPlaceData extends AbstractFixture implements OrderedFixtureInterface, 
             $place = new Place();
             $place
                 ->setName(ucfirst($faker->words(2, true)))
-                ->setCategory($this->getReference("category-" . rand(0,5)))
                 ->setShortDescription($faker->sentences(1, true))
                 ->setRating(rand(1,5))
                 ->setPriceRange(rand(1,5))
                 ->setFullDescription("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
                 ->setAddress($faker->address)
+                ->setLatitude(47.5088783)
+                ->setLongitude(19.0617446)
                 ->setPhonenumber($faker->phoneNumber)
                 ->setWebsite($faker->url)
-                ->setOpened($faker->sentence(2,true))
+                ->setOpened(null)
             ;
+
+            for($j = 0; $j < rand(1,5); $j++) {
+                $place->addCategory($this->getReference("category-$j"));
+            }
 
             foreach($placeImages as $placeImage) {
                 $place->addImage($placeImage);

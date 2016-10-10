@@ -6,6 +6,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\File;
+use JMS\Serializer\Annotation\Groups, JMS\Serializer\Annotation\ExclusionPolicy,
+    JMS\Serializer\Annotation\Exclude, JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Event
@@ -34,6 +36,7 @@ class Event
 
     /**
      * @var string
+     * @Groups({"event_list", "event_view"})
      *
      * @Gedmo\Slug(fields={"title"}, updatable=false)
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
@@ -42,6 +45,7 @@ class Event
 
     /**
      * @var string
+     * @Groups({"event_list", "event_view"})
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="short_description", type="text")
@@ -50,44 +54,57 @@ class Event
 
     /**
      * @var string
+     * @Groups({"event_view"})
      *
      * @Assert\NotBlank()
-     * @ORM\Column(name="description_block_1", type="text")
+     * @ORM\Column(name="full_description", type="text")
      */
-    private $descriptionBlock1;
-
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     * @ORM\Column(name="description_block_2", type="text")
-     */
-    private $descriptionBlock2;
+    private $fullDescription;
 
     /**
      * @var \DateTime
+     * @Groups({"event_list", "event_view"})
      *
      * @Assert\NotBlank()
-     * @ORM\Column(name="dateFrom", type="datetime")
+     * @ORM\Column(name="date_from", type="datetime")
      */
     private $dateFrom;
 
     /**
      * @var \DateTime
+     * @Groups({"event_list", "event_view"})
      *
-     * @ORM\Column(name="dateTo", type="datetime", nullable=true)
+     * @ORM\Column(name="date_to", type="datetime", nullable=true)
      */
     private $dateTo;
 
     /**
      * @var string
+     * @Groups({"event_view"})
      *
-     * @ORM\Column(name="location", type="string", length=255, nullable=true)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
-    private $location;
+    private $address;
+
+    /**
+     * @var decimal
+     * @Groups({"event_view"})
+     *
+     * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @var decimal
+     * @Groups({"event_view"})
+     *
+     * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
+     */
+    private $longitude;
 
     /**
      * @var string
+     * @Groups({"event_view"})
      *
      * @ORM\Column(name="website", type="string", length=255, nullable=true)
      */
@@ -95,6 +112,7 @@ class Event
 
     /**
      * @var string
+     * @Groups({"event_view"})
      *
      * @ORM\Column(name="phonenumber", type="string", length=255, nullable=true)
      */
@@ -102,6 +120,7 @@ class Event
 
     /**
      * A Unidirectional One-To-Many relation, built in Doctrine2 way
+     * @Groups({"event_list", "event_view"})
      *
      * @ORM\ManyToMany(targetEntity="File", fetch="EAGER",  cascade={"remove", "persist"})
      * @ORM\JoinTable(name="events_images",
@@ -110,6 +129,17 @@ class Event
      *      )
      */
     private $images;
+
+    // Virtual properties
+    /**
+     * @Groups({"event_list", "event_view"})
+     */
+    public $distance;
+
+    /**
+     * @Groups({"event_list", "event_view"})
+     */
+    public $distanceValue;
 
     public function __construct()
     {
@@ -193,54 +223,6 @@ class Event
     }
 
     /**
-     * Set descriptionBlock1
-     *
-     * @param string $descriptionBlock1
-     *
-     * @return Event
-     */
-    public function setDescriptionBlock1($descriptionBlock1)
-    {
-        $this->descriptionBlock1 = $descriptionBlock1;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptionBlock1
-     *
-     * @return string
-     */
-    public function getDescriptionBlock1()
-    {
-        return $this->descriptionBlock1;
-    }
-
-    /**
-     * Set descriptionBlock2
-     *
-     * @param string $descriptionBlock2
-     *
-     * @return Event
-     */
-    public function setDescriptionBlock2($descriptionBlock2)
-    {
-        $this->descriptionBlock2 = $descriptionBlock2;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptionBlock1
-     *
-     * @return string
-     */
-    public function getDescriptionBlock2()
-    {
-        return $this->descriptionBlock2;
-    }
-
-    /**
      * Set dateFrom
      *
      * @param \DateTime $dateFrom
@@ -286,30 +268,6 @@ class Event
     public function getDateTo()
     {
         return $this->dateTo;
-    }
-
-    /**
-     * Set location
-     *
-     * @param string $location
-     *
-     * @return Event
-     */
-    public function setLocation($location)
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
-    /**
-     * Get location
-     *
-     * @return string
-     */
-    public function getLocation()
-    {
-        return $this->location;
     }
 
     /**
@@ -392,5 +350,117 @@ class Event
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Set fullDescription
+     *
+     * @param string $fullDescription
+     *
+     * @return Event
+     */
+    public function setFullDescription($fullDescription)
+    {
+        $this->fullDescription = $fullDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get fullDescription
+     *
+     * @return string
+     */
+    public function getFullDescription()
+    {
+        return $this->fullDescription;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Event
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     *
+     * @return Event
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     *
+     * @return Event
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * @VirtualProperty
+     */
+    public function distance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @VirtualProperty
+     */
+    public function distanceValue()
+    {
+        return $this->distanceValue;
     }
 }

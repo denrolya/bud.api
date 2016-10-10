@@ -4,7 +4,11 @@
     </div>
 
     <div class="box-body">
-        <formly-form model="vm.newEvent" fields="vm.eventFormFields" options="vm.options" form="vm.eventForm">
+        <div class="form-group map-input" ng-init="vm.initMap()">
+            <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+            <div id="map"></div>
+        </div>
+        <formly-form model="vm.event" fields="vm.eventFormFields" options="vm.options" form="vm.eventForm">
             <div class="form-group">
                 <div class="dropzone dropzone-custom-preview" dropzone config="vm.dropzoneConfig" id="file-dropzone">
                     <div class="dz-default dz-message">

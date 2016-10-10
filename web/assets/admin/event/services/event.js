@@ -20,9 +20,10 @@
             return {
                 event: {
                     title: event.title,
+                    latitude: event.latitude,
+                    longitude: event.longitude,
                     shortDescription: event.shortDescription,
-                    descriptionBlock1: event.descriptionBlock1,
-                    descriptionBlock2: event.descriptionBlock2,
+                    fullDescription: event.fullDescription,
                     dateFrom: {
                         date: event.dateFrom.format('YYYY-MM-DD'),
                         time: {
@@ -37,7 +38,7 @@
                             minute: event.dateTo.get('minute')
                         }
                     } : null,
-                    location: event.location,
+                    address: event.address,
                     website: event.website,
                     phonenumber: event.phonenumber,
                     images: event.images

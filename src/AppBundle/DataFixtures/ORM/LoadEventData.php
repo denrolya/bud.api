@@ -52,11 +52,12 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface, 
             $event
                 ->setTitle(ucfirst($faker->words(2, true)))
                 ->setShortDescription($faker->sentences(1, true))
-                ->setDescriptionBlock1("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
-                ->setDescriptionBlock2("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
+                ->setFullDescription("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
                 ->setDateFrom($dateFrom)
                 ->setDateTo($dateTo)
-                ->setLocation($faker->word)
+                ->setAddress($faker->address)
+                ->setLatitude(47.5088783)
+                ->setLongitude(19.0617446)
                 ->setPhonenumber($faker->phoneNumber)
                 ->setWebsite($faker->url);
 
