@@ -128,10 +128,13 @@ class ApiController extends FOSRestController
     /**
      * @Get("/events/grouped")
      */
-    public function getEventsGrouppedAction()
+    public function getEventsGrouppedAction(Request $request)
     {
         return [
-            'events' => $this->getDoctrine()->getRepository(Event::class)->getEventsGroupedByDateStartingFromToday()
+            'events' => $this->getDoctrine()->getRepository(Event::class)->getEventsGroupedByDateStartingFromToday([
+                'latitude' => $request->get('latitude'),
+                'longitude' => $request->get('longitude')
+            ])
         ];
     }
 

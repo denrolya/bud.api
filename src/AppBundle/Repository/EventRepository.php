@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use Carbon\Carbon;
+use GuzzleHttp\Client;
+
 /**
  * EventRepository
  *
@@ -11,14 +14,31 @@ namespace AppBundle\Repository;
 class EventRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function getEventsGroupedByDate(\DateTime $startDate)
+    public function getEventsGroupedByDate(Carbon $startDate = null, Carbon $endDate = null, $coordinates = null)
     {
-        $events = $this->createQueryBuilder('e')
+        $startDate = ($startDate) ? $startDate->toDateString() : (new Carbon())->toDateString();
+
+        $query = $this->createQueryBuilder('e')
             ->where('DATE(e.dateFrom) >= :startDay')
             ->orderBy('e.dateFrom')
-            ->setParameter('startDay', $startDate->format('Y-m-d'))
-            ->getQuery()
-            ->getResult();
+            ->setParameter('startDay', $startDate);
+
+        if($endDate) {
+            $query = $query
+                ->andWhere('DATE(e.dateFrom) <= :endDay')
+                ->setParameter('endDay', $endDate->toDateString());
+        }
+
+        $events = $query->getQuery()->getResult();
+
+        if ($coordinates) {
+            $distances = $this->getDistanceToEvents($events, $coordinates);
+
+            foreach ($distances->rows[0]->elements as $index => $distance) {
+                $events[$index]->distance = $distance->distance->text;
+                $events[$index]->distanceValue = $distance->distance->value;
+            }
+        }
 
         $eventsGrouped = [];
         foreach($events as $index => $event) {
@@ -31,8 +51,52 @@ class EventRepository extends \Doctrine\ORM\EntityRepository
         return $eventsGrouped;
     }
     
-    public function getEventsGroupedByDateStartingFromToday()
+    public function getEventsGroupedByDateStartingFromToday($coordinates = null)
     {
-        return $this->getEventsGroupedByDate(new \DateTime());
+        $startDate = new Carbon();
+        $endDate = (new Carbon())->addWeek();
+
+        return $this->getEventsGroupedByDate($startDate, $endDate, $coordinates);
+    }
+
+    public function getDistanceToEvent($event, $coordinates)
+    {
+        $client = new Client();
+        $res = $client->request('GET', 'https://maps.googleapis.com/maps/api/distancematrix/json', [
+            'query' => [
+                'origins' => $coordinates['latitude'] .  ',' . $coordinates['longitude'],
+                'destinations' => $event->getLatitude() . ',' . $event->getLongitude(),
+                'key' => 'AIzaSyAXLxGDZW_gX__F9xjWFGScckUZ_Sw0xjY',
+                'travelMode' => 'WALKING'
+            ]
+        ])->getBody();
+        $res = json_decode($res, false);
+
+        return $res->rows[0]->elements[0]->distance;
+    }
+
+    public function getDistanceToEvents($events, $coordinates)
+    {
+        $destinations = '';
+        $eventsCount = count($events);
+        foreach($events as $index => $event) {
+            $destinations .= $event->getLatitude() . ',' . $event->getLongitude();
+            if ($index != $eventsCount - 1) {
+                $destinations .= '|';
+            }
+        }
+
+        $client = new Client();
+        $res = $client->request('GET', 'https://maps.googleapis.com/maps/api/distancematrix/json', [
+            'query' => [
+                'origins' => $coordinates['latitude'] .  ',' . $coordinates['longitude'],
+                'destinations' => $destinations,
+                'key' => 'AIzaSyAXLxGDZW_gX__F9xjWFGScckUZ_Sw0xjY',
+                'travelMode' => 'WALKING'
+            ]
+        ])->getBody();
+        $res = json_decode($res, false);
+
+        return $res;
     }
 }
