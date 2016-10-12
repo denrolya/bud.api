@@ -62,6 +62,15 @@ class Event
     private $fullDescription;
 
     /**
+     * @var integer
+     * @Groups({"event_list", "event_view"})
+     *
+     * @Assert\NotBlank()
+     * @ORM\Column(name="rating", type="integer")
+     */
+    private $rating;
+
+    /**
      * @var \DateTime
      * @Groups({"event_list", "event_view"})
      *
@@ -220,6 +229,28 @@ class Event
     public function getShortDescription()
     {
         return $this->shortDescription;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer
+     */
+    public function getRating()
+    {
+        return $this->rating;
     }
 
     /**

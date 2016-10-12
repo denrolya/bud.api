@@ -21,6 +21,7 @@ class EventType extends AbstractType
             ->add('title', TextType::class, ['required' => true])
             ->add('shortDescription', TextAreaType::class, ['required' => true])
             ->add('fullDescription', TextAreaType::class, ['required' => true])
+            ->add('rating', NumberType::class, ['required' => true])
             ->add('dateFrom', DateTimeType::class, ['date_widget' => 'single_text', 'required' => true])
             ->add('dateTo', DateTimeType::class, ['date_widget' => 'single_text'])
             ->add('address', TextType::class)

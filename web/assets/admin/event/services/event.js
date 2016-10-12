@@ -24,6 +24,7 @@
                     longitude: event.longitude,
                     shortDescription: event.shortDescription,
                     fullDescription: event.fullDescription,
+                    rating: event.rating,
                     dateFrom: {
                         date: event.dateFrom.format('YYYY-MM-DD'),
                         time: {

@@ -70,6 +70,16 @@
                 placeholder: 'Date to'
             }
         }, {
+            key: 'rating',
+            type: 'input',
+            templateOptions: {
+                type: 'number',
+                label: "Event's rating",
+                placeholder: 'Rating from 1 to 5',
+                required: true,
+                min: 1, max: 5
+            },
+        }, {
             key: 'fullDescription',
             type: 'wysiwyg',
             templateOptions: {

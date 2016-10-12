@@ -53,6 +53,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface, 
                 ->setTitle(ucfirst($faker->words(2, true)))
                 ->setShortDescription($faker->sentences(1, true))
                 ->setFullDescription("<p>".implode('</p><p>', $faker->paragraphs(3))."</p>")
+                ->setRating(rand(1,5))
                 ->setDateFrom($dateFrom)
                 ->setDateTo($dateTo)
                 ->setAddress($faker->address)
