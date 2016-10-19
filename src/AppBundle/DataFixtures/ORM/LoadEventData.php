@@ -28,7 +28,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface, 
     {
         $faker = Factory::create();
 
-        for($i = 0; $i <= 50; $i++) {
+        for($i = 0; $i <= 150; $i++) {
             $eventImages = [];
             for($j = 0; $j <= rand(2,5); $j++) {
                 $files = glob($this->container->getParameter('uploads_dir') . '/fixtures/*');

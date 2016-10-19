@@ -130,11 +130,13 @@ class ApiController extends FOSRestController
      */
     public function getEventsGrouppedAction(Request $request)
     {
+        $params = ($request->query->has('latitude')) ? [
+            'latitude' => $request->get('latitude'),
+            'longitude' => $request->get('longitude')
+        ] : [];
+
         return [
-            'events' => $this->getDoctrine()->getRepository(Event::class)->getEventsGroupedByDateStartingFromToday([
-                'latitude' => $request->get('latitude'),
-                'longitude' => $request->get('longitude')
-            ])
+            'events' => $this->getDoctrine()->getRepository(Event::class)->getEventsGroupedByDateStartingFromToday($params)
         ];
     }
 

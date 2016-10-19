@@ -25,7 +25,7 @@ class EventRepository extends \Doctrine\ORM\EntityRepository
 
         if($endDate) {
             $query = $query
-                ->andWhere('DATE(e.dateFrom) <= :endDay')
+                ->andWhere('DATE(e.dateFrom) < :endDay')
                 ->setParameter('endDay', $endDate->toDateString());
         }
 
