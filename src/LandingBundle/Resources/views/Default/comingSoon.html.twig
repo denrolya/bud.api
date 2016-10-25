@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {% stylesheets
+    'assets/vendor/bootstrap/dist/css/bootstrap.min.css'
+    'assets/vendor/font-awesome/css/font-awesome.min.css'
+    'bundles/landing/css/coming-soon.css'
+    filter='cssrewrite'
+    output='css/compiled/app.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+
+{% endblock stylesheets%}
+
+{% block body %}
+    <div class="main">
+        <!-- video background-->
+        <video id="video-background" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+            <source src="http://ondrejsvestka.cz/video/silver-lining-video.webm" type="video/webm">
+            <source src="http://ondrejsvestka.cz/video/silver-lining-video.mp4" type="video/mp4">
+        </video>
+
+        <div class="overlay"></div>
+        <div class="container">
+            <p class="social">
+                {#<a href="#" title="" class="facebook"><i class="fa fa-facebook"></i></a>#}
+                <a href="https://twitter.com/hashtag/budapest?lang=en" title="Twitters tagged with 'Budapest'" class="twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                {#<a href="#" title="" class="gplus"><i class="fa fa-google-plus"></i></a>#}
+                <a href="https://www.instagram.com/explore/tags/budapest/" title="Instagram pictures tagged with 'Budapest'" class="instagram" target="_blank"><i class="fa fa-instagram"></i></a>
+            </p>
+
+           <h1 class="text-bolder margin-top text-uppercase">Budapest in your smartphone</h1>
+            <h2 class="sub text-lighter">
+                When I moved to Budapest 2 years ago I didn't have anybody to show me around.
+                Some time later I found my heart belongs here, so I want to share my knowledge about it with you.
+            </h2>
+            <div class="mailing-list">
+                <h3 class="mailing-list-heading">
+                    Show me you're interested and I'll notify once it is ready!
+                </h3>
+                <div class="row">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="email" class="sr-only"></label>
+                            <input type="email" placeholder="your@email.com" id="email" class="form-control transparent">
+                        </div>
+                        <button class="btn btn-danger">subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy;{{ "now"|date("Y") }} Green</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="credit">Made by <a href="https://bootstrapious.com">Bootstrapious.com</a></p>
+                        <!-- Not removing these links is part of the license conditions of the template. Thanks for understanding :) If you want to use the template without the attribution links, you can do so after supporting further themes development at https://bootstrapious.com/donate  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block javascripts %}
+    {% javascripts
+    'assets/vendor/jquery/dist/jquery.min.js'
+    'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
+    'bundles/landing/js/new-age.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+{% endblock javascripts %}

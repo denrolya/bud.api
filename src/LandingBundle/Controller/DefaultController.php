@@ -16,4 +16,13 @@ class DefaultController extends Controller
     {
         return [];
     }
+
+    /**
+     * @Route("/coming-soon")
+     * @Template()
+     */
+    public function comingSoonAction()
+    {
+        return [];
+    }
 }
