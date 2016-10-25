@@ -14,7 +14,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return [];
+        return $this->forward('LandingBundle:Default:comingSoon');
     }
 
     /**
@@ -22,6 +22,15 @@ class DefaultController extends Controller
      * @Template()
      */
     public function comingSoonAction()
+    {
+        return [];
+    }
+
+    /**
+     * @Route("/landing")
+     * @Template("@Landing/Default/index.html.twig")
+     */
+    public function indexFallbackAction()
     {
         return [];
     }
