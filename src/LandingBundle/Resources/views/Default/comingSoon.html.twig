@@ -43,14 +43,12 @@
                 <h3 class="mailing-list-heading">
                     Show me you're interested and I'll notify once it is ready!
                 </h3>
+
                 <div class="row">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label for="email" class="sr-only"></label>
-                            <input type="email" placeholder="your@email.com" id="email" class="form-control transparent">
-                        </div>
-                        <button class="btn btn-danger">subscribe</button>
-                    </form>
+                    {{ form_start(form, { 'attr': {'class': 'form-inline'} }) }}
+                    {{ form_widget(form.email) }}
+                    <button class="btn btn-danger">subscribe</button>
+                    {{ form_rest(form) }}
                 </div>
             </div>
         </div>
