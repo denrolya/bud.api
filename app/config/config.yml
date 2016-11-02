@@ -159,3 +159,9 @@ doctrine:
                 month: DoctrineExtensions\Query\Mysql\Month
                 year: DoctrineExtensions\Query\Mysql\Year
                 unix_timestamp: DoctrineExtensions\Query\Mysql\UnixTimestamp
+
+services:
+    my.listener:
+        class: LandingBundle\EventListener\PotentialClientListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
