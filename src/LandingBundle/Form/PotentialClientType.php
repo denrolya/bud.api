@@ -24,7 +24,9 @@ class PotentialClientType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'LandingBundle\Entity\PotentialClient'
+            'data_class' => 'LandingBundle\Entity\PotentialClient',
+            'csrf_protection'       => false,
+            'allow_extra_fields'    => true
         ]);
     }
 
@@ -33,7 +35,7 @@ class PotentialClientType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'landingbundle_potentialclient';
+        return 'potentialclient';
     }
 
 

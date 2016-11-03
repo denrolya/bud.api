@@ -7,6 +7,7 @@
     'assets/vendor/bootstrap/dist/css/bootstrap.min.css'
     'assets/vendor/font-awesome/css/font-awesome.min.css'
     'assets/vendor/devices.css/assets/devices.min.css'
+    'assets/vendor/sweetalert/dist/sweetalert.css'
     'bundles/landing/css/coming-soon.css'
     filter='cssrewrite'
     output='css/compiled/coming-soon.css' %}
@@ -15,25 +16,10 @@
 
     <!-- Custom Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
-
-    <style>
-        body {
-            min-height: 100%;
-            overflow-y: hidden;
-        }
-        header {
-            padding-top: 40px;
-        }
-        .device-container {
-            padding-top: 40px;
-            text-align: center;
-        }
-    </style>
-
 {% endblock stylesheets%}
 
 {% block body %}
-    <div class="main">
+    <div class="main" ng-app="comingSoon" ng-controller="ComingSoonController as vm">
         <!-- video background-->
         <video id="video-background" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
             <source src="http://ondrejsvestka.cz/video/silver-lining-video.webm" type="video/webm">
@@ -65,8 +51,8 @@
 
                             <div class="row">
                                 {{ form_start(form, { 'attr': {'class': 'form-inline'} }) }}
-                                {{ form_widget(form.email) }}
-                                <button class="btn btn-danger">subscribe</button>
+                                {{ form_widget(form.email, {'attr': {'ng-model': 'vm.email'} }) }}
+                                    <button type="button" class="btn btn-danger" ng-disabled="vm.email.length === 0" ng-click="vm.submitEmail()">subscribe</button>
                                 {{ form_rest(form) }}
                             </div>
                         </div>
@@ -109,7 +95,9 @@
     {% javascripts
     'assets/vendor/jquery/dist/jquery.min.js'
     'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
-    'bundles/landing/js/new-age.min.js' %}
+    'assets/vendor/angular/angular.min.js'
+    'assets/vendor/sweetalert/dist/sweetalert.min.js'
+    'bundles/landing/js/coming-soon.controller.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 

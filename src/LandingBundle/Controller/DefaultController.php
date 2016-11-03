@@ -2,11 +2,14 @@
 
 namespace LandingBundle\Controller;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\ORMException;
 use LandingBundle\Entity\PotentialClient;
 use LandingBundle\Form\PotentialClientType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -34,11 +37,19 @@ class DefaultController extends Controller
         if ($form->isValid()) {
             $potentialClient = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
+            try{
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($potentialClient);
+                $em->flush();
 
-            $em->persist($potentialClient);
-
-            $em->flush();
+                return new JsonResponse(['result' => 'ok']);
+            } catch(ORMException $e) {
+                return new JsonResponse(['error' => 'Something wicked happened'], 500);
+            } catch(UniqueConstraintViolationException $e) {
+                return new JsonResponse(['error' => 'Current email was already submitted!'], 500);
+            } catch(\Exception $e) {
+                return new JsonResponse(['error' => 'Something wicked happened'], 500);
+            }
         }
 
         return ['form' => $form];

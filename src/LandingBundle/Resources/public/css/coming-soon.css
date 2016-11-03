@@ -912,3 +912,26 @@ a.list-group-item.active > .badge,
 .nav-pills > li > a > .badge {
   margin-left: 3px;
 }
+
+
+/* MY STYLES */
+.sweet-alert {
+  font-family: 'Lato', sans-serif;
+  border-radius: 2px;
+}
+
+.sweet-alert button {
+  border-radius: 2px;
+}
+
+body {
+  min-height: 100%;
+  overflow-y: hidden;
+}
+header {
+  padding-top: 40px;
+}
+.device-container {
+  padding-top: 40px;
+  text-align: center;
+}
