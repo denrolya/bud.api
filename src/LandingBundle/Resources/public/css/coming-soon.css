@@ -926,7 +926,8 @@ a.list-group-item.active > .badge,
 
 body {
   min-height: 100%;
-  overflow-y: hidden;
+  max-height: 100%;
+  /*overflow-y: hidden;*/
 }
 header {
   padding-top: 40px;
