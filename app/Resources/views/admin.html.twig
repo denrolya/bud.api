@@ -21,6 +21,7 @@
             'assets/vendor/dropzone/dist/basic.css'
             'assets/vendor/sweetalert/dist/sweetalert.css'
             'bundles/app/css/style.css'
+        output='css/compiled/admin.css'
             filter='cssrewrite' %}
             <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -519,6 +520,7 @@
         'assets/admin/category/resources/category.js'
         'assets/admin/event/resources/event.js'
         'assets/admin/places/resources/place.js'
+    output='js/compiled/admin.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
