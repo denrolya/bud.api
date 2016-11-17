@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('comingSoon', [])
+        .module('comingSoon', ['ngAnimate', 'ui.bootstrap'])
         .controller('ComingSoonController', ComingSoonController);
 
     ComingSoonController.$inject = ['$scope', '$http'];
@@ -10,6 +10,25 @@
         var vm = this;
 
         vm.email = '';
+
+        vm.slides = [
+            {
+                img: 'bundles/landing/img/scr1.png',
+                alt: "Screenshot made from application. Displays the view on 'Cafes' category"
+            }, {
+                img: 'bundles/landing/img/scr2.png',
+                alt: ""
+            }, {
+                img: 'bundles/landing/img/scr3.png',
+                alt: ""
+            }, {
+                img: 'bundles/landing/img/scr4.png',
+                alt: ""
+            }, {
+                img: 'bundles/landing/img/scr5.png',
+                alt: ""
+            }
+        ];
 
         vm.submitEmail = function() {
             if ($scope.potentialclient.$valid) {

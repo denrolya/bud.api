@@ -18,6 +18,7 @@
     'assets/vendor/devices.css/assets/devices.min.css'
     'assets/vendor/sweetalert/dist/sweetalert.css'
     'bundles/landing/css/coming-soon.css'
+    'assets/vendor/angular-bootstrap/ui-bootstrap-csp.css'
     filter='cssrewrite'
     output='css/compiled/coming-soon.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -73,7 +74,11 @@
                             <div class="volume"></div>
                             <div class="camera"></div>
                             <div class="screen">
-                                <img src="{{ asset('bundles/landing/img/app.png') }}" class="img-responsive" alt="Screenshot made from application. Displays the view on 'Cafes' category">
+                                <div uib-carousel active="1" interval="5000">
+                                    <div uib-slide ng-repeat="slide in vm.slides" index="$index">
+                                        <img ng-src="{{ '{{ slide.img }}' }}" class="img-responsive" alt="{{ '{{ slide.alt }}' }}" style="margin:auto;">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,6 +109,9 @@
     'assets/vendor/jquery/dist/jquery.min.js'
     'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
     'assets/vendor/angular/angular.min.js'
+    'assets/vendor/angular-animate/angular-animate.js'
+    'assets/vendor/angular-bootstrap/ui-bootstrap.js'
+    'assets/vendor/angular-bootstrap/ui-bootstrap-tpls.js'
     'assets/vendor/sweetalert/dist/sweetalert.min.js'
     'bundles/landing/js/coming-soon.controller.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
