@@ -26,7 +26,7 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
 
     public function load(ObjectManager $manager)
     {
-        foreach($this->categories as $index => $categoryName) {
+        /*foreach($this->categories as $index => $categoryName) {
             $category = new Category();
             $category->setName($categoryName);
 
@@ -35,7 +35,7 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
             $this->addReference("category-$index", $category);
         }
 
-        $manager->flush();
+        $manager->flush();*/
     }
 
     public function getOrder()

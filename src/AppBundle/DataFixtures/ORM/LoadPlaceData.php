@@ -26,7 +26,7 @@ class LoadPlaceData extends AbstractFixture implements OrderedFixtureInterface, 
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create();
+        /*$faker = Factory::create();
 
         for($i = 0; $i <= 50; $i++) {
             $placeImages = [];
@@ -74,7 +74,7 @@ class LoadPlaceData extends AbstractFixture implements OrderedFixtureInterface, 
             $this->addReference("place-$i", $place);
         }
 
-        $manager->flush();
+        $manager->flush();*/
     }
 
     public function getOrder()

@@ -39,11 +39,11 @@
                         </a>
                     </td>
                     <td>
-                        <a href="" class="btn btn-default btn-flat" ng-click="vm.removePlace(place)">
-                            <i class="fa fa-trash" aria-hidden="true" ></i>
-                        </a>
-                        <a href="" class="btn btn-default btn-flat" ui-sref="place.edit({placeSlug: place.slug})">
+                        <a href="" class="btn btn-warning btn-sm btn-flat" ui-sref="place.edit({placeSlug: place.slug})">
                             <i class="fa fa-pencil" aria-hidden="true" ></i>
+                        </a>
+                        <a href="" class="btn btn-danger btn-sm btn-flat" ng-click="vm.removePlace(place)">
+                            <i class="fa fa-trash" aria-hidden="true" ></i>
                         </a>
                     </td>
                 </tr>

@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}Welcome!{% endblock title%}</title>
-    {% block stylesheets %}{% endblock stylesheets%}
+
+    <meta name="description" content="{% block description %}{% endblock description %}">
+    <meta name="keywords" content="{% block keywords %}{% endblock keywords %}">
+    <meta name="author" content="Rolya Dénes">
+
+    <meta name="google-site-verification" content="FIrFECpPyrp_LfMKU19Jv3YogJUiZFifw4uSiIwCthI" />
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    
+    {% block stylesheets %}{% endblock stylesheets%}
 </head>
 <body id="page-top">
 {% block body %}{% endblock body %}
