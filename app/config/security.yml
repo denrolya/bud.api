@@ -7,8 +7,8 @@ security:
         in_memory:
             memory:
                 users:
-                    ryan:
-                        password: $2y$12$lPFG6tk2HcIq5Fn1AAS8aerPFx3QCtfTaWVkfTnytR4KPC8vYsRw2
+                    user:
+                        password: $2y$12$6JaZlOR1WFlkM0stawa5qeCrRJZ2PXV/6RdF9cBdqJ5YQ4FnqoBg2
                         roles: 'ROLE_USER'
                     admin:
                         password: $2y$12$YBROjEdeH92IaIqAPhUyfulXb15Fb2neDOUnbOIloSKe.N4UChI6K
