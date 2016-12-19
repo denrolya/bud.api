@@ -25,29 +25,20 @@
 {% endblock stylesheets%}
 
 {% block body %}
-    <div class="main" ng-app="comingSoon" ng-controller="ComingSoonController as vm">
+    <div class="main" ng-app="comingSoon" ng-controller="ComingSoonController as vm" style="overflow-y: hidden; height: 100%">
         <!-- video background-->
-        <video id="video-background" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
-            <source src="http://ondrejsvestka.cz/video/silver-lining-video.webm" type="video/webm">
-            <source src="http://ondrejsvestka.cz/video/silver-lining-video.mp4" type="video/mp4">
-        </video>
-
         <div class="container">
             <div class="row">
                 <h1 class="text-bolder margin-top text-uppercase">Budapest in your smartphone</h1>
             </div>
             <div class="row">
                 <div class="col-md-8">
+                    <h2 class="sub text-lighter">
+                        Budapest is one of the most beautiful cities in Europe, but if you don’t know your way around, it’s easy to miss the most interesting parts. We want to show you the best places in Budapest, hand picked by real locals. Whether you want to check the latest nightclub, or have a fresh Italian coffee overlooking the Basilica we’ll have something to fit your taste.
+                    </h2>
                     {#<h2 class="sub text-lighter">#}
-                    {#When I moved to Budapest 2 years ago I didn't have anybody to show me around.#}
-                    {#Some time later I found my heart belongs here, so I want to share my knowledge about it with you.#}
+                        {#When I moved here two years ago I struggled to find my way around. Through trial and error I slowly began to understand the city; where to go, where to eat and where to meet people. Now I’m going to share my knowledge with you to make sure you get the best out of your time here. Sign up today and get access to our application, for free.#}
                     {#</h2>#}
-                    <h2 class="sub text-lighter">
-                        Budapest... No better place that I've found myself in. Yet it was so difficult to get around here, you know, find a proper barber, favourite restaurant, best cafe...
-                    </h2>
-                    <h2 class="sub text-lighter">
-                        I want to improve your time spending here using experience of people that live here, emotions of true hungarians - things that I lacked when I just moved here.
-                    </h2>
 
                     <div class="mailing-list">
                         <h3 class="mailing-list-heading">
