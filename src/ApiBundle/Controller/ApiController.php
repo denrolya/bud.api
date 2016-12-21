@@ -146,8 +146,16 @@ class ApiController extends FOSRestController
      * @Get("/events/{eventSlug}", requirements={"eventSlug" = "^[a-z0-9]+(?:-[a-z0-9]+)*$"})
      * @ParamConverter("event", class="AppBundle:Event", options={"mapping": {"eventSlug": "slug"}})
      */
-    public function getEventAction(Event $event)
+    public function getEventAction(Request $request, Event $event)
     {
+        $distance = $this->getDoctrine()->getRepository(Event::class)->getDistanceToEvent($event, [
+            'latitude' => $request->get('latitude'),
+            'longitude' => $request->get('longitude')
+        ]);
+
+        $event->distance = $distance->text;
+        $event->distanceValue = $distance->value;
+
         return [
             'event' => $event
         ];
