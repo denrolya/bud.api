@@ -12,7 +12,7 @@
     'assets/vendor/bootstrap/dist/css/bootstrap.min.css'
     'assets/vendor/font-awesome/css/font-awesome.min.css'
     'assets/vendor/devices.css/assets/devices.min.css'
-    'assets/vendor/sweetalert/dist/sweetalert.css'
+    'assets/vendor/sweetalert2/dist/sweetalert2.css'
     'bundles/landing/css/coming-soon.css'
     'assets/vendor/angular-bootstrap/ui-bootstrap-csp.css'
     filter='cssrewrite'
@@ -35,13 +35,20 @@
                     <h2 class="sub text-lighter">
                         Budapest is one of the most beautiful cities in Europe, but if you don’t know your way around, it’s easy to miss the most interesting parts. We want to show you the best places in Budapest, hand picked by real locals. Whether you want to check the latest nightclub, or have a fresh Italian coffee overlooking the Basilica we’ll have something to fit your taste.
                     </h2>
+                    <br>
+                    <h4 class="text-center text-lighter">
+                        Support us on Facebook:
+                        <p>
+                            <div class="fb-like" data-href="https://facebook.com/greenxapp" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                        </p>
+                    </h4>
                     {#<h2 class="sub text-lighter">#}
                         {#When I moved here two years ago I struggled to find my way around. Through trial and error I slowly began to understand the city; where to go, where to eat and where to meet people. Now I’m going to share my knowledge with you to make sure you get the best out of your time here. Sign up today and get access to our application, for free.#}
                     {#</h2>#}
 
                     <div class="mailing-list">
                         <h3 class="mailing-list-heading">
-                            Let me notify once it is ready.
+                            How about trying the app in beta-mode?
                         </h3>
 
                         <div class="row">
@@ -78,11 +85,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="credit">Made by <a href="https://bootstrapious.com">Bootstrapious.com</a></p>
-                        <!-- Not removing these links is part of the license conditions of the template. Thanks for understanding :) If you want to use the template without the attribution links, you can do so after supporting further themes development at https://bootstrapious.com/donate  -->
+                        <div id="fb-root"></div>
+                        <p>&copy;{{ "now"|date("Y") }} Green | <a href="//facebook.com/greenxapp">Facebook page <i class="fa fa-facebook-official" aria-hidden="true"></i></a></p>
                     </div>
                     <div class="col-md-6">
-                        <p>&copy;{{ "now"|date("Y") }} Green</p>
+                        <p>Template made by <a href="https://bootstrapious.com">Bootstrapious.com</a></p>
+                        <!-- Not removing these links is part of the license conditions of the template. Thanks for understanding :) If you want to use the template without the attribution links, you can do so after supporting further themes development at https://bootstrapious.com/donate  -->
                     </div>
                 </div>
             </div>
@@ -98,10 +106,18 @@
     'assets/vendor/angular-animate/angular-animate.js'
     'assets/vendor/angular-bootstrap/ui-bootstrap.js'
     'assets/vendor/angular-bootstrap/ui-bootstrap-tpls.js'
-    'assets/vendor/sweetalert/dist/sweetalert.min.js'
+    'assets/vendor/sweetalert2/dist/sweetalert2.min.js'
     'bundles/landing/js/coming-soon.controller.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>

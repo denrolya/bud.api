@@ -11,24 +11,22 @@
 
         vm.email = '';
 
-        vm.slides = [
-            {
-                img: 'bundles/landing/img/scr1.png',
-                alt: "Screenshot made from application. Displays the view on 'Cafes' category"
-            }, {
-                img: 'bundles/landing/img/scr2.png',
-                alt: ""
-            }, {
-                img: 'bundles/landing/img/scr3.png',
-                alt: ""
-            }, {
-                img: 'bundles/landing/img/scr4.png',
-                alt: ""
-            }, {
-                img: 'bundles/landing/img/scr5.png',
-                alt: ""
-            }
-        ];
+        vm.slides = [{
+            img: 'bundles/landing/img/scr1.png',
+            alt: "Screenshot made from application. Displays the view on 'Cafes' category"
+        }, {
+            img: 'bundles/landing/img/scr2.png',
+            alt: ""
+        }, {
+            img: 'bundles/landing/img/scr3.png',
+            alt: ""
+        }, {
+            img: 'bundles/landing/img/scr4.png',
+            alt: ""
+        }, {
+            img: 'bundles/landing/img/scr5.png',
+            alt: ""
+        }];
 
         vm.submitEmail = function() {
             if ($scope.potentialclient.$valid) {
@@ -37,7 +35,7 @@
                 }).then(function sc(response) {
                     swal({
                         title: "Cool!",
-                        text: "Thank you for leaving me your email. You'll be notified on future updates.",
+                        html: "<p style=\"line-height: 2em;\">Thank you for leaving me your email, it is indeed valuable for us! You'll be notified on future updates, you will contribute alot by liking our facebook page with one simple click <iframe src=\"https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Ffacebook.com%2Fgreenxapp&width=112&layout=button_count&action=like&show_faces=true&share=true&height=46&appId\" width=\"127\" height=\"20\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"></iframe></p>",
                         type: 'success',
                         showCancelButton: false,
                         closeOnConfirm: true,
